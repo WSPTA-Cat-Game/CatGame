@@ -77,11 +77,13 @@ namespace CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
+            float horzInput = Input.GetAxisRaw("Horizontal");
+
             // Create own acceleration because RigidBody2D doesn't have it for some reason
-            float currentAcceleration = Input.GetAxisRaw("Horizontal") * (isGrounded ? acceleration : airAcceleration);
+            float currentAcceleration = horzInput * (isGrounded ? acceleration : airAcceleration);
             rb.velocity += new Vector2(currentAcceleration * Time.fixedDeltaTime, 0);
 
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01)
+            if (Mathf.Abs(horzInput) > 0.01)
             {
                 // Limit speed only when trying to move
                 if (Mathf.Abs(rb.velocity.x) > maxSpeed)
@@ -89,9 +91,10 @@ namespace CharacterControl
                     rb.velocity = new Vector2(maxSpeed * Mathf.Sign(rb.velocity.x), rb.velocity.y);
                 }
 
-                // Stop falling when wall hang
-                if (!isGrounded && Mathf.Sign(Input.GetAxisRaw("Horizontal")) == wallDirection && canStartWallHang)
+                // Check if horz input is in the same direction as the wall
+                if (!isGrounded && Mathf.Sign(horzInput) == wallDirection && canStartWallHang)
                 {
+                    // Start wall hang
                     lastWallHangTime = Time.realtimeSinceStartup;
                     canStartWallHang = false;
                     hasWallHangEnded = false;
@@ -101,16 +104,19 @@ namespace CharacterControl
                 }
                 else if (Time.realtimeSinceStartup - lastWallHangTime > wallHangTime || !isOnWall)
                 {
+                    // If not on a wall, or we've been hanging for longer than
+                    // wall hang time, then end wall hang
                     rb.gravityScale = 1;
                     hasWallHangEnded = true;
                 }
             }
             else
             {
+                // If horz input is too small, end wall hang
                 rb.gravityScale = 1;
                 hasWallHangEnded = true;
 
-                // If not pressing buttons, decelerate
+                // If not pressing buttons and grounded, decelerate
                 if (isGrounded)
                 {
                     float adjSpeed = rb.velocity.x * deceleration;
@@ -118,6 +124,7 @@ namespace CharacterControl
                 }
             }
 
+            // Allow wall hangs once grounded
             if (isGrounded)
             {
                 lastWallHangTime = 0;
@@ -127,11 +134,14 @@ namespace CharacterControl
             float timeSinceLastJump = Time.realtimeSinceStartup - lastJumpTime;
             if (spaceDown)
             {
+                // If grounded or current wall hanging and jump cooldown has worn off
                 if ((isGrounded || (isOnWall && !hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
                 {
+                    // Jump. Add horz force if on a wall and not grounded
                     rb.AddForce(new Vector2(isGrounded ? 0 : -wallDirection * jumpHeight * 0.7f, jumpHeight));
                     lastJumpTime = Time.realtimeSinceStartup;
                     
+                    // Stop wall hang
                     rb.gravityScale = 1;
                     hasWallHangEnded = true;
                 }
