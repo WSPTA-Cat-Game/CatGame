@@ -56,10 +56,10 @@ namespace CharacterControl
             float edgeRadius = (collider is BoxCollider2D boxCollider ? boxCollider.edgeRadius * 2 : 0);
             Vector2 colliderSize = collider.bounds.size + new Vector3(edgeRadius, edgeRadius);
 
-            RaycastHit2D downRaycast = Physics2D.BoxCast(transform.position, colliderSize, 0, Vector2.down, 0.08f);
+            RaycastHit2D downRaycast = Physics2D.BoxCast(transform.position, colliderSize, 0, Vector2.down, 0.08f, 1);
             isGrounded = downRaycast.collider != null;
 
-            RaycastHit2D sideRaycast = Physics2D.CapsuleCast(transform.position - new Vector3(0.08f, 0), colliderSize, CapsuleDirection2D.Horizontal, 0, Vector2.right, 0.16f);
+            RaycastHit2D sideRaycast = Physics2D.CapsuleCast(transform.position - new Vector3(0.08f, 0), colliderSize, CapsuleDirection2D.Horizontal, 0, Vector2.right, 0.16f, 1);
             isOnWall = sideRaycast.collider != null && canWallHang;
             wallDirection = !isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
 
