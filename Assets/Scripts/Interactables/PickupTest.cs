@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Pickups
+namespace Interactables
 {
     public class PickupTest : PickupBase
     {
-        public override void Use()
+        public override void Interact()
         {
             Debug.Log("Pickup used!");
         }
