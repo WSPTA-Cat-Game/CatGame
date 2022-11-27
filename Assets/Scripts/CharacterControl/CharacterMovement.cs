@@ -23,9 +23,10 @@ namespace CharacterControl
         private bool isGrounded = true;
         private bool isOnWall = false;
         private int wallDirection = 0;
-        private bool canStartWallHang = true;
         private bool hasWallHangEnded = false;
+        private bool canStartWallHang = false;
         private float lastWallHangTime = 0;
+        public float timeWallHanging = 0;
         private float lastJumpTime = 0;
         private bool spaceDown = false;
         private bool spaceLetGo = false;
@@ -56,10 +57,10 @@ namespace CharacterControl
             float edgeRadius = (collider is BoxCollider2D boxCollider ? boxCollider.edgeRadius * 2 : 0);
             Vector2 colliderSize = collider.bounds.size + new Vector3(edgeRadius, edgeRadius);
 
-            RaycastHit2D downRaycast = Physics2D.BoxCast(transform.position, colliderSize, 0, Vector2.down, 0.08f);
+            RaycastHit2D downRaycast = Physics2D.BoxCast(transform.position, colliderSize, 0, Vector2.down, 0.08f, 1);
             isGrounded = downRaycast.collider != null;
 
-            RaycastHit2D sideRaycast = Physics2D.CapsuleCast(transform.position - new Vector3(0.08f, 0), colliderSize, CapsuleDirection2D.Horizontal, 0, Vector2.right, 0.16f);
+            RaycastHit2D sideRaycast = Physics2D.CapsuleCast(transform.position - new Vector3(0.08f, 0), colliderSize, CapsuleDirection2D.Horizontal, 0, Vector2.right, 0.16f, 1);
             isOnWall = sideRaycast.collider != null && canWallHang;
             wallDirection = !isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
 
@@ -78,49 +79,50 @@ namespace CharacterControl
         private void FixedUpdate()
         {
             float horzInput = Input.GetAxisRaw("Horizontal");
+            bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
             float currentAcceleration = horzInput * (isGrounded ? acceleration : airAcceleration);
             rb.velocity += new Vector2(currentAcceleration * Time.fixedDeltaTime, 0);
 
-            if (Mathf.Abs(horzInput) > 0.01)
+            if (isInputPressed && Mathf.Abs(rb.velocity.x) > maxSpeed)
             {
                 // Limit speed only when trying to move
-                if (Mathf.Abs(rb.velocity.x) > maxSpeed)
-                {
-                    rb.velocity = new Vector2(maxSpeed * Mathf.Sign(rb.velocity.x), rb.velocity.y);
-                }
+                rb.velocity = new Vector2(maxSpeed * Mathf.Sign(rb.velocity.x), rb.velocity.y);
+            }
+            else if (isGrounded)
+            {
+                // If not pressing buttons and grounded, decelerate
+                float adjSpeed = rb.velocity.x * deceleration;
+                rb.velocity = new Vector2(Mathf.Abs(adjSpeed) < 0.01 ? 0 : adjSpeed, rb.velocity.y);
+            }
 
-                // Check if horz input is in the same direction as the wall
-                if (!isGrounded && Mathf.Sign(horzInput) == wallDirection && canStartWallHang)
-                {
-                    // Start wall hang
-                    lastWallHangTime = Time.realtimeSinceStartup;
-                    canStartWallHang = false;
-                    hasWallHangEnded = false;
 
-                    rb.gravityScale = 0;
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
-                }
-                else if (Time.realtimeSinceStartup - lastWallHangTime > wallHangTime || !isOnWall)
-                {
-                    // If not on a wall, or we've been hanging for longer than
-                    // wall hang time, then end wall hang
-                    rb.gravityScale = 1;
-                    hasWallHangEnded = true;
-                }
+            // Check if horz input is in the same direction as the wall
+            if (isInputPressed && !isGrounded && isOnWall && Mathf.Sign(horzInput) == wallDirection && canStartWallHang)
+            {
+                // Start wall hang
+                lastWallHangTime = Time.realtimeSinceStartup;
+                hasWallHangEnded = false;
+                canStartWallHang = false;
+
+                rb.gravityScale = 0;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
             }
             else
             {
-                // If horz input is too small, end wall hang
-                rb.gravityScale = 1;
-                hasWallHangEnded = true;
-
-                // If not pressing buttons and grounded, decelerate
-                if (isGrounded)
+                if (Time.realtimeSinceStartup - lastWallHangTime + timeWallHanging > wallHangTime)
                 {
-                    float adjSpeed = rb.velocity.x * deceleration;
-                    rb.velocity = new Vector2(Mathf.Abs(adjSpeed) < 0.01 ? 0 : adjSpeed, rb.velocity.y);
+                    // If not on a wall, or we've been hanging for longer than
+                    // wall hang time, then end wall hang
+                    hasWallHangEnded = true;
+                    rb.gravityScale = 1;
+                }
+                else if ((!isOnWall || !isInputPressed) && !canStartWallHang)
+                {
+                    timeWallHanging += Time.realtimeSinceStartup - lastWallHangTime;
+                    canStartWallHang = true;
+                    rb.gravityScale = 1;
                 }
             }
 
@@ -128,7 +130,9 @@ namespace CharacterControl
             if (isGrounded)
             {
                 lastWallHangTime = 0;
+                timeWallHanging = 0;
                 canStartWallHang = true;
+                hasWallHangEnded = true;
             }
 
             float timeSinceLastJump = Time.realtimeSinceStartup - lastJumpTime;
