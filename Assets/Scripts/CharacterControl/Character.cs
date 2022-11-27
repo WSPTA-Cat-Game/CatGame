@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interactables;
+using UnityEngine;
 
 namespace CharacterControl
 {
@@ -11,10 +12,12 @@ namespace CharacterControl
         private CharacterMode mode = CharacterMode.Human;
 
         private CharacterMovement movement;
+        private InteractableHandler interactableHandler;
 
         private void Start()
         {
             movement = GetComponent<CharacterMovement>();
+            interactableHandler = GetComponentInChildren<InteractableHandler>();
         }
 
         private void Update()
@@ -31,11 +34,14 @@ namespace CharacterControl
             {
                 mode = CharacterMode.Cat;
                 movement.SetConfig(catMovement);
+                interactableHandler.DropPickup();
+                interactableHandler.enabled = false;
             }
             else
             {
                 mode = CharacterMode.Human;
                 movement.SetConfig(humanMovement);
+                interactableHandler.enabled = true;
             }
         }
     }

@@ -11,6 +11,42 @@ namespace Interactables
         
         private readonly List<InteractableBase> touchingInteractables = new();
 
+        public void PickupOrInteract()
+        {
+            // This prioritizes interacting/picking up a pickup over using the current pickup.
+            if (touchingInteractables.Count > 0)
+            {
+                InteractableBase firstInteractable = touchingInteractables[0];
+                PickupBase firstPickup = (PickupBase)touchingInteractables.FirstOrDefault(val => val is PickupBase);
+
+                if (currentPickup == null && firstPickup != null)
+                {
+                    currentPickup = firstPickup;
+                    firstPickup.Pickup(transform);
+                }
+                else
+                {
+                    firstInteractable.Interact();
+                }
+            }
+            // Use pickup
+            else if (currentPickup != null)
+            {
+                currentPickup.Interact();
+            }
+        }
+
+        public void DropPickup()
+        {
+            if (currentPickup == null)
+            {
+                return;
+            }
+
+            currentPickup.Drop();
+            currentPickup = null;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             InteractableBase interactable = collision.GetComponent<InteractableBase>();
@@ -38,33 +74,12 @@ namespace Interactables
             // Pickup or use current pickup/interactable
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                // This prioritizes interacting/picking up a pickup over using the current pickup.
-                if (touchingInteractables.Count > 0)
-                {
-                    InteractableBase firstInteractable = touchingInteractables[0];
-                    PickupBase firstPickup = (PickupBase)touchingInteractables.FirstOrDefault(val => val is PickupBase);
-
-                    if (currentPickup == null && firstPickup != null)
-                    {
-                        currentPickup = firstPickup;
-                        firstPickup.Pickup(transform);
-                    }
-                    else
-                    {
-                        firstInteractable.Interact();
-                    }
-                }
-                // Use pickup
-                else if (currentPickup != null)
-                {
-                    currentPickup.Interact();
-                }
+                PickupOrInteract();
             } 
             // Drop current pickup
-            else if (Input.GetKeyDown(KeyCode.F) && currentPickup != null)
+            else if (Input.GetKeyDown(KeyCode.F))
             {
-                currentPickup.Drop();
-                currentPickup = null;
+                DropPickup();
             }
         }
     }
