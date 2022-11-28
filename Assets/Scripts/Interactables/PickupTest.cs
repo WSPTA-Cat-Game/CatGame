@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Interactables
+namespace CatGame.Interactables
 {
     public class PickupTest : PickupBase
     {

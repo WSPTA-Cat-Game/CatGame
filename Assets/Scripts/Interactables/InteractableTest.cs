@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Interactables
+namespace CatGame.Interactables
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class InteractableTest : InteractableBase

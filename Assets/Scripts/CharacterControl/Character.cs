@@ -1,7 +1,7 @@
-﻿using Interactables;
+﻿using CatGame.Interactables;
 using UnityEngine;
 
-namespace CharacterControl
+namespace CatGame.CharacterControl
 {
     [RequireComponent(typeof(CharacterMovement))]
     public class Character : MonoBehaviour

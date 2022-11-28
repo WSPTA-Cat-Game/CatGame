@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CharacterControl
+namespace CatGame.CharacterControl
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]

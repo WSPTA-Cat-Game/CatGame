@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Interactables
+namespace CatGame.Interactables
 {
     [RequireComponent(typeof(Collider2D))]
     public class InteractableHandler : MonoBehaviour
@@ -16,7 +16,6 @@ namespace Interactables
             // This prioritizes interacting/picking up a pickup over using the current pickup.
             if (touchingInteractables.Count > 0)
             {
-                InteractableBase firstInteractable = touchingInteractables[0];
                 PickupBase firstPickup = (PickupBase)touchingInteractables.FirstOrDefault(val => val is PickupBase);
 
                 if (currentPickup == null && firstPickup != null)
@@ -26,7 +25,7 @@ namespace Interactables
                 }
                 else
                 {
-                    firstInteractable.Interact();
+                    touchingInteractables[0].Interact();
                 }
             }
             // Use pickup
