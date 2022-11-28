@@ -11,7 +11,9 @@ namespace CharacterControl
         private CharacterMode mode = CharacterMode.Human;
 
         private CharacterMovement movement;
-
+        public BoxCollider2D square;
+        public Sprite cat;
+        public Sprite human;
         private void Start()
         {
             movement = GetComponent<CharacterMovement>();
@@ -31,11 +33,13 @@ namespace CharacterControl
             {
                 mode = CharacterMode.Cat;
                 movement.SetConfig(catMovement);
+                this.GetComponent<SpriteRenderer>().sprite=human;
             }
             else
             {
                 mode = CharacterMode.Human;
                 movement.SetConfig(humanMovement);
+                this.GetComponent<SpriteRenderer>().sprite=cat;
             }
         }
     }

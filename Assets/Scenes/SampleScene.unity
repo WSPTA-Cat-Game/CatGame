@@ -398,6 +398,9 @@ MonoBehaviour:
     additionalJumpHeightTime: 1
     canWallHang: 1
     wallHangTime: 2.5
+  square: {fileID: 0}
+  cat: {fileID: 0}
+  human: {fileID: 0}
 --- !u!1 &1216659503
 GameObject:
   m_ObjectHideFlags: 0
