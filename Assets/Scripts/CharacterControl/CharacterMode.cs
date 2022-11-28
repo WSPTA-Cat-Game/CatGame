@@ -1,4 +1,4 @@
-﻿namespace CharacterControl
+﻿namespace CatGame.CharacterControl
 {
     public enum CharacterMode
     {

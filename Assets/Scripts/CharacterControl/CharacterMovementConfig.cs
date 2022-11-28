@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CharacterControl
+namespace CatGame.CharacterControl
 {
     [Serializable]
     public class CharacterMovementConfig
