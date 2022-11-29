@@ -71,12 +71,12 @@ namespace CatGame.Interactables
         private void Update()
         { 
             // Pickup or use current pickup/interactable
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (InputHandler.Interact.WasPressedThisFrame())
             {
                 PickupOrInteract();
             } 
             // Drop current pickup
-            else if (Input.GetKeyDown(KeyCode.F))
+            else if (InputHandler.Drop.WasPressedThisFrame())
             {
                 DropPickup();
             }

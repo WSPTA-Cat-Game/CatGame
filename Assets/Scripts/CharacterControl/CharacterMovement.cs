@@ -64,11 +64,11 @@ namespace CatGame.CharacterControl
             isOnWall = sideRaycast.collider != null && canWallHang;
             wallDirection = !isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (InputHandler.Jump.WasPressedThisFrame())
             {
                 spaceDown = true;
             }
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else if (InputHandler.Jump.WasReleasedThisFrame())
             {
                 spaceLetGo = true;
             }
@@ -78,7 +78,7 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
-            float horzInput = Input.GetAxisRaw("Horizontal");
+            float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
