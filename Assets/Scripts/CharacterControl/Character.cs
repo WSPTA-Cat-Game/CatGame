@@ -22,7 +22,7 @@ namespace CatGame.CharacterControl
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputHandler.Transition.WasPressedThisFrame())
             {
                 ToggleMode();
             }
