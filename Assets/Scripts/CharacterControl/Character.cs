@@ -7,13 +7,12 @@ namespace CharacterControl
     {
         public CharacterMovementConfig humanMovement = new();
         public CharacterMovementConfig catMovement = new();
-
+        public Sprite cat;
+        public Sprite human;
         private CharacterMode mode = CharacterMode.Human;
 
         private CharacterMovement movement;
-        public BoxCollider2D square;
-        public Sprite cat;
-        public Sprite human;
+        private BoxCollider2D square;
         private void Start()
         {
             movement = GetComponent<CharacterMovement>();
@@ -33,13 +32,15 @@ namespace CharacterControl
             {
                 mode = CharacterMode.Cat;
                 movement.SetConfig(catMovement);
-                this.GetComponent<SpriteRenderer>().sprite=human;
+                this.GetComponent<SpriteRenderer>().sprite=cat;
+                square.GetComponent<BoxCollider2D>().size=new vector2(0.3f,0.3f);
             }
             else
             {
                 mode = CharacterMode.Human;
                 movement.SetConfig(humanMovement);
-                this.GetComponent<SpriteRenderer>().sprite=cat;
+                this.GetComponent<SpriteRenderer>().sprite=human;
+                square.GetComponent<BoxCollider2D>().size = new vector2(0.475f,0.475f);
             }
         }
     }
