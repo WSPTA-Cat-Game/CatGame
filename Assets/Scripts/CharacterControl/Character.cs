@@ -36,13 +36,15 @@ namespace CatGame.CharacterControl
             {
                 mode = CharacterMode.Cat;
                 movement.SetConfig(catMovement);
-                this.GetComponent<SpriteRenderer>().sprite=human;
+                .GetComponent<SpriteRenderer>().sprite=cat;
+                .GetComponent<BoxCollider2D>().size=new vector2(0.3f, 0.3f);
             }
             else
             {
                 mode = CharacterMode.Human;
                 movement.SetConfig(humanMovement);
-                this.GetComponent<SpriteRenderer>().sprite=cat;
+                .GetComponent<SpriteRenderer>().sprite=human;
+                .GetComponent<BoxCollider2D>().size=new vector2(0.475f, 0.475f);
             }
         }
     }
