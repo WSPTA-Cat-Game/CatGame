@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using CatGame.Interactables;
+using UnityEngine;
 
-namespace CharacterControl
+namespace CatGame.CharacterControl
 {
     [RequireComponent(typeof(CharacterMovement))]
     public class Character : MonoBehaviour
@@ -13,9 +14,12 @@ namespace CharacterControl
 
         private CharacterMovement movement;
         private BoxCollider2D square;
+        private InteractableHandler interactableHandler;
+
         private void Start()
         {
             movement = GetComponent<CharacterMovement>();
+            interactableHandler = GetComponentInChildren<InteractableHandler>();
         }
 
         private void Update()
@@ -32,15 +36,13 @@ namespace CharacterControl
             {
                 mode = CharacterMode.Cat;
                 movement.SetConfig(catMovement);
-                this.GetComponent<SpriteRenderer>().sprite=cat;
-                square.GetComponent<BoxCollider2D>().size=new vector2(0.3f,0.3f);
+                this.GetComponent<SpriteRenderer>().sprite=human;
             }
             else
             {
                 mode = CharacterMode.Human;
                 movement.SetConfig(humanMovement);
-                this.GetComponent<SpriteRenderer>().sprite=human;
-                square.GetComponent<BoxCollider2D>().size = new vector2(0.475f,0.475f);
+                this.GetComponent<SpriteRenderer>().sprite=cat;
             }
         }
     }
