@@ -7,8 +7,7 @@ namespace CatGame.Interactables
     [RequireComponent(typeof(Collider2D))]
     public class InteractableHandler : MonoBehaviour
     {
-        public PickupBase currentPickup;
-        
+        private PickupBase currentPickup;
         private readonly List<InteractableBase> touchingInteractables = new();
 
         public void PickupOrInteract()
