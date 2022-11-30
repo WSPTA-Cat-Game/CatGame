@@ -36,11 +36,10 @@ namespace CatGame.CameraControl
             Bounds camBounds = new(boundsPos, boundsSize);
             
             Vector3 adjustedPos = boundsPos;
-            Vector3 tilemapLockedPos = tilemap.WorldToLocal(lockedPos);
             // Lock pos
             if (lockX)
             {
-                adjustedPos.x = tilemapLockedPos.x;
+                adjustedPos.x = lockedPos.x;
             }
             else
             {
@@ -66,7 +65,7 @@ namespace CatGame.CameraControl
             // Repeat for y
             if (lockY)
             {
-                adjustedPos.y = tilemapLockedPos.y;
+                adjustedPos.y = lockedPos.y;
             }
             else
             {
