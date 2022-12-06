@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace CatGame.CameraControl
@@ -15,6 +17,36 @@ namespace CatGame.CameraControl
         public float lerpSpeed = 0;
 
         private new Camera camera;
+
+        public void SetTilemap(Tilemap tilemap, Action finishMovingCallback = null)
+        {
+            if (this.tilemap == tilemap)
+            {
+                finishMovingCallback?.Invoke();
+                return;
+            }
+
+            this.tilemap = tilemap;
+
+            if (finishMovingCallback != null)
+            {
+                StartCoroutine(SetTilemapCoroutine(finishMovingCallback));
+            }
+        }
+
+        private IEnumerator SetTilemapCoroutine(Action callback)
+        {
+            // Wait till camera actually starts moving
+            yield return null;
+
+            // Keep running while camera is moving
+            while (camera.velocity.magnitude > 0.001)
+            {
+                yield return null;
+            }
+
+            callback?.Invoke();
+        }
 
         private void Start()
         {
@@ -87,10 +119,12 @@ namespace CatGame.CameraControl
             adjustedPos = tilemap.LocalToWorld(adjustedPos);
             adjustedPos.z = -10;
 
+            // Unscaled delta time is delta time without time scale, allowing
+            // the camera to move while time scale is 0
             camera.transform.position = Vector3.Lerp(
                 camera.transform.position,
                 adjustedPos, 
-                lerpSpeed * 60 * Time.deltaTime
+                lerpSpeed * 60 * Time.unscaledDeltaTime
             );
         }
     }
