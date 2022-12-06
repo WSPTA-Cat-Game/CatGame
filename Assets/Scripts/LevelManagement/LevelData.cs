@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace CatGame.LevelManagement
 {
     public class LevelData : MonoBehaviour
     {
-        public int levelIndex;
+        public int index;
         public string layerName;
 
-        public int[] connectedLevels;
+        public Tilemap tilemap;
+        public LevelTransition[] transitions;
+        public Vector2 defaultSpawnPoint;
     }
 }
