@@ -32,7 +32,7 @@ namespace CatGame
         public static InputAction Transition 
             => Instance.playerInput.actions.FindAction("Transition");
 
-        private void Start()
+        private void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
         }

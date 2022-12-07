@@ -48,7 +48,7 @@ namespace CatGame.CameraControl
             callback?.Invoke();
         }
 
-        private void Start()
+        private void Awake()
         {
             camera = GetComponent<Camera>();
         }

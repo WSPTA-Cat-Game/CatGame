@@ -74,11 +74,11 @@ namespace CatGame
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            camera = FindObjectOfType<FollowCamera>();
-            character = FindObjectOfType<Character>();
+            camera = FindObjectOfType<FollowCamera>(true);
+            character = FindObjectOfType<Character>(true);
             levelLoader = GetComponent<LevelLoader>();
             EnterLayer("Test");
         }
