@@ -7,12 +7,12 @@ namespace CatGame
 {
     public class GameManager : MonoBehaviour
     {
-        private new FollowCamera camera;
-        private Character character;
-        private LevelLoader levelLoader;
+        private FollowCamera _camera;
+        private Character _character;
+        private LevelLoader _levelLoader;
 
-        private LevelData currentLevel;
-        private Vector2 currentSpawnPoint;
+        private LevelData _currentLevel;
+        private Vector2 _currentSpawnPoint;
 
         public void EnterLayer(string layerName)
             => EnterLevel(layerName, 0, false, false);
@@ -20,8 +20,8 @@ namespace CatGame
         public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true, bool pausePhysics = true) 
         {
             // Load level and subscribe to transitions
-            currentLevel = levelLoader.LoadLevel(layerName, levelIndex);
-            foreach (LevelTransition transition in currentLevel.transitions)
+            _currentLevel = _levelLoader.LoadLevel(layerName, levelIndex);
+            foreach (LevelTransition transition in _currentLevel.transitions)
             {
                 transition.OnTransitionEntered -= OnLevelTransitionEntered;
                 transition.OnTransitionEntered += OnLevelTransitionEntered;
@@ -32,12 +32,12 @@ namespace CatGame
             if (pausePhysics)
             {
                 Time.timeScale = 0;
-                camera.SetTilemap(currentLevel.tilemap, () => Time.timeScale = 1);
+                _camera.SetTilemap(_currentLevel.tilemap, () => Time.timeScale = 1);
             }
             // Else just set the camera tilemap
             else
             {
-                camera.SetTilemap(currentLevel.tilemap);
+                _camera.SetTilemap(_currentLevel.tilemap);
             }
 
             // Respawn character if we didn't come from another level; if we 
@@ -46,8 +46,8 @@ namespace CatGame
             {
 
                 // TODO: Write a proper respawn
-                character.transform.position = currentLevel.defaultSpawnPoint;
-                currentSpawnPoint = currentLevel.defaultSpawnPoint;
+                _character.transform.position = _currentLevel.defaultSpawnPoint;
+                _currentSpawnPoint = _currentLevel.defaultSpawnPoint;
             }
         }
 
@@ -61,7 +61,7 @@ namespace CatGame
 
             // Don't listen to it if it tells us to go into the level were
             // already in
-            if (transition.nextLevelIndex == currentLevel.index)
+            if (transition.nextLevelIndex == _currentLevel.index)
             {
                 return;
             }
@@ -70,17 +70,16 @@ namespace CatGame
             EnterLevel(transition.layerName, transition.nextLevelIndex);
             if (transition.associatedSpawnPoint.HasValue)
             {
-                currentSpawnPoint = transition.associatedSpawnPoint.Value;
+                _currentSpawnPoint = transition.associatedSpawnPoint.Value;
             }
         }
 
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            camera = FindObjectOfType<FollowCamera>(true);
-            character = FindObjectOfType<Character>(true);
-            levelLoader = GetComponent<LevelLoader>();
-            EnterLayer("Test");
+            _camera = FindObjectOfType<FollowCamera>(true);
+            _character = FindObjectOfType<Character>(true);
+            _levelLoader = GetComponent<LevelLoader>();
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in
@@ -88,7 +87,7 @@ namespace CatGame
 #if UNITY_EDITOR
         private void Update()
         {
-            foreach (LevelTransition transition in currentLevel.transitions)
+            foreach (LevelTransition transition in _currentLevel.transitions)
             {
                 transition.OnTransitionEntered -= OnLevelTransitionEntered;
                 transition.OnTransitionEntered += OnLevelTransitionEntered;

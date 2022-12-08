@@ -17,19 +17,19 @@ namespace CatGame.CharacterControl
         public bool canWallHang = false;
         public float wallHangTime = 2.5f;
 
-        private Rigidbody2D rb;
-        private new Collider2D collider;
+        private Rigidbody2D _rb;
+        private Collider2D _collider;
 
-        private bool isGrounded = true;
-        private bool isOnWall = false;
-        private int wallDirection = 0;
-        private bool hasWallHangEnded = false;
-        private bool canStartWallHang = false;
-        private float lastWallHangTime = 0;
-        public float timeWallHanging = 0;
-        private float lastJumpTime = 0;
-        private bool spaceDown = false;
-        private bool spaceLetGo = false;
+        private bool _isGrounded = true;
+        private bool _isOnWall = false;
+        private int _wallDirection = 0;
+        private bool _hasWallHangEnded = false;
+        private bool _canStartWallHang = false;
+        private float _lastWallHangTime = 0;
+        public float _timeWallHanging = 0;
+        private float _lastJumpTime = 0;
+        private bool _spaceDown = false;
+        private bool _spaceLetGo = false;
 
         public void SetConfig(CharacterMovementConfig config)
         {
@@ -47,15 +47,15 @@ namespace CatGame.CharacterControl
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
-            collider = rb.GetComponent<Collider2D>();
+            _rb = GetComponent<Rigidbody2D>();
+            _collider = _rb.GetComponent<Collider2D>();
         }
 
         private void Update()
         {
             // Check if grounded and on a wall
-            float edgeRadius = collider is BoxCollider2D boxCollider ? boxCollider.edgeRadius * 2 : 0;
-            Vector2 colliderSize = collider.bounds.size + new Vector3(edgeRadius, edgeRadius);
+            float edgeRadius = _collider is BoxCollider2D boxCollider ? boxCollider.edgeRadius * 2 : 0;
+            Vector2 colliderSize = _collider.bounds.size + new Vector3(edgeRadius, edgeRadius);
 
             RaycastHit2D downRaycast = Physics2D.BoxCast(
                 transform.position,
@@ -65,7 +65,7 @@ namespace CatGame.CharacterControl
                 0.08f,
                 1
             );
-            isGrounded = downRaycast.collider != null;
+            _isGrounded = downRaycast.collider != null;
 
             RaycastHit2D sideRaycast = Physics2D.CapsuleCast(
                 transform.position - new Vector3(0.08f, 0), 
@@ -75,16 +75,16 @@ namespace CatGame.CharacterControl
                 0.16f,
                 1
             );
-            isOnWall = sideRaycast.collider != null && canWallHang;
-            wallDirection = !isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
+            _isOnWall = sideRaycast.collider != null && canWallHang;
+            _wallDirection = !_isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
 
             if (InputHandler.Jump.WasPressedThisFrame())
             {
-                spaceDown = true;
+                _spaceDown = true;
             }
             else if (InputHandler.Jump.WasReleasedThisFrame())
             {
-                spaceLetGo = true;
+                _spaceLetGo = true;
             }
         }
 
@@ -96,80 +96,80 @@ namespace CatGame.CharacterControl
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
-            float currentAcceleration = horzInput * (isGrounded ? acceleration : airAcceleration);
-            rb.velocity += new Vector2(currentAcceleration * Time.fixedDeltaTime, 0);
+            float currentAcceleration = horzInput * (_isGrounded ? acceleration : airAcceleration);
+            _rb.velocity += new Vector2(currentAcceleration * Time.fixedDeltaTime, 0);
 
-            if (isInputPressed && Mathf.Abs(rb.velocity.x) > maxSpeed)
+            if (isInputPressed && Mathf.Abs(_rb.velocity.x) > maxSpeed)
             {
                 // Limit speed only when trying to move
-                rb.velocity = new Vector2(maxSpeed * Mathf.Sign(rb.velocity.x), rb.velocity.y);
+                _rb.velocity = new Vector2(maxSpeed * Mathf.Sign(_rb.velocity.x), _rb.velocity.y);
             }
-            else if (isGrounded)
+            else if (_isGrounded)
             {
                 // If not pressing buttons and grounded, decelerate
-                float adjSpeed = rb.velocity.x * deceleration;
-                rb.velocity = new Vector2(Mathf.Abs(adjSpeed) < 0.01 ? 0 : adjSpeed, rb.velocity.y);
+                float adjSpeed = _rb.velocity.x * deceleration;
+                _rb.velocity = new Vector2(Mathf.Abs(adjSpeed) < 0.01 ? 0 : adjSpeed, _rb.velocity.y);
             }
 
 
             // Check if horz input is in the same direction as the wall
-            if (isInputPressed && !isGrounded && isOnWall && Mathf.Sign(horzInput) == wallDirection && canStartWallHang)
+            if (isInputPressed && !_isGrounded && _isOnWall && Mathf.Sign(horzInput) == _wallDirection && _canStartWallHang)
             {
                 // Start wall hang
-                lastWallHangTime = Time.realtimeSinceStartup;
-                hasWallHangEnded = false;
-                canStartWallHang = false;
+                _lastWallHangTime = Time.realtimeSinceStartup;
+                _hasWallHangEnded = false;
+                _canStartWallHang = false;
 
-                rb.gravityScale = 0;
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                _rb.gravityScale = 0;
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
             }
             else
             {
-                if (Time.realtimeSinceStartup - lastWallHangTime + timeWallHanging > wallHangTime)
+                if (Time.realtimeSinceStartup - _lastWallHangTime + _timeWallHanging > wallHangTime)
                 {
                     // If not on a wall, or we've been hanging for longer than
                     // wall hang time, then end wall hang
-                    hasWallHangEnded = true;
-                    rb.gravityScale = 1;
+                    _hasWallHangEnded = true;
+                    _rb.gravityScale = 1;
                 }
-                else if ((!isOnWall || !isInputPressed) && !canStartWallHang)
+                else if ((!_isOnWall || !isInputPressed) && !_canStartWallHang)
                 {
-                    timeWallHanging += Time.realtimeSinceStartup - lastWallHangTime;
-                    canStartWallHang = true;
-                    rb.gravityScale = 1;
+                    _timeWallHanging += Time.realtimeSinceStartup - _lastWallHangTime;
+                    _canStartWallHang = true;
+                    _rb.gravityScale = 1;
                 }
             }
 
             // Allow wall hangs once grounded
-            if (isGrounded)
+            if (_isGrounded)
             {
-                lastWallHangTime = 0;
-                timeWallHanging = 0;
-                canStartWallHang = true;
-                hasWallHangEnded = true;
+                _lastWallHangTime = 0;
+                _timeWallHanging = 0;
+                _canStartWallHang = true;
+                _hasWallHangEnded = true;
             }
 
-            float timeSinceLastJump = Time.realtimeSinceStartup - lastJumpTime;
-            if (spaceDown)
+            float timeSinceLastJump = Time.realtimeSinceStartup - _lastJumpTime;
+            if (_spaceDown)
             {
                 // If grounded or current wall hanging and jump cooldown has worn off
-                if ((isGrounded || (isOnWall && !hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
+                if ((_isGrounded || (_isOnWall && !_hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
                 {
                     // Jump. Add horz force if on a wall and not grounded
-                    rb.AddForce(new Vector2(isGrounded ? 0 : -wallDirection * jumpHeight * 0.7f, jumpHeight));
-                    lastJumpTime = Time.realtimeSinceStartup;
+                    _rb.AddForce(new Vector2(_isGrounded ? 0 : -_wallDirection * jumpHeight * 0.7f, jumpHeight));
+                    _lastJumpTime = Time.realtimeSinceStartup;
                     
                     // Stop wall hang
-                    rb.gravityScale = 1;
-                    hasWallHangEnded = true;
+                    _rb.gravityScale = 1;
+                    _hasWallHangEnded = true;
                 }
-                spaceDown = false;
-                spaceLetGo = false;
+                _spaceDown = false;
+                _spaceLetGo = false;
             }
-            else if (!spaceLetGo && timeSinceLastJump <= additionalJumpHeightTime && !isOnWall)
+            else if (!_spaceLetGo && timeSinceLastJump <= additionalJumpHeightTime && !_isOnWall)
             {
                 // Stop jump extension if let go of space
-                rb.AddForce(new Vector2(0, additionalJumpHeight * Time.fixedDeltaTime));
+                _rb.AddForce(new Vector2(0, additionalJumpHeight * Time.fixedDeltaTime));
             }
         }
     }

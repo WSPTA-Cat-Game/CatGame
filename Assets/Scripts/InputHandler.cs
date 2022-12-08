@@ -6,35 +6,35 @@ namespace CatGame
     [RequireComponent(typeof(PlayerInput))]
     public class InputHandler : MonoBehaviour
     {
-        private static InputHandler instance;
+        private static InputHandler _instance;
         private static InputHandler Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                   instance = FindObjectOfType<InputHandler>();
+                   _instance = FindObjectOfType<InputHandler>();
                 }
-                return instance;
+                return _instance;
             }
         }
 
-        private PlayerInput playerInput;
+        private PlayerInput _playerInput;
 
         public static InputAction Move 
-            => Instance.playerInput.actions.FindAction("Move");
+            => Instance._playerInput.actions.FindAction("Move");
         public static InputAction Interact 
-            => Instance.playerInput.actions.FindAction("Interact");
+            => Instance._playerInput.actions.FindAction("Interact");
         public static InputAction Drop 
-            => Instance.playerInput.actions.FindAction("Drop");
+            => Instance._playerInput.actions.FindAction("Drop");
         public static InputAction Jump 
-            => Instance.playerInput.actions.FindAction("Jump");
+            => Instance._playerInput.actions.FindAction("Jump");
         public static InputAction Transition 
-            => Instance.playerInput.actions.FindAction("Transition");
+            => Instance._playerInput.actions.FindAction("Transition");
 
         private void Awake()
         {
-            playerInput = GetComponent<PlayerInput>();
+            _playerInput = GetComponent<PlayerInput>();
         }
     }
 }

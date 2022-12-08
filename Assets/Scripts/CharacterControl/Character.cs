@@ -9,15 +9,15 @@ namespace CatGame.CharacterControl
         public CharacterMovementConfig humanMovement = new();
         public CharacterMovementConfig catMovement = new();
 
-        private CharacterMode mode = CharacterMode.Human;
+        private CharacterMovement _movement;
+        private InteractableHandler _interactableHandler;
 
-        private CharacterMovement movement;
-        private InteractableHandler interactableHandler;
+        private CharacterMode _mode = CharacterMode.Human;
 
         private void Start()
         {
-            movement = GetComponent<CharacterMovement>();
-            interactableHandler = GetComponentInChildren<InteractableHandler>();
+            _movement = GetComponent<CharacterMovement>();
+            _interactableHandler = GetComponentInChildren<InteractableHandler>();
         }
 
         private void Update()
@@ -30,18 +30,18 @@ namespace CatGame.CharacterControl
 
         private void ToggleMode()
         {
-            if (mode == CharacterMode.Human)
+            if (_mode == CharacterMode.Human)
             {
-                mode = CharacterMode.Cat;
-                movement.SetConfig(catMovement);
-                interactableHandler.DropPickup();
-                interactableHandler.enabled = false;
+                _mode = CharacterMode.Cat;
+                _movement.SetConfig(catMovement);
+                _interactableHandler.DropPickup();
+                _interactableHandler.enabled = false;
             }
             else
             {
-                mode = CharacterMode.Human;
-                movement.SetConfig(humanMovement);
-                interactableHandler.enabled = true;
+                _mode = CharacterMode.Human;
+                _movement.SetConfig(humanMovement);
+                _interactableHandler.enabled = true;
             }
         }
     }

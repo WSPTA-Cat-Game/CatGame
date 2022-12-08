@@ -7,42 +7,42 @@ namespace CatGame.Interactables
     [RequireComponent(typeof(Collider2D))]
     public class InteractableHandler : MonoBehaviour
     {
-        private PickupBase currentPickup;
-        private readonly List<InteractableBase> touchingInteractables = new();
+        private readonly List<InteractableBase> _touchingInteractables = new();
+        private PickupBase _currentPickup;
 
         public void PickupOrInteract()
         {
             // This prioritizes interacting/picking up a pickup over using the current pickup.
-            if (touchingInteractables.Count > 0)
+            if (_touchingInteractables.Count > 0)
             {
-                PickupBase firstPickup = (PickupBase)touchingInteractables.FirstOrDefault(val => val is PickupBase);
+                PickupBase firstPickup = (PickupBase)_touchingInteractables.FirstOrDefault(val => val is PickupBase);
 
-                if (currentPickup == null && firstPickup != null)
+                if (_currentPickup == null && firstPickup != null)
                 {
-                    currentPickup = firstPickup;
+                    _currentPickup = firstPickup;
                     firstPickup.Pickup(transform);
                 }
                 else
                 {
-                    touchingInteractables[0].Interact();
+                    _touchingInteractables[0].Interact();
                 }
             }
             // Use pickup
-            else if (currentPickup != null)
+            else if (_currentPickup != null)
             {
-                currentPickup.Interact();
+                _currentPickup.Interact();
             }
         }
 
         public void DropPickup()
         {
-            if (currentPickup == null)
+            if (_currentPickup == null)
             {
                 return;
             }
 
-            currentPickup.Drop();
-            currentPickup = null;
+            _currentPickup.Drop();
+            _currentPickup = null;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +52,7 @@ namespace CatGame.Interactables
             // If thing collided with has an interactable and is on the same layer, add to list
             if (interactable != null && interactable.gameObject.layer == gameObject.layer)
             {
-                touchingInteractables.Add(interactable);
+                _touchingInteractables.Add(interactable);
             }
         }
 
@@ -63,7 +63,7 @@ namespace CatGame.Interactables
             // If thing exited has an interactable and is on the same layer, remove from list
             if (interactable != null && interactable.gameObject.layer == gameObject.layer)
             {
-                touchingInteractables.Remove(interactable);
+                _touchingInteractables.Remove(interactable);
             }
         }
 

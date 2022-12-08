@@ -16,7 +16,7 @@ namespace CatGame.CameraControl
         public Vector2 lockedPos = Vector2.zero; 
         public float lerpSpeed = 0;
 
-        private new Camera camera;
+        private Camera _camera;
 
         public void SetTilemap(Tilemap tilemap, Action finishMovingCallback = null)
         {
@@ -40,7 +40,7 @@ namespace CatGame.CameraControl
             yield return null;
 
             // Keep running while camera is moving
-            while (camera.velocity.magnitude > 0.001)
+            while (_camera.velocity.magnitude > 0.001)
             {
                 yield return null;
             }
@@ -50,7 +50,7 @@ namespace CatGame.CameraControl
 
         private void Awake()
         {
-            camera = GetComponent<Camera>();
+            _camera = GetComponent<Camera>();
         }
 
         private void Update()
@@ -59,7 +59,7 @@ namespace CatGame.CameraControl
             Vector3 targetPos = target.position;
 
             // Create bounds that represent what the cam sees of the tilemap
-            float camHeight = camera.orthographicSize * 2;
+            float camHeight = _camera.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
 
             Vector3 boundsSize = tilemap.transform.InverseTransformVector(new Vector3(camWidth, camHeight));
@@ -121,8 +121,8 @@ namespace CatGame.CameraControl
 
             // Unscaled delta time is delta time without time scale, allowing
             // the camera to move while time scale is 0
-            camera.transform.position = Vector3.Lerp(
-                camera.transform.position,
+            _camera.transform.position = Vector3.Lerp(
+                _camera.transform.position,
                 adjustedPos, 
                 lerpSpeed * 60 * Time.unscaledDeltaTime
             );

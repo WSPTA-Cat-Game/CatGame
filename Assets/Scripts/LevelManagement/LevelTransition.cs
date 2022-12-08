@@ -13,31 +13,31 @@ namespace CatGame.LevelManagement
 
         public event Action<LevelTransition, Collider2D> OnTransitionEntered;
 
-        private new Collider2D collider;
-        private readonly HashSet<Collider2D> currentColliders = new();
+        private Collider2D _collider;
+        private readonly HashSet<Collider2D> _currentColliders = new();
 
         private void Start()
         {
-            collider = GetComponent<Collider2D>();
+            _collider = GetComponent<Collider2D>();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
             // Only trigger if collision is completely within bounds
-            if (collider.bounds.max.x > collision.bounds.max.x
-                && collider.bounds.max.y > collision.bounds.max.y
-                && collider.bounds.min.x < collision.bounds.min.x
-                && collider.bounds.min.y < collision.bounds.min.y
-                && !currentColliders.Contains(collision)
+            if (_collider.bounds.max.x > collision.bounds.max.x
+                && _collider.bounds.max.y > collision.bounds.max.y
+                && _collider.bounds.min.x < collision.bounds.min.x
+                && _collider.bounds.min.y < collision.bounds.min.y
+                && !_currentColliders.Contains(collision)
             ) {
                 OnTransitionEntered?.Invoke(this, collision);
-                currentColliders.Add(collision);
+                _currentColliders.Add(collision);
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            currentColliders.Remove(collision);
+            _currentColliders.Remove(collision);
         }
     }
 }

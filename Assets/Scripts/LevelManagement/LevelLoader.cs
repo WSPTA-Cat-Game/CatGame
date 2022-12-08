@@ -5,13 +5,14 @@ namespace CatGame.LevelManagement
 {
     public class LevelLoader : MonoBehaviour
     {
+        private const string LayerPrefabsPath = "Layers";
+        
         public Transform levelParent;
         public int loadDepth = 2;
 
-        private const string LayerPrefabsPath = "Layers";
-        private readonly Dictionary<string, Dictionary<int, LevelData>> layers = new();
+        private readonly Dictionary<string, Dictionary<int, LevelData>> _layers = new();
 
-        private HashSet<LevelData> lastLoaded = new();
+        private HashSet<LevelData> _lastLoaded = new();
 
         public LevelData LoadLevel(string layerName, int levelIndex)
         {
@@ -22,14 +23,14 @@ namespace CatGame.LevelManagement
             {
                 LevelData data = child.GetComponent<LevelData>();
 
-                lastLoaded.Add(data);
-                if (!layers.TryGetValue(layerName, out Dictionary<int, LevelData> layer))
+                _lastLoaded.Add(data);
+                if (!_layers.TryGetValue(layerName, out Dictionary<int, LevelData> layer))
                 {
                     layer = new Dictionary<int, LevelData>();
-                    layers[data.layerName] = layer;
+                    _layers[data.layerName] = layer;
                 }
 
-                layers[data.layerName][data.index] = data;
+                _layers[data.layerName][data.index] = data;
             }
 #endif
 
@@ -40,31 +41,31 @@ namespace CatGame.LevelManagement
             LevelData loadedLevel = LoadLevelRecursive(layerName, levelIndex, loadDepth, ref cachedLevels);
 
             // Remove any levels that weren't just loaded
-            foreach (LevelData cachedLevel in lastLoaded)
+            foreach (LevelData cachedLevel in _lastLoaded)
             {
                 if (!cachedLevels.Contains(cachedLevel))
                 {
-                    layers[cachedLevel.layerName].Remove(cachedLevel.index);
-                    if (layers[cachedLevel.layerName].Count == 0)
+                    _layers[cachedLevel.layerName].Remove(cachedLevel.index);
+                    if (_layers[cachedLevel.layerName].Count == 0)
                     {
-                        layers.Remove(cachedLevel.layerName);
+                        _layers.Remove(cachedLevel.layerName);
                     }
 
                     Destroy(cachedLevel.gameObject);
                 }
             }
 
-            lastLoaded = cachedLevels;
+            _lastLoaded = cachedLevels;
             return loadedLevel;
         }
 
         private LevelData LoadLevelRecursive(string layerName, int levelIndex, int depth, ref HashSet<LevelData> cachedLevels)
         {
             // Try get layer dictionary or add it if it doesn't exist
-            if (!layers.TryGetValue(layerName, out Dictionary<int, LevelData> levels))
+            if (!_layers.TryGetValue(layerName, out Dictionary<int, LevelData> levels))
             {
                 levels = new Dictionary<int, LevelData>();
-                layers[layerName] = levels;
+                _layers[layerName] = levels;
             }
 
             // Try get level or initialize it if it hasn't been cached
