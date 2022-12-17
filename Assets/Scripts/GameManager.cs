@@ -44,9 +44,9 @@ namespace CatGame
             // just spawned onto the layer
             if (!cameFromTransition)
             {
-
                 // TODO: Write a proper respawn
-                _character.transform.position = _currentLevel.defaultSpawnPoint;
+                _character.transform.position = _currentLevel.transform
+                    .InverseTransformPoint(_currentLevel.defaultSpawnPoint);
                 _currentSpawnPoint = _currentLevel.defaultSpawnPoint;
             }
         }
@@ -68,9 +68,9 @@ namespace CatGame
 
             // Enter the next level and set current spawn point
             EnterLevel(transition.layerName, transition.nextLevelIndex);
-            if (transition.associatedSpawnPoint.HasValue)
+            if (transition.hasAssociatedSpawnPoint)
             {
-                _currentSpawnPoint = transition.associatedSpawnPoint.Value;
+                _currentSpawnPoint = transition.associatedSpawnPoint;
             }
         }
 
@@ -87,6 +87,11 @@ namespace CatGame
 #if UNITY_EDITOR
         private void Update()
         {
+            if (_currentLevel == null)
+            {
+                return;
+            }
+
             foreach (LevelTransition transition in _currentLevel.transitions)
             {
                 transition.OnTransitionEntered -= OnLevelTransitionEntered;
