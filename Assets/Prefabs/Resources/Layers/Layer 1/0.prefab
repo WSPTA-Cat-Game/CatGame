@@ -1351,7 +1351,7 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 113
-    m_Data: {fileID: 11400000, guid: 776d7d0a8b27f8e4f92802a1b9eebab1, type: 2}
+    m_Data: {fileID: 11400000, guid: ef2df726481d6344b82fb5988f183cb5, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 113
     m_Data: {fileID: 21300000, guid: 7fdda1ae19ac8574db244999c70f3f12, type: 3}
@@ -1376,7 +1376,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - m_RefCount: 113
-    m_Data: {r: 0, g: 0.109969616, b: 1, a: 1}
+    m_Data: {r: 0, g: 1, b: 0.25479865, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1554,7 +1554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  layerName: Test
+  layerName: Layer 1
   tilemap: {fileID: 5096418685932594237}
   transitions:
   - {fileID: 5096418685916117174}
