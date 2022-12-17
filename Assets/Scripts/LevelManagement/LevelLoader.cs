@@ -8,13 +8,18 @@ namespace CatGame.LevelManagement
         private const string LayerPrefabsPath = "Layers";
         
         public Transform levelParent;
-        public int loadDepth = 2;
 
         private readonly Dictionary<string, Dictionary<int, LevelData>> _layers = new();
 
         private HashSet<LevelData> _lastLoaded = new();
 
-        public LevelData LoadLevel(string layerName, int levelIndex)
+        public void ResetCache()
+        {
+            _layers.Clear();
+            _lastLoaded.Clear();
+        }
+
+        public LevelData LoadLevel(string layerName, int levelIndex, int loadDepth = 2, bool autoUnload = true)
         {
 #if UNITY_EDITOR
             // Yet another workaround for Unity clearing dictionaries on
@@ -40,18 +45,21 @@ namespace CatGame.LevelManagement
             // the code clearer.
             LevelData loadedLevel = LoadLevelRecursive(layerName, levelIndex, loadDepth, ref cachedLevels);
 
-            // Remove any levels that weren't just loaded
-            foreach (LevelData cachedLevel in _lastLoaded)
+            if (autoUnload)
             {
-                if (!cachedLevels.Contains(cachedLevel))
+                // Remove any levels that weren't just loaded
+                foreach (LevelData cachedLevel in _lastLoaded)
                 {
-                    _layers[cachedLevel.layerName].Remove(cachedLevel.index);
-                    if (_layers[cachedLevel.layerName].Count == 0)
+                    if (!cachedLevels.Contains(cachedLevel))
                     {
-                        _layers.Remove(cachedLevel.layerName);
-                    }
+                        _layers[cachedLevel.layerName].Remove(cachedLevel.index);
+                        if (_layers[cachedLevel.layerName].Count == 0)
+                        {
+                            _layers.Remove(cachedLevel.layerName);
+                        }
 
-                    Destroy(cachedLevel.gameObject);
+                        Destroy(cachedLevel.gameObject);
+                    }
                 }
             }
 
