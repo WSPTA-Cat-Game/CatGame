@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace CatGame.LevelManagement
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(BoxCollider2D))]
     public class LevelTransition : MonoBehaviour
     {
         public int nextLevelIndex;
         public string layerName;
-        public Vector2? associatedSpawnPoint;
+        public bool hasAssociatedSpawnPoint;
+        public Vector2 associatedSpawnPoint;
 
         public event Action<LevelTransition, Collider2D> OnTransitionEntered;
 
@@ -18,7 +19,7 @@ namespace CatGame.LevelManagement
 
         private void Start()
         {
-            _collider = GetComponent<Collider2D>();
+            _collider = GetComponent<BoxCollider2D>();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
@@ -28,8 +29,8 @@ namespace CatGame.LevelManagement
                 && _collider.bounds.max.y > collision.bounds.max.y
                 && _collider.bounds.min.x < collision.bounds.min.x
                 && _collider.bounds.min.y < collision.bounds.min.y
-                && !_currentColliders.Contains(collision)
-            ) {
+                && !_currentColliders.Contains(collision)) 
+            {
                 OnTransitionEntered?.Invoke(this, collision);
                 _currentColliders.Add(collision);
             }
