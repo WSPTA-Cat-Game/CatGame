@@ -55,6 +55,11 @@ namespace CatGame.CameraControl
 
         private void Update()
         {
+            if (tilemap == null)
+            {
+                return;
+            }
+
             // Get target pos
             Vector3 targetPos = target.position;
 
