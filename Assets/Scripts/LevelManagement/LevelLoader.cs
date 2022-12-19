@@ -23,13 +23,13 @@ namespace CatGame.LevelManagement
         {
 #if UNITY_EDITOR
             // Yet another workaround for Unity clearing dictionaries on
-            // on rebuild
+            // rebuild
             foreach (Transform child in levelParent)
             {
                 LevelData data = child.GetComponent<LevelData>();
 
                 _lastLoaded.Add(data);
-                if (!_layers.TryGetValue(layerName, out Dictionary<int, LevelData> layer))
+                if (!_layers.TryGetValue(data.layerName, out Dictionary<int, LevelData> layer))
                 {
                     layer = new Dictionary<int, LevelData>();
                     _layers[data.layerName] = layer;
@@ -50,16 +50,23 @@ namespace CatGame.LevelManagement
                 // Remove any levels that weren't just loaded
                 foreach (LevelData cachedLevel in _lastLoaded)
                 {
-                    if (!cachedLevels.Contains(cachedLevel))
+                    if (cachedLevels.Contains(cachedLevel))
                     {
-                        _layers[cachedLevel.layerName].Remove(cachedLevel.index);
-                        if (_layers[cachedLevel.layerName].Count == 0)
-                        {
-                            _layers.Remove(cachedLevel.layerName);
-                        }
-
-                        Destroy(cachedLevel.gameObject);
+                        continue;
                     }
+
+                    if (!_layers.ContainsKey(cachedLevel.layerName))
+                    {
+                        continue;
+                    }
+                    
+                    _layers[cachedLevel.layerName].Remove(cachedLevel.index);
+                    if (_layers[cachedLevel.layerName].Count == 0)
+                    {
+                        _layers.Remove(cachedLevel.layerName);
+                    }
+
+                    Destroy(cachedLevel.gameObject);
                 }
             }
 
