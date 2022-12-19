@@ -15,10 +15,14 @@ namespace CatGame.Editor.LevelCreator
     {
         private bool _isEditingDefaultSpawn = false;
         private bool _isTransitionOpen = true;
+        private bool _isEditingCamera = false;
 
         private SerializedProperty _layerNameProp;
         private SerializedProperty _levelIndexProp;
         private SerializedProperty _defaultSpawnPointProp;
+        private SerializedProperty _lockCameraXProp;
+        private SerializedProperty _lockCameraYProp;
+        private SerializedProperty _lockedCameraPosProp;
         private SerializedProperty _transitionsProp;
 
         private ReorderableList _transitionsList;
@@ -53,6 +57,34 @@ namespace CatGame.Editor.LevelCreator
                 {
                     _isEditingDefaultSpawn = !_isEditingDefaultSpawn;
                 }
+            }
+
+            // Camera lock
+            using (new GUILayout.HorizontalScope())
+            {
+                EditorGUILayout.PropertyField(_lockCameraXProp, new GUIContent("Lock Camera X"));
+                using (new EditorGUI.DisabledGroupScope(!_lockCameraXProp.boolValue))
+                {
+                    _lockedCameraPosProp.vector2Value = new Vector2(
+                        EditorGUILayout.FloatField("Camera X", _lockedCameraPosProp.vector2Value.x),
+                        _lockedCameraPosProp.vector2Value.y);
+                }
+            }
+
+            using (new GUILayout.HorizontalScope())
+            {
+                EditorGUILayout.PropertyField(_lockCameraYProp, new GUIContent("Lock Camera Y"));
+                using (new EditorGUI.DisabledGroupScope(!_lockCameraYProp.boolValue))
+                {
+                    _lockedCameraPosProp.vector2Value = new Vector2(
+                        _lockedCameraPosProp.vector2Value.x,
+                        EditorGUILayout.FloatField("Camera Y", _lockedCameraPosProp.vector2Value.y));
+                }
+            }
+
+            if (GUILayout.Button(_isEditingCamera ? "Return" : "Edit Camera Pos"))
+            {
+                _isEditingCamera = !_isEditingCamera;
             }
 
             // Transitions
@@ -143,6 +175,33 @@ namespace CatGame.Editor.LevelCreator
                     Data.defaultSpawnPoint = Data.transform.InverseTransformPoint(newDefaultSpawn);
                 }
             }
+
+            // Default spawn point handle
+            if (_isEditingCamera)
+            {
+                // Change check for undo
+                using EditorGUI.ChangeCheckScope changeScope = new();
+
+                // Draw position handle
+                Vector2 newCameraPos = Handles.PositionHandle(
+                    Data.transform.TransformPoint(Data.lockedCameraPos),
+                    Quaternion.identity);
+
+                // Snap to grid
+                newCameraPos = new Vector2(
+                    Mathf.Round(newCameraPos.x / 0.5f) * 0.5f,
+                    Mathf.Round(newCameraPos.y / 0.5f) * 0.5f);
+
+                if (changeScope.changed)
+                {
+                    // Record to support undo
+                    Undo.RecordObject(Data, "Changed camera pos");
+                    Vector2 transformedPos = Data.transform.InverseTransformPoint(newCameraPos);
+                    Data.lockedCameraPos = new Vector2(
+                        Data.lockCameraX ? transformedPos.x : 0,
+                        Data.lockCameraY ? transformedPos.y : 0);
+                }
+            }
         }
 
         private void OnEnable()
@@ -151,6 +210,9 @@ namespace CatGame.Editor.LevelCreator
 
             _layerNameProp = serializedObject.FindProperty("layerName");
             _levelIndexProp = serializedObject.FindProperty("index");
+            _lockCameraXProp = serializedObject.FindProperty("lockCameraX");
+            _lockCameraYProp = serializedObject.FindProperty("lockCameraY");
+            _lockedCameraPosProp = serializedObject.FindProperty("lockedCameraPos");
             _defaultSpawnPointProp = serializedObject.FindProperty("defaultSpawnPoint");
             _transitionsProp = serializedObject.FindProperty("transitions");
 
