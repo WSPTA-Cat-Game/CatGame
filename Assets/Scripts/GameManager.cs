@@ -51,7 +51,7 @@ namespace CatGame
             {
                 // TODO: Write a proper respawn
                 _character.transform.position = _currentLevel.transform
-                    .InverseTransformPoint(_currentLevel.defaultSpawnPoint);
+                    .TransformPoint(_currentLevel.defaultSpawnPoint);
                 _currentSpawnPoint = _currentLevel.defaultSpawnPoint;
             }
         }
