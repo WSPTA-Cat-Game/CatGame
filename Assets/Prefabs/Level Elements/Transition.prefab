@@ -72,6 +72,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelIndex: 0
-  layerName: 
+  layerName: Layer 1
   hasAssociatedSpawnPoint: 0
   associatedSpawnPoint: {x: 0, y: 0}
