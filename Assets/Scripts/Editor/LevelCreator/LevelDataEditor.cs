@@ -13,8 +13,8 @@ namespace CatGame.Editor.LevelCreator
     [CustomEditor(typeof(LevelData))]
     public class LevelDataEditor : UnityEditor.Editor
     {
-        private bool isEditingDefaultSpawn = false;
-        private bool isTransitionOpen = true;
+        private bool _isEditingDefaultSpawn = false;
+        private bool _isTransitionOpen = true;
 
         private SerializedProperty _layerNameProp;
         private SerializedProperty _levelIndexProp;
@@ -49,17 +49,17 @@ namespace CatGame.Editor.LevelCreator
             using (new GUILayout.HorizontalScope())
             {
                 EditorGUILayout.PropertyField(_defaultSpawnPointProp, new GUIContent("Default Spawn Point"));
-                if (GUILayout.Button(isEditingDefaultSpawn ? "Return" : "Edit", EditorStyles.miniButton, GUILayout.MaxWidth(50)))
+                if (GUILayout.Button(_isEditingDefaultSpawn ? "Return" : "Edit", EditorStyles.miniButton, GUILayout.MaxWidth(50)))
                 {
-                    isEditingDefaultSpawn = !isEditingDefaultSpawn;
+                    _isEditingDefaultSpawn = !_isEditingDefaultSpawn;
                 }
             }
 
             // Transitions
-            isTransitionOpen = EditorGUILayout.BeginFoldoutHeaderGroup(isTransitionOpen, "Transitions");
-            if (isTransitionOpen)
+            _isTransitionOpen = EditorGUILayout.BeginFoldoutHeaderGroup(_isTransitionOpen, "Transitions");
+            if (_isTransitionOpen)
             {
-                ValidateList();
+                ValidateTransitionsList();
                 _transitionsList.DoLayoutList();
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -82,7 +82,7 @@ namespace CatGame.Editor.LevelCreator
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void ValidateList()
+        private void ValidateTransitionsList()
         {
             Transform TransitionParent = Data.transform.Find("Transitions");
 
@@ -121,7 +121,7 @@ namespace CatGame.Editor.LevelCreator
         private void OnSceneGUI()
         {
             // Default spawn point handle
-            if (isEditingDefaultSpawn)
+            if (_isEditingDefaultSpawn)
             {
                 // Change check for undo
                 using EditorGUI.ChangeCheckScope changeScope = new();
