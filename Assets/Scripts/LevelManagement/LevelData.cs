@@ -8,6 +8,10 @@ namespace CatGame.LevelManagement
         public int index;
         public string layerName;
 
+        public bool lockCameraX;
+        public bool lockCameraY;
+        public Vector2 lockedCameraPos;
+
         public Tilemap tilemap;
         public LevelTransition[] transitions;
         public Vector2 defaultSpawnPoint;

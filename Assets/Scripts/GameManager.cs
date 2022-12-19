@@ -40,6 +40,11 @@ namespace CatGame
                 _camera.SetTilemap(_currentLevel.tilemap);
             }
 
+            // Set camera locks
+            _camera.lockX = _currentLevel.lockCameraX;
+            _camera.lockY = _currentLevel.lockCameraY;
+            _camera.lockedPos = _currentLevel.lockedCameraPos;
+
             // Respawn character if we didn't come from another level; if we 
             // just spawned onto the layer
             if (!cameFromTransition)
