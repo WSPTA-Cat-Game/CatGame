@@ -90,21 +90,5 @@ namespace CatGame.CharacterControl
 
             lastTransformTime = Time.time;
         }
-        private void OnDrawGizmos()
-        {
-            float spriteSizeDiff = catSprite.bounds.extents.y - humanSprite.bounds.extents.y;
-
-            if (_mode == CharacterMode.Human)
-            {    
-                Gizmos.DrawCube(transform.position + new Vector3(0, spriteSizeDiff + 0.0125f),
-                    catColliderSize - new Vector2(0.025f, 0.0125f));
-            }
-            else
-            {
-                Gizmos.DrawCube(transform.position + new Vector3(0, -spriteSizeDiff + 0.0125f),
-                    humanColliderSize - new Vector2(0.025f, 0.0125f));
-            }
-            
-        }
     }
 }
