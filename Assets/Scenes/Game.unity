@@ -391,7 +391,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2ed8c7b839633d14e9ef494222849845, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -418,7 +418,6 @@ MonoBehaviour:
   additionalJumpHeightTime: 1
   canWallHang: 0
   wallHangTime: 2.5
-  _timeWallHanging: 0
 --- !u!114 &784635761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +570,7 @@ GameObject:
   - component: {fileID: 1156037586}
   - component: {fileID: 1156037587}
   - component: {fileID: 1156037588}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: InteractableHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

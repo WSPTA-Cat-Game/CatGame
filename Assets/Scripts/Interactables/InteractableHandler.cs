@@ -49,8 +49,8 @@ namespace CatGame.Interactables
         {
             InteractableBase interactable = collision.GetComponent<InteractableBase>();
 
-            // If thing collided with has an interactable and is on the same layer, add to list
-            if (interactable != null && interactable.gameObject.layer == gameObject.layer)
+            // If thing collided with has an interactable, add to list
+            if (interactable != null)
             {
                 _touchingInteractables.Add(interactable);
             }
@@ -60,8 +60,8 @@ namespace CatGame.Interactables
         {
             InteractableBase interactable = collision.GetComponent<InteractableBase>();
 
-            // If thing exited has an interactable and is on the same layer, remove from list
-            if (interactable != null && interactable.gameObject.layer == gameObject.layer)
+            // If thing exited has an interactable, remove from list
+            if (interactable != null)
             {
                 _touchingInteractables.Remove(interactable);
             }
