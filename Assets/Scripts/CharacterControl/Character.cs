@@ -26,6 +26,8 @@ namespace CatGame.CharacterControl
         private CharacterMovement _movement;
         private InteractableHandler _interactableHandler;
 
+        public bool IsFacingLeft => _movement.IsFacingLeft;
+
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
@@ -40,6 +42,8 @@ namespace CatGame.CharacterControl
             {
                 ToggleMode();
             }
+
+            _renderer.flipX = IsFacingLeft;
         }
 
         private void ToggleMode()

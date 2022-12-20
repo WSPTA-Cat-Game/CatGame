@@ -26,10 +26,12 @@ namespace CatGame.CharacterControl
         private bool _hasWallHangEnded = false;
         private bool _canStartWallHang = false;
         private float _lastWallHangTime = 0;
-        public float _timeWallHanging = 0;
+        private float _timeWallHanging = 0;
         private float _lastJumpTime = 0;
         private bool _spaceDown = false;
         private bool _spaceLetGo = false;
+
+        public bool IsFacingLeft { get; private set; }
 
         public void SetConfig(CharacterMovementConfig config)
         {
@@ -93,6 +95,7 @@ namespace CatGame.CharacterControl
         private void FixedUpdate()
         {
             float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
+            IsFacingLeft = horzInput < 0;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
