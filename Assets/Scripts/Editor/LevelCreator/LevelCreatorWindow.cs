@@ -29,22 +29,22 @@ namespace CatGame.Editor.LevelCreator
 
         public static string LayersDirectory
         {
-            get => EditorPrefs.GetString("CatGame_LayersDirectory");
-            private set => EditorPrefs.SetString("CatGame_LayersDirectory", value);
+            get => Path.Combine(ProjectPath, LayersAssetsPath);
         }
         public static string LayersAssetsPath
         {
-            get => Path.GetRelativePath(ProjectPath, LayersDirectory);
+            get => EditorPrefs.GetString("CatGame_LayersAssetsPath");
+            private set => EditorPrefs.SetString("CatGame_LayersAssetsPath", value);
         }
 
         public static string LevelElementsDirectory
         {
-            get => EditorPrefs.GetString("CatGame_LevelElementsDirectory");
-            private set => EditorPrefs.SetString("CatGame_LevelElementsDirectory", value);
+            get => Path.Combine(ProjectPath, LevelElementsAssetsPath);
         }
         public static string LevelElementsAssetsPath
         {
-            get => Path.GetRelativePath(ProjectPath, LevelElementsDirectory);
+            get => EditorPrefs.GetString("CatGame_LevelElementsAssetsPath");
+            private set => EditorPrefs.SetString("CatGame_LevelElementsAssetsPath", value);
         }
 
         [MenuItem("Cat Game/Level Creator")]
@@ -65,15 +65,15 @@ namespace CatGame.Editor.LevelCreator
 
             // Set default value of layersDirectory and level elements dir
             string tempLayersDirectory = Path.Combine(ProjectPath, @"Assets\Prefabs\Resources\Layers");
-            if (Directory.Exists(tempLayersDirectory) && string.IsNullOrWhiteSpace(LayersDirectory))
+            if (Directory.Exists(tempLayersDirectory) && string.IsNullOrWhiteSpace(LayersAssetsPath))
             {
-                LayersDirectory = tempLayersDirectory;
+                LayersAssetsPath = @"Assets\Prefabs\Resources\Layers";
             }
 
             string tempElementsDirectory = Path.Combine(ProjectPath, @"Assets\Prefabs\Level Elements");
-            if (Directory.Exists(tempElementsDirectory) && string.IsNullOrWhiteSpace(LevelElementsDirectory))
+            if (Directory.Exists(tempElementsDirectory) && string.IsNullOrWhiteSpace(LevelElementsAssetsPath))
             {
-                LevelElementsDirectory = tempElementsDirectory;
+                LevelElementsAssetsPath = @"Assets\Prefabs\Level Elements";
             }
         }
 
@@ -123,23 +123,29 @@ namespace CatGame.Editor.LevelCreator
             _grid = (Grid)EditorGUILayout.ObjectField("Grid parent:", _grid, typeof(Grid), true);
 
             // Layers dir path
-            EditorGUILayout.LabelField("Layers folder path:", LayersDirectory);
+            EditorGUILayout.LabelField("Layers folder path:", LayersAssetsPath);
             if (GUILayout.Button("Edit path"))
             {
-                LayersDirectory = EditorUtility.OpenFolderPanel(
-                    "Select layers directory", 
+                string fullPath = EditorUtility.OpenFolderPanel(
+                    "Select layers directory",
                     Application.dataPath,
                     LayersDirectory);
+                LayersAssetsPath = string.IsNullOrWhiteSpace(fullPath) 
+                    ? "" 
+                    : Path.GetRelativePath(ProjectPath, fullPath);
             }
 
             // Level elements dir path
-            EditorGUILayout.LabelField("Level elements folder path:", LevelElementsDirectory);
+            EditorGUILayout.LabelField("Level elements folder path:", LevelElementsAssetsPath);
             if (GUILayout.Button("Edit path"))
             {
-                LevelElementsDirectory = EditorUtility.OpenFolderPanel(
+                string fullPath = EditorUtility.OpenFolderPanel(
                     "Select level elements directory",
                     Application.dataPath,
                     LevelElementsDirectory);
+                LevelElementsAssetsPath = string.IsNullOrWhiteSpace(fullPath) 
+                    ? ""
+                    : Path.GetRelativePath(ProjectPath, fullPath);
             }
         }
 
