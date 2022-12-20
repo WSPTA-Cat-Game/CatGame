@@ -15,12 +15,10 @@ namespace CatGame.Editor.LevelCreator
         private readonly Dictionary<string, bool> _foldoutStates = new();
         private Vector2 _scrollViewPosition = new();
 
-        private int _currentTabIndex = 0;
+        private int _currentTabIndex;
         private Grid _grid;
 
-
         private string _newLevelLayerName;
-        private int _newLevelIndex;
 
         public static string ProjectPath 
         { 
@@ -193,7 +191,11 @@ namespace CatGame.Editor.LevelCreator
             _newLevelLayerName = options[newOptionsIndex];
 
             // Level index
-            _newLevelIndex = EditorGUILayout.IntField("Level Index", _newLevelIndex);
+            int levelIndex = Directory.GetFiles(Path.Combine(LayersDirectory, _newLevelLayerName))
+                .Where(path => !path.EndsWith(".meta"))
+                .Select(path => int.Parse(Path.GetFileNameWithoutExtension(path)))
+                .Max() + 1;
+
 
             // Bottom bits
             EditorGUILayout.Space(50);
@@ -207,7 +209,7 @@ namespace CatGame.Editor.LevelCreator
                 levelCopy.hideFlags = HideFlags.HideInHierarchy;
                 LevelData data = levelCopy.GetComponent<LevelData>();
                 data.layerName = _newLevelLayerName;
-                data.index = _newLevelIndex;
+                data.index = levelIndex;
 
                 // Save as a prefab so that it can be loaded by the level loader
                 if (Common.SaveLevelAsPrefab(data))
