@@ -18,25 +18,25 @@ namespace CatGame.CharacterControl
         public Sprite catSprite;
         public Vector2 catColliderSize;
         
-        private CharacterMode mode = CharacterMode.Human;
+        private CharacterMode _mode = CharacterMode.Human;
         private float lastTransformTime;
 
         private SpriteRenderer _renderer;
         private BoxCollider2D _collider;
-        private CharacterMovement movement;
-        private InteractableHandler interactableHandler;
+        private CharacterMovement _movement;
+        private InteractableHandler _interactableHandler;
 
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
             _collider = GetComponent<BoxCollider2D>();
-            movement = GetComponent<CharacterMovement>();
-            interactableHandler = GetComponentInChildren<InteractableHandler>();
+            _movement = GetComponent<CharacterMovement>();
+            _interactableHandler = GetComponentInChildren<InteractableHandler>();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputHandler.Transition.WasPressedThisFrame())
             {
                 ToggleMode();
             }
@@ -50,7 +50,7 @@ namespace CatGame.CharacterControl
             }
 
             float spriteSizeDiff = catSprite.bounds.extents.y - humanSprite.bounds.extents.y;
-            if (mode == CharacterMode.Human)
+            if (_mode == CharacterMode.Human)
             {
                 // Check if new collider will hit anything
                 if (Physics2D.BoxCast(
@@ -61,8 +61,10 @@ namespace CatGame.CharacterControl
                     return;
                 }
 
-                mode = CharacterMode.Cat;
-                movement.SetConfig(catMovement);
+                _mode = CharacterMode.Cat;
+                _movement.SetConfig(catMovement);
+                _interactableHandler.DropPickup();
+                _interactableHandler.enabled = false;
                 _renderer.sprite = catSprite;
                 _collider.size = catColliderSize;
                 transform.position += new Vector3(0, spriteSizeDiff);
@@ -78,8 +80,9 @@ namespace CatGame.CharacterControl
                     return;
                 }
 
-                mode = CharacterMode.Human;
-                movement.SetConfig(humanMovement);
+                _mode = CharacterMode.Human;
+                _movement.SetConfig(humanMovement);
+                _interactableHandler.enabled = true;
                 _renderer.sprite = humanSprite;
                 transform.position += new Vector3(0, -spriteSizeDiff);
                 _collider.size = humanColliderSize;
@@ -91,7 +94,7 @@ namespace CatGame.CharacterControl
         {
             float spriteSizeDiff = catSprite.bounds.extents.y - humanSprite.bounds.extents.y;
 
-            if (mode == CharacterMode.Human)
+            if (_mode == CharacterMode.Human)
             {    
                 Gizmos.DrawCube(transform.position + new Vector3(0, spriteSizeDiff + 0.0125f),
                     catColliderSize - new Vector2(0.025f, 0.0125f));
