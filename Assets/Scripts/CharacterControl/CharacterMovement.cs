@@ -65,7 +65,7 @@ namespace CatGame.CharacterControl
                 0,
                 Vector2.down,
                 0.08f,
-                1
+                (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)
             );
             _isGrounded = downRaycast.collider != null;
 
@@ -75,7 +75,7 @@ namespace CatGame.CharacterControl
                 0,
                 Vector2.right,
                 0.16f,
-                1
+                (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)
             );
             _isOnWall = sideRaycast.collider != null && canWallHang;
             _wallDirection = !_isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);

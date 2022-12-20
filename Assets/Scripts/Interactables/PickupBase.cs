@@ -22,7 +22,7 @@ namespace CatGame.Interactables
         public virtual void Pickup(Transform holder) 
         {
             this.holder = holder;
-            gameObject.layer = 2;
+            gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
             gameObject.SetActive(false);
             isHeld = true;
         }
@@ -43,15 +43,17 @@ namespace CatGame.Interactables
             Bounds characterColliderBounds = characterCollider != null ? characterCollider.bounds : new Bounds();
 
             bool dropped = false;
+
             for (int i = 0; i < 2; i++)
             {
-                // Check if the dropped pickup will collider
+                // Check if the dropped pickup will collide
                 if (Physics2D.BoxCast(
                     holder.position,
                     collider.bounds.size,
                     0,
                     dropSide,
-                    characterColliderBounds.extents.x + collider.bounds.extents.x + 0.05f).collider == null)
+                    characterColliderBounds.extents.x + collider.bounds.extents.x + 0.05f,
+                    (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)).collider == null)
                 {
                     dropped = true;
                     // If it did, then place and break
