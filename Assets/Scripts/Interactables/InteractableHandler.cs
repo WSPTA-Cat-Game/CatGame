@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CatGame.CharacterControl;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,8 +8,13 @@ namespace CatGame.Interactables
     [RequireComponent(typeof(Collider2D))]
     public class InteractableHandler : MonoBehaviour
     {
+        public Collider2D playerCollider;
+
         private readonly List<InteractableBase> _touchingInteractables = new();
         private PickupBase _currentPickup;
+        private int _originalPickupLayer;
+
+        private Bounds PlayerBounds => playerCollider != null ? playerCollider.bounds : new Bounds();
 
         public void PickupOrInteract()
         {
@@ -20,6 +26,9 @@ namespace CatGame.Interactables
                 if (_currentPickup == null && firstPickup != null)
                 {
                     _currentPickup = firstPickup;
+                    _originalPickupLayer = _currentPickup.gameObject.layer;
+                    _currentPickup.GetComponent<Rigidbody2D>().simulated = false;
+                    _currentPickup.gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
                     firstPickup.Pickup(transform);
                 }
                 else
@@ -41,6 +50,48 @@ namespace CatGame.Interactables
                 return;
             }
 
+            _currentPickup.gameObject.SetActive(true);
+
+            Character character = playerCollider != null ? playerCollider.GetComponent<Character>() : null;
+
+            // Default to left side if no character exists
+            // If one does exist, default to opposite of whatever side it's
+            // facing
+            Vector3 dropSide = character != null && character.IsFacingLeft ? Vector2.left : Vector2.right;
+
+            bool dropped = false;
+
+            for (int i = 0; i < 2; i++)
+            {
+                // Check if the dropped pickup will collide
+                if (Physics2D.BoxCast(
+                    transform.position + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x),
+                    _currentPickup.Collider.bounds.size,
+                    0,
+                    dropSide,
+                    0,
+                    (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)).collider == null)
+                {
+                    dropped = true;
+                    // If it did, then place and break
+                    _currentPickup.transform.position = transform.position
+                        + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x + 0.02f);
+
+                    break;
+                }
+
+                // If it didn't then switch sides
+                dropSide.x *= -1;
+            }
+
+            // If it couldn't drop then just drop it above the player
+            if (!dropped)
+            {
+                _currentPickup.transform.position = transform.position + new Vector3(0, PlayerBounds.size.y);
+            }
+
+            _currentPickup.gameObject.layer = _originalPickupLayer;
+            _currentPickup.GetComponent<Rigidbody2D>().simulated = true;
             _currentPickup.Drop();
             _currentPickup = null;
         }
@@ -78,6 +129,14 @@ namespace CatGame.Interactables
             else if (InputHandler.Drop.WasPressedThisFrame())
             {
                 DropPickup();
+            }
+            else
+            {
+                if (_currentPickup != null)
+                {
+                    _currentPickup.transform.position = transform.position
+                        + new Vector3(0, PlayerBounds.size.y);
+                }
             }
         }
     }
