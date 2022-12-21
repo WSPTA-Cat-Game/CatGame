@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace CatGame.CharacterControl
@@ -17,12 +18,35 @@ namespace CatGame.CharacterControl
         public bool canWallHang = false;
         public float wallHangTime = 2.5f;
 
+        private static readonly ContactFilter2D groundFilter = new()
+        {
+            useLayerMask = true,
+            layerMask = (int)~LayerMasks.IgnoreRaycast,
+            useNormalAngle = true,
+            minNormalAngle = 89,
+            maxNormalAngle = 91
+        };
+
+        private static readonly ContactFilter2D rightSideFilter = new()
+        {
+            useLayerMask = true,
+            layerMask = (int)~LayerMasks.IgnoreRaycast,
+            useNormalAngle = true,
+            minNormalAngle = 175,
+            maxNormalAngle = 185
+        };
+        private static readonly ContactFilter2D leftSideFilter = new()
+        {
+            useLayerMask = true,
+            layerMask = (int)~LayerMasks.IgnoreRaycast,
+            useNormalAngle = true,
+            minNormalAngle = -5,
+            maxNormalAngle = 5
+        };
+
         private Rigidbody2D _rb;
         private Collider2D _collider;
 
-        private bool _isGrounded = true;
-        private bool _isOnWall = false;
-        private int _wallDirection = 0;
         private bool _hasWallHangEnded = false;
         private bool _canStartWallHang = false;
         private float _lastWallHangTime = 0;
@@ -32,6 +56,10 @@ namespace CatGame.CharacterControl
         private bool _spaceLetGo = false;
 
         public bool IsFacingLeft { get; private set; }
+
+        private bool IsGrounded => _rb.IsTouching(groundFilter);
+        private bool IsOnWall => _rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter);
+        private int WallDirection => !IsOnWall ? 0 : (_rb.IsTouching(leftSideFilter) ? -1 : 1);
 
         public void SetConfig(CharacterMovementConfig config)
         {
@@ -55,31 +83,6 @@ namespace CatGame.CharacterControl
 
         private void Update()
         {
-            // Check if grounded and on a wall
-            float edgeRadius = _collider is BoxCollider2D boxCollider ? boxCollider.edgeRadius * 2 : 0;
-            Vector2 colliderSize = _collider.bounds.size + new Vector3(edgeRadius, edgeRadius);
-
-            RaycastHit2D downRaycast = Physics2D.BoxCast(
-                transform.position,
-                colliderSize,
-                0,
-                Vector2.down,
-                0.08f,
-                (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)
-            );
-            _isGrounded = downRaycast.collider != null;
-
-            RaycastHit2D sideRaycast = Physics2D.CapsuleCast(
-                transform.position - new Vector3(0.08f, 0), 
-                colliderSize, CapsuleDirection2D.Horizontal, 
-                0,
-                Vector2.right,
-                0.16f,
-                (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)
-            );
-            _isOnWall = sideRaycast.collider != null && canWallHang;
-            _wallDirection = !_isOnWall ? 0 : (sideRaycast.fraction < 0.5 ? -1 : 1);
-
             if (InputHandler.Jump.WasPressedThisFrame())
             {
                 _spaceDown = true;
@@ -94,12 +97,16 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
+            Debug.Log(IsOnWall);
+            ContactPoint2D[] thing = new ContactPoint2D[100];
+            int count = _rb.GetContacts(thing);
+            Debug.Log(string.Join(", ", thing.Take(count).Select(thingy => Vector3.Angle(Vector2.right, thingy.normal))));
             float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
             IsFacingLeft = horzInput < 0;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
-            float currentAcceleration = horzInput * (_isGrounded ? acceleration : airAcceleration);
+            float currentAcceleration = horzInput * (IsGrounded ? acceleration : airAcceleration);
             _rb.velocity += new Vector2(currentAcceleration * Time.fixedDeltaTime, 0);
 
             if (isInputPressed && Mathf.Abs(_rb.velocity.x) > maxSpeed)
@@ -107,7 +114,7 @@ namespace CatGame.CharacterControl
                 // Limit speed only when trying to move
                 _rb.velocity = new Vector2(maxSpeed * Mathf.Sign(_rb.velocity.x), _rb.velocity.y);
             }
-            else if (_isGrounded)
+            else if (IsGrounded)
             {
                 // If not pressing buttons and grounded, decelerate
                 float adjSpeed = _rb.velocity.x * deceleration;
@@ -116,7 +123,7 @@ namespace CatGame.CharacterControl
 
 
             // Check if horz input is in the same direction as the wall
-            if (isInputPressed && !_isGrounded && _isOnWall && Mathf.Sign(horzInput) == _wallDirection && _canStartWallHang)
+            if (isInputPressed && !IsGrounded && IsOnWall && Mathf.Sign(horzInput) == WallDirection && _canStartWallHang)
             {
                 // Start wall hang
                 _lastWallHangTime = Time.realtimeSinceStartup;
@@ -135,7 +142,7 @@ namespace CatGame.CharacterControl
                     _hasWallHangEnded = true;
                     _rb.gravityScale = 1;
                 }
-                else if ((!_isOnWall || !isInputPressed) && !_canStartWallHang)
+                else if ((!IsOnWall || !isInputPressed) && !_canStartWallHang)
                 {
                     _timeWallHanging += Time.realtimeSinceStartup - _lastWallHangTime;
                     _canStartWallHang = true;
@@ -144,7 +151,7 @@ namespace CatGame.CharacterControl
             }
 
             // Allow wall hangs once grounded
-            if (_isGrounded)
+            if (IsGrounded)
             {
                 _lastWallHangTime = 0;
                 _timeWallHanging = 0;
@@ -156,10 +163,10 @@ namespace CatGame.CharacterControl
             if (_spaceDown)
             {
                 // If grounded or current wall hanging and jump cooldown has worn off
-                if ((_isGrounded || (_isOnWall && !_hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
+                if ((IsGrounded || (IsOnWall && !_hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
                 {
                     // Jump. Add horz force if on a wall and not grounded
-                    _rb.AddForce(new Vector2(_isGrounded ? 0 : -_wallDirection * jumpHeight * 0.7f, jumpHeight));
+                    _rb.AddForce(new Vector2(IsGrounded ? 0 : -WallDirection * jumpHeight * 0.7f, jumpHeight));
                     _lastJumpTime = Time.realtimeSinceStartup;
                     
                     // Stop wall hang
@@ -169,7 +176,7 @@ namespace CatGame.CharacterControl
                 _spaceDown = false;
                 _spaceLetGo = false;
             }
-            else if (!_spaceLetGo && timeSinceLastJump <= additionalJumpHeightTime && !_isOnWall)
+            else if (!_spaceLetGo && timeSinceLastJump <= additionalJumpHeightTime && !IsOnWall)
             {
                 // Stop jump extension if let go of space
                 _rb.AddForce(new Vector2(0, additionalJumpHeight * Time.fixedDeltaTime));
