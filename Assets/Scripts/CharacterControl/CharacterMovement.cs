@@ -45,7 +45,6 @@ namespace CatGame.CharacterControl
         };
 
         private Rigidbody2D _rb;
-        private Collider2D _collider;
 
         private bool _hasWallHangEnded = false;
         private bool _canStartWallHang = false;
@@ -58,7 +57,7 @@ namespace CatGame.CharacterControl
         public bool IsFacingLeft { get; private set; }
 
         private bool IsGrounded => _rb.IsTouching(groundFilter);
-        private bool IsOnWall => _rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter);
+        private bool IsOnWall => canWallHang && (_rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter));
         private int WallDirection => !IsOnWall ? 0 : (_rb.IsTouching(leftSideFilter) ? -1 : 1);
 
         public void SetConfig(CharacterMovementConfig config)
@@ -78,7 +77,6 @@ namespace CatGame.CharacterControl
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _collider = _rb.GetComponent<Collider2D>();
         }
 
         private void Update()
