@@ -24,6 +24,7 @@ namespace CatGame.Editor.LevelCreator
         private SerializedProperty _lockCameraYProp;
         private SerializedProperty _lockedCameraPosProp;
         private SerializedProperty _transitionsProp;
+        private SerializedProperty _generateShadowsProp;
 
         private ReorderableList _transitionsList;
 
@@ -86,6 +87,9 @@ namespace CatGame.Editor.LevelCreator
             {
                 _isEditingCamera = !_isEditingCamera;
             }
+
+            // Generate shadows
+            EditorGUILayout.PropertyField(_generateShadowsProp);
 
             // Transitions
             _isTransitionOpen = EditorGUILayout.BeginFoldoutHeaderGroup(_isTransitionOpen, "Transitions");
@@ -215,6 +219,7 @@ namespace CatGame.Editor.LevelCreator
             _lockedCameraPosProp = serializedObject.FindProperty("lockedCameraPos");
             _defaultSpawnPointProp = serializedObject.FindProperty("defaultSpawnPoint");
             _transitionsProp = serializedObject.FindProperty("transitions");
+            _generateShadowsProp = serializedObject.FindProperty("generateShadows");
 
             // Custom array editing
             _transitionsList = new ReorderableList(serializedObject, _transitionsProp, false, false, true, true)

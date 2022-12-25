@@ -91,7 +91,6 @@ namespace CatGame.LevelManagement
                 
                 level = levelCopy.GetComponent<LevelData>();
                 level.transform.parent = levelParent;
-                level.tilemap.CompressBounds();
                 level.gameObject.SetActive(true);
 
                 levels[levelIndex] = level;
