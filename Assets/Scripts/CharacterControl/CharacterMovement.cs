@@ -95,10 +95,6 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
-            Debug.Log(IsOnWall);
-            ContactPoint2D[] thing = new ContactPoint2D[100];
-            int count = _rb.GetContacts(thing);
-            Debug.Log(string.Join(", ", thing.Take(count).Select(thingy => Vector3.Angle(Vector2.right, thingy.normal))));
             float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
             IsFacingLeft = horzInput < 0;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;

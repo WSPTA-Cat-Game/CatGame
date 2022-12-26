@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b8bb6c35963b49244b6d4f39a6083801
+guid: 82e3c7e914fd6434681e8396fa9480e0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Top Left
+      name: Big Rock
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 16
-        height: 16
+        y: 30
+        width: 123
+        height: 195
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 960e151e41560a94081c55d9c0a336a0
-      internalID: -217152795
+      spriteID: 7e9635d2dcb4f3b4995bdcdb4df975e4
+      internalID: 1777631727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Top Mid
+      name: Spike 1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
+        x: 82
+        y: 208
+        width: 5
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ace3d27c9c469094c9a49e0f23da0df3
-      internalID: 1463624773
+      spriteID: 48e1d123dd716d74782b0d8f215a5e6d
+      internalID: -188581576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Top Right
+      name: Spike 2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
+        x: 91
+        y: 199
+        width: 7
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 520e1e618a1d9de4caf6fd734839a851
-      internalID: -1695447743
+      spriteID: 887cfe67181e659458c2f8f384d5b596
+      internalID: -1606829224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Top Mid Transition
+      name: Cat Statue
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
+        x: 107
+        y: 188
+        width: 24
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 701f517756d967544a8afab20eeec6a5
-      internalID: 1197686266
+      spriteID: af7cde8bb3d4e9848b9a0ac9198cca31
+      internalID: -347652232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Left Mid
+      name: Spike 3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 16
+        x: 140
+        y: 191
+        width: 12
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,125 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bf599871dbdab84e8e4860ec8da1e0e
-      internalID: -1618694273
+      spriteID: a216d9a3b4368424aabe4b4dcf37d16d
+      internalID: -855386353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Left Mid Transition
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 238614a51c71c064b9ff9595582b81f7
-      internalID: -1343703231
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Center
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e315014a439752f4fb081f10061b5cf2
-      internalID: -1285965903
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Right Mid Transition
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1587b86f1d8e78468a9d48bf3a26659
-      internalID: -968132431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Right Mid
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e78eb6323ef6dab4ebff990e5b1acdb5
-      internalID: -230513210
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bottom Mid Transition
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b62cdb9693fc18440a686a97b2c6c9b5
-      internalID: 883470413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Bottom Left
+      name: Spike 4
       rect:
         serializedVersion: 2
         x: 160
-        y: 0
-        width: 16
-        height: 16
+        y: 195
+        width: 6
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ad257c571586b3409d231c05f22505f
-      internalID: -319165500
+      spriteID: 22c5ab9f980db85418d341347ea095b4
+      internalID: -1662351239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bottom Mid
+      name: Spike 5
       rect:
         serializedVersion: 2
-        x: 176
-        y: 0
-        width: 16
-        height: 16
+        x: 175
+        y: 192
+        width: 14
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 955db290a6686d84d873b84a2d79682f
-      internalID: 1213734916
+      spriteID: 722c7860b7410404baad52004193ea99
+      internalID: -1387335621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bottom Right
+      name: Spike 6
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 16
-        height: 16
+        x: 197
+        y: 201
+        width: 19
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,8 +278,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b11cf789b2d895041b5ed1b75c3f5899
-      internalID: -1549924972
+      spriteID: 5e0c97c2cec46c3428f43485f1136356
+      internalID: 487045616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spike 7
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 211
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 247dbc26b64d5524daf8ce390af8221d
+      internalID: -2083902288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Short Rock 1
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 192
+        width: 75
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be66981c55c94a1469c3b443130aa777
+      internalID: -1400874459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat Paw Statue
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 194
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50eff75cb737b424883f55ff3465bc88
+      internalID: 1619297009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Brown Mushroom
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 212
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42329b2fc826fb149b4c287c363278ab
+      internalID: 1864611886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red Mushroom
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 208
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0083cd546e9a8a479e3a3b66878f011
+      internalID: 851987683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Long Rock 1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 101
+        width: 609
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b039fcc40374d429af220a75c02068
+      internalID: -34560275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Long Rock 2
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 16
+        width: 464
+        height: 62
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a34d373c75b3f45a85d27f4e385829
+      internalID: -593210904
       vertices: []
       indices: 
       edges: []
@@ -400,19 +442,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bottom Left: -319165500
-      Bottom Mid Transition: 883470413
-      Bottom Mid: 1213734916
-      Right Mid Transition: -968132431
-      Center: -1285965903
-      Bottom Right: -1549924972
-      Top Mid: 1463624773
-      Top Right: -1695447743
-      Right Mid: -230513210
-      Top Mid Transition: 1197686266
-      Left Mid: -1618694273
-      Left Mid Transition: -1343703231
-      Top Left: -217152795
+      Short Rock 1: -1400874459
+      Spike 1: -188581576
+      Spike 7: -2083902288
+      Red Mushroom: 851987683
+      Layer 1_11: 1664523663
+      Cat Paw Statue: 1619297009
+      Spike 4: -1662351239
+      Long Rock 2: -593210904
+      Cat Statue: -347652232
+      Brown Mushroom: 1864611886
+      Spike 6: 487045616
+      Spike 2: -1606829224
+      Spike 5: -1387335621
+      Long Rock 1: -34560275
+      Layer 1_13: 409449301
+      Big Rock: 1777631727
+      Spike 3: -855386353
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
