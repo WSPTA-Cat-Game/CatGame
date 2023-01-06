@@ -12,6 +12,8 @@ namespace CatGame.LevelManagement
         [Range(0, 10)]
         public float distance;
 
+        public float backgroundZ;
+
         private Vector3 lastCameraPos = Vector3.zero;
 
         private void Start()
@@ -51,6 +53,7 @@ namespace CatGame.LevelManagement
             float camHeight = camera.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
             Bounds cameraBounds = new((Vector2)camera.transform.position, new Vector3(camWidth, camHeight));
+            cameraBounds.center = new Vector3(cameraBounds.center.x, cameraBounds.center.y, backgroundZ);
             Bounds extraWidthCamBounds = cameraBounds;
             extraWidthCamBounds.size += new Vector3(15, 0);
 
@@ -121,7 +124,7 @@ namespace CatGame.LevelManagement
                     xPos = lastRenderer.bounds.max.x + renderer.bounds.extents.x;
                     backgroundGO.transform.SetAsLastSibling();
                 }
-                backgroundGO.transform.position = new Vector3(xPos, lastRenderer.transform.position.y);
+                backgroundGO.transform.position = new Vector3(xPos, lastRenderer.transform.position.y, backgroundZ);
 
                 backgroundWidth += renderer.bounds.size.x;
                 lastRenderer = renderer;
