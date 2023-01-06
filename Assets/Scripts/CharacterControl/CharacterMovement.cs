@@ -59,6 +59,7 @@ namespace CatGame.CharacterControl
 
         public bool IsFacingLeft { get; private set; }
         public Vector2 Velocity => _rb.velocity;
+        public bool IsGrounded => _rb.IsTouching(groundFilter);
         public List<Collider2D> LeftSideContacts
         {
             get
@@ -77,7 +78,6 @@ namespace CatGame.CharacterControl
             }
         }
 
-        private bool IsGrounded => _rb.IsTouching(groundFilter);
         private bool IsOnWall => canWallHang && (_rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter));
         private int WallDirection => !IsOnWall ? 0 : (_rb.IsTouching(leftSideFilter) ? -1 : 1);
 

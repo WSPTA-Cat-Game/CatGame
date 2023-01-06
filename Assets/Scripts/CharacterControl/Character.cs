@@ -12,14 +12,14 @@ namespace CatGame.CharacterControl
 
         [Header("Human Settings")]
         public CharacterMovementConfig humanMovement = new();
-        public Sprite humanSprite;
         public Vector2 humanColliderSize;
+        public Vector2 humanColliderOffset;
 
         [Header("Cat Settings")]
         public CharacterMovementConfig catMovement = new();
-        public Sprite catSprite;
         public Vector2 catColliderSize;
-        
+        public Vector2 catColliderOffset;
+
         private CharacterMode _mode = CharacterMode.Human;
         private float lastTransformTime;
 
@@ -29,7 +29,10 @@ namespace CatGame.CharacterControl
         private CharacterMovement _movement;
         private InteractableHandler _interactableHandler;
 
+        private bool hasPickedUp = false;
+
         public bool IsFacingLeft => _movement.IsFacingLeft;
+
 
         private void Start()
         {
@@ -38,6 +41,8 @@ namespace CatGame.CharacterControl
             _collider = GetComponent<BoxCollider2D>();
             _movement = GetComponent<CharacterMovement>();
             _interactableHandler = GetComponentInChildren<InteractableHandler>();
+            _interactableHandler.OnPickupChange += 
+                pickup => hasPickedUp = pickup != null;
         }
 
         private void Update()
@@ -51,11 +56,12 @@ namespace CatGame.CharacterControl
 
 
             // Update animator
-            _animator.SetBool("IsFalling", _movement.Velocity.y < -0.01);
-            _animator.SetBool("IsRising", _movement.Velocity.y > 0.01);
-            _animator.SetBool("IsPickup", InputHandler.Interact.WasPressedThisFrame());
+            _animator.SetFloat("YMovement", _movement.Velocity.y);
+            _animator.SetBool("IsGrounded", _movement.IsGrounded);
+            _animator.SetBool("IsPickup", hasPickedUp);
             _animator.SetBool("IsMoving", Mathf.Abs(_movement.Velocity.x) > 0.1 && _movement.enabled);
 
+            
             bool isPushing = false;
             // Pushing is true if we're touching any non static rigidbody on
             // either side
@@ -68,17 +74,20 @@ namespace CatGame.CharacterControl
             _animator.SetBool("IsPushing", isPushing);
 
             // Stop if pickup 
-            AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
-            if (state.IsName("Pick up") || InputHandler.Interact.WasPressedThisFrame())
+            if (_movement.enabled)
             {
-                _movement.Stop();
-                _movement.enabled = false;
+                if (hasPickedUp)
+                {
+                    _movement.Stop();
+                    _movement.enabled = false;
+                }
             }
             else
             {
-                // Recontinue once pickup ends
-                _movement.enabled = true;
+                AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(1);
+                _movement.enabled = !state.IsName("Pick up");
             }
+            hasPickedUp = false;
         }
 
         private void ToggleMode()
@@ -88,14 +97,14 @@ namespace CatGame.CharacterControl
                 return;
             }
 
-            float spriteSizeDiff = catSprite.bounds.extents.y - humanSprite.bounds.extents.y;
             if (_mode == CharacterMode.Human)
             {
-                // Check if new collider will hit anything
+                //Check if new collider will hit anything
                 if (Physics2D.BoxCast(
-                    transform.position + new Vector3(0, spriteSizeDiff + 0.0125f),
-                    catColliderSize - new Vector2(0.025f, 0.0125f), 
-                    0, Vector2.up, 0, 1).collider != null)
+                    transform.position + (Vector3)catColliderOffset,
+                    catColliderSize,
+                    0, Vector2.up, 0, 
+                    ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
                 {
                     return;
                 }
@@ -104,17 +113,19 @@ namespace CatGame.CharacterControl
                 _movement.SetConfig(catMovement);
                 _interactableHandler.DropPickup();
                 _interactableHandler.enabled = false;
-                _renderer.sprite = catSprite;
+                _animator.SetLayerWeight(1, 0);
+                _animator.SetLayerWeight(2, 1);
                 _collider.size = catColliderSize;
-                transform.position += new Vector3(0, spriteSizeDiff);
+                _collider.offset = catColliderOffset;
             }
             else
             {
                 // Check if new collider will hit anything
                 if (Physics2D.BoxCast(
-                    transform.position + new Vector3(0, -spriteSizeDiff + 0.0125f),
-                    humanColliderSize - new Vector2(0.025f, 0.0125f),
-                    0, Vector2.up, 0, 1).collider != null)
+                    transform.position + (Vector3)humanColliderOffset,
+                    humanColliderSize,
+                    0, Vector2.up, 0, 
+                    ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
                 {
                     return;
                 }
@@ -122,9 +133,10 @@ namespace CatGame.CharacterControl
                 _mode = CharacterMode.Human;
                 _movement.SetConfig(humanMovement);
                 _interactableHandler.enabled = true;
-                _renderer.sprite = humanSprite;
-                transform.position += new Vector3(0, -spriteSizeDiff);
+                _animator.SetLayerWeight(1, 1);
+                _animator.SetLayerWeight(2, 0);
                 _collider.size = humanColliderSize;
+                _collider.offset = humanColliderOffset;
             }
 
             lastTransformTime = Time.time;
