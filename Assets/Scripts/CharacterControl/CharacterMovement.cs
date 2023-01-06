@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace CatGame.CharacterControl
             maxNormalAngle = 5
         };
 
+        private static readonly List<Collider2D> _tempList = new();
+
         private Rigidbody2D _rb;
 
         private bool _hasWallHangEnded = false;
@@ -55,6 +58,24 @@ namespace CatGame.CharacterControl
         private bool _spaceLetGo = false;
 
         public bool IsFacingLeft { get; private set; }
+        public Vector2 Velocity => _rb.velocity;
+        public List<Collider2D> LeftSideContacts
+        {
+            get
+            {
+                _rb.GetContacts(leftSideFilter, _tempList);
+                return _tempList;
+            }
+        }
+
+        public List<Collider2D> RightSideContacts
+        {
+            get
+            {
+                _rb.GetContacts(rightSideFilter, _tempList);
+                return _tempList;
+            }
+        }
 
         private bool IsGrounded => _rb.IsTouching(groundFilter);
         private bool IsOnWall => canWallHang && (_rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter));
@@ -72,6 +93,11 @@ namespace CatGame.CharacterControl
             additionalJumpHeightTime = config.additionalJumpHeightTime;
             canWallHang = config.canWallHang;
             wallHangTime = config.wallHangTime;
+        }
+
+        public void Stop()
+        {
+            _rb.velocity = Vector2.zero;
         }
 
         private void Start()
@@ -96,8 +122,13 @@ namespace CatGame.CharacterControl
         private void FixedUpdate()
         {
             float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
-            IsFacingLeft = horzInput < 0;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
+
+            // Only change direction faced if input pressed
+            if (isInputPressed)
+            {
+                IsFacingLeft = horzInput < 0;
+            }
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
             float currentAcceleration = horzInput * (IsGrounded ? acceleration : airAcceleration);

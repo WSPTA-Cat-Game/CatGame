@@ -1,4 +1,6 @@
 ﻿using CatGame.Interactables;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CatGame.CharacterControl
@@ -22,6 +24,7 @@ namespace CatGame.CharacterControl
         private float lastTransformTime;
 
         private SpriteRenderer _renderer;
+        private Animator _animator;
         private BoxCollider2D _collider;
         private CharacterMovement _movement;
         private InteractableHandler _interactableHandler;
@@ -31,6 +34,7 @@ namespace CatGame.CharacterControl
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             _collider = GetComponent<BoxCollider2D>();
             _movement = GetComponent<CharacterMovement>();
             _interactableHandler = GetComponentInChildren<InteractableHandler>();
@@ -44,6 +48,37 @@ namespace CatGame.CharacterControl
             }
 
             _renderer.flipX = IsFacingLeft;
+
+
+            // Update animator
+            _animator.SetBool("IsFalling", _movement.Velocity.y < -0.01);
+            _animator.SetBool("IsRising", _movement.Velocity.y > 0.01);
+            _animator.SetBool("IsPickup", InputHandler.Interact.WasPressedThisFrame());
+            _animator.SetBool("IsMoving", Mathf.Abs(_movement.Velocity.x) > 0.1 && _movement.enabled);
+
+            bool isPushing = false;
+            // Pushing is true if we're touching any non static rigidbody on
+            // either side
+            List<Collider2D> touching = _movement.LeftSideContacts;
+            if (_movement.RightSideContacts.Any(IsColliderTouchingNonStaticRB)
+                || _movement.LeftSideContacts.Any(IsColliderTouchingNonStaticRB))
+            {
+                isPushing = true;
+            }
+            _animator.SetBool("IsPushing", isPushing);
+
+            // Stop if pickup 
+            AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+            if (state.IsName("Pick up") || InputHandler.Interact.WasPressedThisFrame())
+            {
+                _movement.Stop();
+                _movement.enabled = false;
+            }
+            else
+            {
+                // Recontinue once pickup ends
+                _movement.enabled = true;
+            }
         }
 
         private void ToggleMode()
@@ -94,5 +129,8 @@ namespace CatGame.CharacterControl
 
             lastTransformTime = Time.time;
         }
+
+        private bool IsColliderTouchingNonStaticRB(Collider2D collider)
+            => collider.attachedRigidbody != null && collider.attachedRigidbody.bodyType != RigidbodyType2D.Static;
     }
 }
