@@ -10,6 +10,7 @@ namespace CatGame.LevelManagement
         public Transform levelParent;
 
         private readonly Dictionary<string, Dictionary<int, LevelData>> _layers = new();
+        private KeyValuePair<string, GameObject> _loadedLayer;
 
         private HashSet<LevelData> _lastLoaded = new();
 
@@ -17,6 +18,12 @@ namespace CatGame.LevelManagement
         {
             _layers.Clear();
             _lastLoaded.Clear();
+            
+            if (_loadedLayer.Value != null)
+            {
+                Destroy(_loadedLayer.Value);
+            }
+            _loadedLayer = new KeyValuePair<string, GameObject>();
         }
 
         public LevelData LoadLevel(string layerName, int levelIndex, int loadDepth = 2, bool autoUnload = true)
@@ -38,6 +45,25 @@ namespace CatGame.LevelManagement
                 _layers[data.layerName][data.index] = data;
             }
 #endif
+
+            // Load global layer items
+            if (_loadedLayer.Key != layerName)
+            {
+                Transform prevData = transform.Find("LayerData");
+                if (prevData != null)
+                {
+                    Destroy(prevData.gameObject);
+                }
+
+                GameObject layerData = Resources.Load<GameObject>($"{LayerPrefabsPath}/{layerName}/Global");
+                if (layerData != null)
+                {
+                    GameObject copy = Instantiate(layerData, transform);
+                    copy.name = "LayerData";
+                    _loadedLayer = new KeyValuePair<string, GameObject>(layerName, copy);
+                }
+
+            }
 
             HashSet<LevelData> cachedLevels = new();
             // Actually load level
@@ -91,7 +117,6 @@ namespace CatGame.LevelManagement
                 
                 level = levelCopy.GetComponent<LevelData>();
                 level.transform.parent = levelParent;
-                level.tilemap.CompressBounds();
                 level.gameObject.SetActive(true);
 
                 levels[levelIndex] = level;

@@ -15,5 +15,17 @@ namespace CatGame.LevelManagement
         public Tilemap tilemap;
         public LevelTransition[] transitions;
         public Vector2 defaultSpawnPoint;
+
+        public bool generateShadows;
+
+        private void Awake()
+        {
+            tilemap.CompressBounds();
+
+            if (generateShadows)
+            {
+                ShadowGenerator.GenerateShadowForLevel(this);
+            }
+        }
     }
 }

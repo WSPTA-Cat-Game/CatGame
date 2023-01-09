@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -44,8 +45,9 @@ namespace CatGame.CharacterControl
             maxNormalAngle = 5
         };
 
+        private static readonly List<Collider2D> _tempList = new();
+
         private Rigidbody2D _rb;
-        private Collider2D _collider;
 
         private bool _hasWallHangEnded = false;
         private bool _canStartWallHang = false;
@@ -56,9 +58,27 @@ namespace CatGame.CharacterControl
         private bool _spaceLetGo = false;
 
         public bool IsFacingLeft { get; private set; }
+        public Vector2 Velocity => _rb.velocity;
+        public bool IsGrounded => _rb.IsTouching(groundFilter);
+        public List<Collider2D> LeftSideContacts
+        {
+            get
+            {
+                _rb.GetContacts(leftSideFilter, _tempList);
+                return _tempList;
+            }
+        }
 
-        private bool IsGrounded => _rb.IsTouching(groundFilter);
-        private bool IsOnWall => _rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter);
+        public List<Collider2D> RightSideContacts
+        {
+            get
+            {
+                _rb.GetContacts(rightSideFilter, _tempList);
+                return _tempList;
+            }
+        }
+
+        private bool IsOnWall => canWallHang && (_rb.IsTouching(leftSideFilter) || _rb.IsTouching(rightSideFilter));
         private int WallDirection => !IsOnWall ? 0 : (_rb.IsTouching(leftSideFilter) ? -1 : 1);
 
         public void SetConfig(CharacterMovementConfig config)
@@ -75,10 +95,14 @@ namespace CatGame.CharacterControl
             wallHangTime = config.wallHangTime;
         }
 
+        public void Stop()
+        {
+            _rb.velocity = Vector2.zero;
+        }
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _collider = _rb.GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -97,13 +121,14 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
-            Debug.Log(IsOnWall);
-            ContactPoint2D[] thing = new ContactPoint2D[100];
-            int count = _rb.GetContacts(thing);
-            Debug.Log(string.Join(", ", thing.Take(count).Select(thingy => Vector3.Angle(Vector2.right, thingy.normal))));
             float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
-            IsFacingLeft = horzInput < 0;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
+
+            // Only change direction faced if input pressed
+            if (isInputPressed)
+            {
+                IsFacingLeft = horzInput < 0;
+            }
 
             // Create own acceleration because RigidBody2D doesn't have it for some reason
             float currentAcceleration = horzInput * (IsGrounded ? acceleration : airAcceleration);

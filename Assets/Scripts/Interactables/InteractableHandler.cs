@@ -1,4 +1,5 @@
 ﻿using CatGame.CharacterControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace CatGame.Interactables
     public class InteractableHandler : MonoBehaviour
     {
         public Collider2D playerCollider;
+        public event Action<PickupBase> OnPickupChange;
 
         private readonly List<InteractableBase> _touchingInteractables = new();
         private PickupBase _currentPickup;
@@ -30,6 +32,7 @@ namespace CatGame.Interactables
                     _currentPickup.GetComponent<Rigidbody2D>().simulated = false;
                     _currentPickup.gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
                     firstPickup.Pickup(transform);
+                    OnPickupChange?.Invoke(firstPickup);
                 }
                 else
                 {
@@ -94,6 +97,7 @@ namespace CatGame.Interactables
             _currentPickup.GetComponent<Rigidbody2D>().simulated = true;
             _currentPickup.Drop();
             _currentPickup = null;
+            OnPickupChange?.Invoke(null);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
