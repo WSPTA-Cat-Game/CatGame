@@ -151,11 +151,6 @@ namespace CatGame.LevelManagement
 
         private Sprite GetRandomSprite(bool forward = true, bool forceStart = false)
         {
-            //if (lowerIndex == 0)
-            //{
-            //    return startImage;
-            //}
-
             int randomIndex;
             if (forward)
             {
