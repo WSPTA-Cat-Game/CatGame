@@ -14,11 +14,13 @@ namespace CatGame.CharacterControl
         public CharacterMovementConfig humanMovement = new();
         public Vector2 humanColliderSize;
         public Vector2 humanColliderOffset;
+        public float humanMass;
 
         [Header("Cat Settings")]
         public CharacterMovementConfig catMovement = new();
         public Vector2 catColliderSize;
         public Vector2 catColliderOffset;
+        public float catMass;
 
         private CharacterMode _mode = CharacterMode.Human;
         private float lastTransformTime;
@@ -28,6 +30,7 @@ namespace CatGame.CharacterControl
         private BoxCollider2D _collider;
         private CharacterMovement _movement;
         private InteractableHandler _interactableHandler;
+        private Rigidbody2D _rb;
 
         private bool hasPickedUp = false;
 
@@ -43,6 +46,7 @@ namespace CatGame.CharacterControl
             _interactableHandler = GetComponentInChildren<InteractableHandler>();
             _interactableHandler.OnPickupChange += 
                 pickup => hasPickedUp = pickup != null;
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -117,6 +121,7 @@ namespace CatGame.CharacterControl
                 _animator.SetLayerWeight(2, 1);
                 _collider.size = catColliderSize;
                 _collider.offset = catColliderOffset;
+                _rb.mass = catMass;
             }
             else
             {
@@ -137,6 +142,7 @@ namespace CatGame.CharacterControl
                 _animator.SetLayerWeight(2, 0);
                 _collider.size = humanColliderSize;
                 _collider.offset = humanColliderOffset;
+                _rb.mass = humanMass;
             }
 
             lastTransformTime = Time.time;
