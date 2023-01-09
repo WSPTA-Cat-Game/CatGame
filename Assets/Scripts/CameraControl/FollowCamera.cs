@@ -27,7 +27,6 @@ namespace CatGame.CameraControl
 
             this.collider = collider;
 
-            Debug.Log("ASefkajse;flaksjed;fakjs;efkaj;sedrkfja;sldkfjasdf");
             StartCoroutine(SetTilemapCoroutine(finishMovingCallback));
         }
 
@@ -116,7 +115,6 @@ namespace CatGame.CameraControl
             // Unscaled delta time is delta time without time scale, allowing
             // the camera to move while time scale is 0
             adjustedPos.z = -10;
-            Debug.Log(adjustedPos.ToString("N6"));
             _camera.transform.position = Vector3.Lerp(
                 _camera.transform.position,
                 adjustedPos, 
