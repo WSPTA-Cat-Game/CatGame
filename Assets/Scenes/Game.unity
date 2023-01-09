@@ -445,6 +445,7 @@ MonoBehaviour:
     wallHangTime: 0
   humanColliderSize: {x: 0.47, y: 0.59}
   humanColliderOffset: {x: 0, y: 0.3125}
+  humanMass: 1
   catMovement:
     acceleration: 120
     airAcceleration: 30
@@ -458,6 +459,7 @@ MonoBehaviour:
     wallHangTime: 2.5
   catColliderSize: {x: 0.31, y: 0.28}
   catColliderOffset: {x: 0, y: 0.15625}
+  catMass: 0
 --- !u!95 &784635762
 Animator:
   serializedVersion: 4

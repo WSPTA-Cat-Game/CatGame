@@ -23,7 +23,32 @@ namespace CatGame.Interactables
             // This prioritizes interacting/picking up a pickup over using the current pickup.
             if (_touchingInteractables.Count > 0)
             {
-                PickupBase firstPickup = (PickupBase)_touchingInteractables.FirstOrDefault(val => val is PickupBase);
+                PickupBase firstPickup = null;
+                InteractableBase firstInteractable = null;
+                foreach (InteractableBase interactable in _touchingInteractables)
+                {
+                    Vector2 direction = (playerCollider != null ? playerCollider.bounds.center : transform.position)
+                        - interactable.transform.position;
+
+                    RaycastHit2D[] hits = new RaycastHit2D[1];
+                    interactable.Collider.Raycast(direction, hits, 7f, ~(int)LayerMasks.IgnoreRaycast);
+
+                    if (hits[0].collider != playerCollider)
+                    {
+                        continue;
+                    }
+
+                    if (firstInteractable == null)
+                    {
+                        firstInteractable = interactable;
+                    }
+
+                    if (interactable is PickupBase pickup)
+                    {
+                        firstPickup = pickup;
+                        break;
+                    }
+                }
 
                 if (_currentPickup == null && firstPickup != null)
                 {
@@ -34,9 +59,9 @@ namespace CatGame.Interactables
                     firstPickup.Pickup(transform);
                     OnPickupChange?.Invoke(firstPickup);
                 }
-                else
+                else if (firstInteractable != null)
                 {
-                    _touchingInteractables[0].Interact();
+                    firstInteractable.Interact();
                 }
             }
             // Use pickup

@@ -8,7 +8,6 @@ namespace CatGame.Interactables
         protected bool isHeld = false;
         protected Transform holder = null;
 
-        public Collider2D Collider { get; private set; }
 
         public virtual void Pickup(Transform holder) 
         {
@@ -20,11 +19,6 @@ namespace CatGame.Interactables
         {
             holder = null;
             isHeld = false;
-        }
-
-        private void Start()
-        {
-            Collider = GetComponent<Collider2D>();
         }
     }
 }
