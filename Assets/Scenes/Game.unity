@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1085558694b3a48a058bab6b8943d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  collider: {fileID: 0}
   target: {fileID: 784635758}
   lockX: 1
   lockY: 1

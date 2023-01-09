@@ -9,12 +9,120 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff2caf20a1df406d9ab8f2f5a57f734, type: 3}
+  m_Name: Inner Stone No Collision
+  m_EditorClassIdentifier: 
+  m_Tile: {fileID: 11400000, guid: 8108174aa659fe14eb6e5fb2a71c5f08, type: 2}
+  m_Sprites: []
+  m_GameObjects: []
+  m_InstanceTile: {fileID: 3761940953204036417}
+  m_DefaultSprite: {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 0
+  m_OverrideTilingRules:
+  - m_Id: 5
+    m_Sprites:
+    - {fileID: -1806030130, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.833
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 6
+    m_Sprites:
+    - {fileID: -94891581, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.833
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 7
+    m_Sprites:
+    - {fileID: 87229540, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.833
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 4
+    m_Sprites:
+    - {fileID: -853417097, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.833
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: -1242137962, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.787
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 2
+    m_Sprites:
+    - {fileID: 422274280, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.836
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 1
+    m_Sprites:
+    - {fileID: 710276822, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.787
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+  - m_Id: 3
+    m_Sprites:
+    - {fileID: 956958467, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    - {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.833
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+--- !u!114 &3761940953204036417
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f4b4e6fbf121d04486cf5772aa5db23, type: 3}
-  m_Name: Inner Stone
+  m_Name: Inner Stone (Override)
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -1017480861, guid: 83e650d6075b2404ab5ed1685f616aba, type: 3}
   m_DefaultGameObject: {fileID: 0}
-  m_DefaultColliderType: 1
+  m_DefaultColliderType: 0
   m_TilingRules:
   - m_Id: 5
     m_Sprites:
@@ -25,7 +133,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.833
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 0400000004000000
     m_NeighborPositions:
@@ -41,7 +149,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.833
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 0400000004000000
     m_NeighborPositions:
@@ -57,7 +165,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.833
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 0400000004000000
     m_NeighborPositions:
@@ -73,7 +181,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.833
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 0400000004000000
     m_NeighborPositions:
@@ -89,7 +197,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.787
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 04000000
     m_NeighborPositions:
@@ -104,7 +212,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.836
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 04000000
     m_NeighborPositions:
@@ -119,7 +227,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.787
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 04000000
     m_NeighborPositions:
@@ -134,7 +242,7 @@ MonoBehaviour:
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.833
     m_Output: 1
-    m_ColliderType: 1
+    m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 04000000
     m_NeighborPositions:
