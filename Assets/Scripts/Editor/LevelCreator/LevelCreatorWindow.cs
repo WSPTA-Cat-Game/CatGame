@@ -191,8 +191,7 @@ namespace CatGame.Editor.LevelCreator
             _newLevelLayerName = options[newOptionsIndex];
 
             // Level index
-            int levelIndex = Directory.GetFiles(Path.Combine(LayersDirectory, _newLevelLayerName))
-                .Where(path => !path.EndsWith(".meta"))
+            int levelIndex = GetLevelPrefabs(_newLevelLayerName)
                 .Select(path => int.Parse(Path.GetFileNameWithoutExtension(path)))
                 .Max() + 1;
 
@@ -225,15 +224,8 @@ namespace CatGame.Editor.LevelCreator
 
         private void PopulateLayerFoldout(string layerName)
         {
-            string[] levelPrefabPathes = Directory.GetFiles(Path.Combine(LayersDirectory, layerName));
-            foreach (string levelPrefabPath in levelPrefabPathes)
+            foreach (string levelPrefabPath in GetLevelPrefabs(layerName))
             {
-                // Skip meta files
-                if (levelPrefabPath.EndsWith(".meta"))
-                {
-                    continue;
-                }
-
                 using(new EditorGUILayout.HorizontalScope())
                 {
                     // Get image
@@ -282,8 +274,7 @@ namespace CatGame.Editor.LevelCreator
                     }
 
                     // Load all levels in layer
-                    LoadLevels(Directory.GetFiles(Path.Combine(LayersDirectory, data.layerName))
-                        .Where(path => !path.EndsWith(".meta"))
+                    LoadLevels(GetLevelPrefabs(data.layerName)
                         .Select(path =>
                         {
                             string prefabAssetPath = Path.GetRelativePath(ProjectPath, path);
@@ -348,5 +339,9 @@ namespace CatGame.Editor.LevelCreator
 
             return copys;
         }
+
+        private IEnumerable<string> GetLevelPrefabs(string layerName)
+            => Directory.GetFiles(Path.Combine(LayersDirectory, layerName))
+                .Where(path => !path.EndsWith(".meta") && Path.GetFileName(path) != "Global.prefab");
     }
 }
