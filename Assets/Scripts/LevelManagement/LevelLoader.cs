@@ -21,7 +21,7 @@ namespace CatGame.LevelManagement
             
             if (_loadedLayer.Value != null)
             {
-                Destroy(_loadedLayer.Value);
+                DestroyImmediate(_loadedLayer.Value);
             }
             _loadedLayer = new KeyValuePair<string, GameObject>();
         }
