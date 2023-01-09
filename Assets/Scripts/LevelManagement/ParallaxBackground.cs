@@ -4,7 +4,6 @@ namespace CatGame.LevelManagement
 {
     public class ParallaxBackground : MonoBehaviour
     {
-        public new Camera camera;
         public Sprite startImage;
         public Sprite endImage;
         public Sprite[] backgroundImages;
@@ -19,7 +18,7 @@ namespace CatGame.LevelManagement
         private void Start()
         {
             // Generate enough children to cover width of camera
-            float camHeight = camera.orthographicSize * 2;
+            float camHeight = Camera.main.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
 
             // Loop till background width wide enough
@@ -45,14 +44,14 @@ namespace CatGame.LevelManagement
         {
             // Move relative to camera
             transform.position = new Vector3(
-                transform.position.x + (camera.transform.position.x - lastCameraPos.x) * (1 / (distance + 1)),
-                camera.transform.position.y);
-            lastCameraPos = camera.transform.position;
+                transform.position.x + (Camera.main.transform.position.x - lastCameraPos.x) * (1 / (distance + 1)),
+                Camera.main.transform.position.y);
+            lastCameraPos = Camera.main.transform.position;
 
             // Check what are within bounds
-            float camHeight = camera.orthographicSize * 2;
+            float camHeight = Camera.main.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
-            Bounds cameraBounds = new((Vector2)camera.transform.position, new Vector3(camWidth, camHeight));
+            Bounds cameraBounds = new((Vector2)Camera.main.transform.position, new Vector3(camWidth, camHeight));
             cameraBounds.center = new Vector3(cameraBounds.center.x, cameraBounds.center.y, backgroundZ);
             Bounds extraWidthCamBounds = cameraBounds;
             extraWidthCamBounds.size += new Vector3(15, 0);
