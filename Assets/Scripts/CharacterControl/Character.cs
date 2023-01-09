@@ -92,6 +92,20 @@ namespace CatGame.CharacterControl
                 _movement.enabled = !state.IsName("Pick up");
             }
             hasPickedUp = false;
+
+            // If not grounded, then we can't pickup
+            _interactableHandler.CanPickup = _movement.IsGrounded && _mode == CharacterMode.Human;
+
+            // Pickup or use current pickup/interactable
+            if (InputHandler.Interact.WasPressedThisFrame())
+            {
+                _interactableHandler.PickupOrInteract();
+            }
+            // Drop current pickup
+            else if (InputHandler.Drop.WasPressedThisFrame())
+            {
+                _interactableHandler.DropPickup(!_movement.IsFacingLeft);
+            }
         }
 
         private void ToggleMode()
@@ -115,8 +129,8 @@ namespace CatGame.CharacterControl
 
                 _mode = CharacterMode.Cat;
                 _movement.SetConfig(catMovement);
-                _interactableHandler.DropPickup();
-                _interactableHandler.enabled = false;
+                _interactableHandler.DropPickup(!_movement.IsFacingLeft);
+                _interactableHandler.CanPickup = false;
                 _animator.SetLayerWeight(1, 0);
                 _animator.SetLayerWeight(2, 1);
                 _collider.size = catColliderSize;
@@ -137,7 +151,7 @@ namespace CatGame.CharacterControl
 
                 _mode = CharacterMode.Human;
                 _movement.SetConfig(humanMovement);
-                _interactableHandler.enabled = true;
+                _interactableHandler.CanPickup = true;
                 _animator.SetLayerWeight(1, 1);
                 _animator.SetLayerWeight(2, 0);
                 _collider.size = humanColliderSize;

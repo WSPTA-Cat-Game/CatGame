@@ -1,5 +1,4 @@
-﻿using CatGame.CharacterControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +10,7 @@ namespace CatGame.Interactables
     {
         public Collider2D playerCollider;
         public event Action<PickupBase> OnPickupChange;
+        public bool CanPickup { get; set; }
 
         private readonly List<InteractableBase> _touchingInteractables = new();
         private PickupBase _currentPickup;
@@ -50,7 +50,7 @@ namespace CatGame.Interactables
                     }
                 }
 
-                if (_currentPickup == null && firstPickup != null)
+                if (_currentPickup == null && firstPickup != null && CanPickup)
                 {
                     _currentPickup = firstPickup;
                     _originalPickupLayer = _currentPickup.gameObject.layer;
@@ -71,7 +71,7 @@ namespace CatGame.Interactables
             }
         }
 
-        public void DropPickup()
+        public void DropPickup(bool isDropDirectionLeft = false)
         {
             if (_currentPickup == null)
             {
@@ -80,24 +80,21 @@ namespace CatGame.Interactables
 
             _currentPickup.gameObject.SetActive(true);
 
-            Character character = playerCollider != null ? playerCollider.GetComponent<Character>() : null;
-
             // Default to left side if no character exists
             // If one does exist, default to opposite of whatever side it's
             // facing
-            Vector3 dropSide = character != null && character.IsFacingLeft ? Vector2.left : Vector2.right;
+            Vector3 dropSide = isDropDirectionLeft ? Vector2.left : Vector2.right;
 
             bool dropped = false;
             for (int i = 0; i < 2; i++)
             {
                 // Check if the dropped pickup will collide
+                Vector3 origin = PlayerBounds.center + dropSide
+                    * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
+                int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player);
+
                 if (Physics2D.BoxCast(
-                    PlayerBounds.center + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x),
-                    _currentPickup.Collider.bounds.size,
-                    0,
-                    dropSide,
-                    0,
-                    (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player)).collider == null)
+                    origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).collider == null)
                 {
                     dropped = true;
                     // If it did, then place and break
@@ -148,23 +145,10 @@ namespace CatGame.Interactables
 
         private void Update()
         { 
-            // Pickup or use current pickup/interactable
-            if (InputHandler.Interact.WasPressedThisFrame())
+            if (_currentPickup != null)
             {
-                PickupOrInteract();
-            } 
-            // Drop current pickup
-            else if (InputHandler.Drop.WasPressedThisFrame())
-            {
-                DropPickup();
-            }
-            else
-            {
-                if (_currentPickup != null)
-                {
-                    _currentPickup.transform.position = PlayerBounds.center
-                        + new Vector3(0, PlayerBounds.size.y);
-                }
+                _currentPickup.transform.position = PlayerBounds.center
+                    + new Vector3(0, PlayerBounds.size.y);
             }
         }
     }
