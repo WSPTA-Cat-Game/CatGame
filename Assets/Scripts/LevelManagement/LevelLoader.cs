@@ -18,6 +18,12 @@ namespace CatGame.LevelManagement
         {
             _layers.Clear();
             _lastLoaded.Clear();
+            
+            if (_loadedLayer.Value != null)
+            {
+                Destroy(_loadedLayer.Value);
+            }
+            _loadedLayer = new KeyValuePair<string, GameObject>();
         }
 
         public LevelData LoadLevel(string layerName, int levelIndex, int loadDepth = 2, bool autoUnload = true)
@@ -43,6 +49,12 @@ namespace CatGame.LevelManagement
             // Load global layer items
             if (_loadedLayer.Key != layerName)
             {
+                Transform prevData = transform.Find("LayerData");
+                if (prevData != null)
+                {
+                    Destroy(prevData.gameObject);
+                }
+
                 GameObject layerData = Resources.Load<GameObject>($"{LayerPrefabsPath}/{layerName}/Global");
                 if (layerData != null)
                 {
