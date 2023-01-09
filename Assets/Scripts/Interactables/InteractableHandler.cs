@@ -63,12 +63,11 @@ namespace CatGame.Interactables
             Vector3 dropSide = character != null && character.IsFacingLeft ? Vector2.left : Vector2.right;
 
             bool dropped = false;
-
             for (int i = 0; i < 2; i++)
             {
                 // Check if the dropped pickup will collide
                 if (Physics2D.BoxCast(
-                    transform.position + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x),
+                    PlayerBounds.center + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x),
                     _currentPickup.Collider.bounds.size,
                     0,
                     dropSide,
@@ -77,7 +76,7 @@ namespace CatGame.Interactables
                 {
                     dropped = true;
                     // If it did, then place and break
-                    _currentPickup.transform.position = transform.position
+                    _currentPickup.transform.position = PlayerBounds.center
                         + dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x + 0.02f);
 
                     break;
@@ -90,7 +89,7 @@ namespace CatGame.Interactables
             // If it couldn't drop then just drop it above the player
             if (!dropped)
             {
-                _currentPickup.transform.position = transform.position + new Vector3(0, PlayerBounds.size.y);
+                _currentPickup.transform.position = PlayerBounds.center + new Vector3(0, PlayerBounds.size.y);
             }
 
             _currentPickup.gameObject.layer = _originalPickupLayer;
@@ -138,7 +137,7 @@ namespace CatGame.Interactables
             {
                 if (_currentPickup != null)
                 {
-                    _currentPickup.transform.position = transform.position
+                    _currentPickup.transform.position = PlayerBounds.center
                         + new Vector3(0, PlayerBounds.size.y);
                 }
             }
