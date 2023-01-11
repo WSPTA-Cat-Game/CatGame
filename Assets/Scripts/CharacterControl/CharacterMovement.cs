@@ -191,7 +191,7 @@ namespace CatGame.CharacterControl
                 if ((IsGrounded || (IsOnWall && !_hasWallHangEnded)) && timeSinceLastJump > jumpCooldown)
                 {
                     // Jump. Add horz force if on a wall and not grounded
-                    _rb.AddForce(new Vector2(IsGrounded ? 0 : -WallDirection * jumpHeight * 0.7f, jumpHeight));
+                    _rb.AddForce(new Vector2(IsGrounded ? 0 : -WallDirection * jumpHeight * 0.7f, jumpHeight) * _rb.mass);
                     _lastJumpTime = Time.realtimeSinceStartup;
                     
                     // Stop wall hang
@@ -204,7 +204,7 @@ namespace CatGame.CharacterControl
             else if (!_spaceLetGo && timeSinceLastJump <= additionalJumpHeightTime && !IsOnWall)
             {
                 // Stop jump extension if let go of space
-                _rb.AddForce(new Vector2(0, additionalJumpHeight * Time.fixedDeltaTime));
+                _rb.AddForce(new Vector2(0, additionalJumpHeight * Time.fixedDeltaTime) * _rb.mass);
             }
         }
     }

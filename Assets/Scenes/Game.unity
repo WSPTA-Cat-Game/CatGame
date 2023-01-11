@@ -388,7 +388,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -445,6 +445,7 @@ MonoBehaviour:
     wallHangTime: 0
   humanColliderSize: {x: 0.47, y: 0.59}
   humanColliderOffset: {x: 0, y: 0.3125}
+  humanMass: 20
   catMovement:
     acceleration: 120
     airAcceleration: 30
@@ -458,6 +459,7 @@ MonoBehaviour:
     wallHangTime: 2.5
   catColliderSize: {x: 0.31, y: 0.28}
   catColliderOffset: {x: 0, y: 0.15625}
+  catMass: 1
 --- !u!95 &784635762
 Animator:
   serializedVersion: 4

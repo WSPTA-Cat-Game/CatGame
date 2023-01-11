@@ -497,6 +497,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Inner Corner Top Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a68fc7daabc9aaa4db5878765015d0ed
+      internalID: 1972275972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inner Corner Top Right
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bc2b923446fd2f4fbb5bd5009f67902
+      internalID: 453638055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inner Corner Bottom Right
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af81e47239013554696fa7c7ef1652ee
+      internalID: -599669759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inner Corner Bottom Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 352f40b7cab210f47af34b146670a571
+      internalID: -1747629954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -508,13 +592,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Texture Bottom Right: 2140181364
+      Top Left: 840873278
       Texture Bottom: 1601883156
       Bottom: 1673626683
+      Inner Corner Top Left: 1972275972
       Bottom Left: 1862547697
       Inner Bottom Left: 87229540
       Inner Bottom: 956958467
       Stone_18: -454148234
+      Inner Corner Top Right: 453638055
       Right: -1198318413
       Texture Top Right: 1058505706
       Inner Top Right: -94891581
@@ -528,13 +614,15 @@ TextureImporter:
       Inner Center: -1017480861
       Top: -638876572
       Inner Top Left: -1806030130
+      Inner Corner Bottom Right: -599669759
       Texture Bottom Left: 1801491834
+      Inner Corner Bottom Left: -1747629954
       Inner Top: -1242137962
       Inner Right: 422274280
       Stone_19: -1938991312
       Inner Bottom Right: -853417097
       Inner Left: 710276822
-      Top Left: 840873278
+      Texture Bottom Right: 2140181364
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
