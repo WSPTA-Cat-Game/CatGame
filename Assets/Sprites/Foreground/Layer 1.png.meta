@@ -117,316 +117,274 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Big Rock
+      name: Layer 1_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 30
-        width: 123
-        height: 195
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e9635d2dcb4f3b4995bdcdb4df975e4
-      internalID: 1777631727
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spike 1
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 208
-        width: 5
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 48e1d123dd716d74782b0d8f215a5e6d
-      internalID: -188581576
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spike 2
-      rect:
-        serializedVersion: 2
-        x: 91
-        y: 199
-        width: 7
+        x: 208
+        y: 209
+        width: 16
         height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.64705884}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 887cfe67181e659458c2f8f384d5b596
-      internalID: -1606829224
+      spriteID: 8465b50089bcf9046aa13b0778c0d6e3
+      internalID: 1042606425
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Statue
+      name: Layer 1_2
       rect:
         serializedVersion: 2
-        x: 107
-        y: 188
+        x: 236
+        y: 203
         width: 24
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af7cde8bb3d4e9848b9a0ac9198cca31
-      internalID: -347652232
+      spriteID: 5bbffdadbcf52b040ad05af036c3f9f6
+      internalID: 761058825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike 3
+      name: Layer 1_3
       rect:
         serializedVersion: 2
-        x: 140
-        y: 191
-        width: 12
+        x: 274
+        y: 202
+        width: 22
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a216d9a3b4368424aabe4b4dcf37d16d
-      internalID: -855386353
+      spriteID: f801c4e2bcf2bbb44b9bb3bdf8a175cf
+      internalID: 2058515107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike 4
+      name: Layer 1_5
       rect:
         serializedVersion: 2
-        x: 160
-        y: 195
-        width: 6
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 22c5ab9f980db85418d341347ea095b4
-      internalID: -1662351239
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spike 5
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 192
+        x: 305
+        y: 197
         width: 14
         height: 49
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.79591835}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 722c7860b7410404baad52004193ea99
-      internalID: -1387335621
+      spriteID: 0c9bdee3988272349bc108faa8e5bb41
+      internalID: 77504150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike 6
+      name: Layer 1_6
       rect:
         serializedVersion: 2
-        x: 197
-        y: 201
+        x: 329
+        y: 209
         width: 19
         height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6969697}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e0c97c2cec46c3428f43485f1136356
-      internalID: 487045616
+      spriteID: 19bceb92ab38a1c408d09f8bce501bdf
+      internalID: 449789075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spike 7
+      name: Layer 1_7
       rect:
         serializedVersion: 2
-        x: 222
-        y: 211
+        x: 354
+        y: 218
         width: 13
         height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5833333}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 247dbc26b64d5524daf8ce390af8221d
-      internalID: -2083902288
+      spriteID: 85004c14b1da6a0428604bbeab3bdb19
+      internalID: 1061970043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Short Rock 1
+      name: Layer 1_8
       rect:
         serializedVersion: 2
-        x: 266
-        y: 192
+        x: 400
+        y: 193
         width: 75
         height: 57
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.10666667, y: 0.7894737}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be66981c55c94a1469c3b443130aa777
-      internalID: -1400874459
+      spriteID: 1c35e615b4f066e4588f18fc72e52d6a
+      internalID: -440614168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat Paw Statue
+      name: Layer 1_9
       rect:
         serializedVersion: 2
-        x: 346
+        x: 481
         y: 194
         width: 12
         height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50eff75cb737b424883f55ff3465bc88
-      internalID: 1619297009
+      spriteID: e0ce42f3a9c6135468b746e75320d770
+      internalID: 117787719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Brown Mushroom
+      name: Layer 1_10
       rect:
         serializedVersion: 2
-        x: 384
-        y: 212
+        x: 513
+        y: 215
         width: 13
         height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42329b2fc826fb149b4c287c363278ab
-      internalID: 1864611886
+      spriteID: 5c84190642904be4cbdacdb8e020ac76
+      internalID: 1737705527
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red Mushroom
+      name: Layer 1_13
       rect:
         serializedVersion: 2
-        x: 407
-        y: 208
+        x: 528
+        y: 210
         width: 15
         height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.42857143}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0083cd546e9a8a479e3a3b66878f011
-      internalID: 851987683
+      spriteID: dc0383d3cc91c4c469a42f438fac1c3a
+      internalID: 409449301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Long Rock 1
+      name: Layer 1_14
       rect:
         serializedVersion: 2
-        x: 78
+        x: 0
+        y: 0
+        width: 123
+        height: 195
+      alignment: 9
+      pivot: {x: 0.06504065, y: 0.041025642}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b26400a8fbb3374fa615225b1987f85
+      internalID: -2093678534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Layer 1_15
+      rect:
+        serializedVersion: 2
+        x: 192
         y: 101
-        width: 609
-        height: 76
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 608
+        height: 75
+      alignment: 9
+      pivot: {x: 0.013157895, y: 0.8933333}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2b039fcc40374d429af220a75c02068
-      internalID: -34560275
+      spriteID: 9b85a31020e1a0b49964c0fcdcdae08f
+      internalID: 201903863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Long Rock 2
+      name: Layer 1_16
       rect:
         serializedVersion: 2
-        x: 148
-        y: 16
+        x: 336
+        y: 18
         width: 464
         height: 62
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.01724138, y: 0.87096775}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67a34d373c75b3f45a85d27f4e385829
-      internalID: -593210904
+      spriteID: 2f1aa610fcacb0140b3b06230d6fc56a
+      internalID: 347575917
       vertices: []
       indices: 
       edges: []
@@ -442,23 +400,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Short Rock 1: -1400874459
-      Spike 1: -188581576
-      Spike 7: -2083902288
-      Red Mushroom: 851987683
+      Layer 1_14: -2093678534
+      Layer 1_16: 347575917
+      Layer 1_1: 1042606425
+      Layer 1_8: -440614168
+      Layer 1_7: 1061970043
+      Layer 1_15: 201903863
+      Layer 1_3: 2058515107
+      Layer 1_10: 1737705527
       Layer 1_11: 1664523663
-      Cat Paw Statue: 1619297009
-      Spike 4: -1662351239
-      Long Rock 2: -593210904
-      Cat Statue: -347652232
-      Brown Mushroom: 1864611886
-      Spike 6: 487045616
-      Spike 2: -1606829224
-      Spike 5: -1387335621
-      Long Rock 1: -34560275
+      Layer 1_0: -381192883
+      Layer 1_12: -44280946
+      Layer 1_6: 449789075
+      Layer 1_4: -513385442
+      Layer 1_5: 77504150
+      Layer 1_2: 761058825
+      Layer 1_9: 117787719
       Layer 1_13: 409449301
-      Big Rock: 1777631727
-      Spike 3: -855386353
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

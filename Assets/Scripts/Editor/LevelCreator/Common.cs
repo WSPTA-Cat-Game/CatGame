@@ -18,9 +18,10 @@ namespace CatGame.Editor.LevelCreator
             // Check if we're overwriting an existing one, and ask
             // for confirmation if so
             if (AssetDatabase.LoadAssetAtPath<GameObject>(path) == null
-                || EditorUtility.DisplayDialog("Are you sure?", "An already existing prefab exists with the same index. Are you you want to replace it?", "Yes", "No"))
+                || EditorUtility.DisplayDialog("Are you sure?", $"An already existing prefab exists with the index \"{level.index}\". Are you sure you want to replace it?", "Yes", "No"))
             {
                 // Save new asset
+                level.collider = level.GetComponentInChildren<CompositeCollider2D>();
                 level.tilemap = level.GetComponentInChildren<Tilemap>();
                 level.tilemap.CompressBounds();
                 PrefabUtility.SaveAsPrefabAsset(level.gameObject, path);

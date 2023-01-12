@@ -13,6 +13,7 @@ namespace CatGame.LevelManagement
         public Vector2 lockedCameraPos;
 
         public Tilemap tilemap;
+        public new CompositeCollider2D collider;
         public LevelTransition[] transitions;
         public Vector2 defaultSpawnPoint;
 

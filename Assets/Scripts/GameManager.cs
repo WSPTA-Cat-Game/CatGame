@@ -32,12 +32,12 @@ namespace CatGame
             if (pausePhysics)
             {
                 Time.timeScale = 0;
-                _camera.SetTilemap(_currentLevel.tilemap, () => Time.timeScale = 1);
+                _camera.SetCollider(_currentLevel.collider, () => Time.timeScale = 1);
             }
             // Else just set the camera tilemap
             else
             {
-                _camera.SetTilemap(_currentLevel.tilemap);
+                _camera.SetCollider(_currentLevel.collider);
             }
 
             // Set camera locks
