@@ -115,6 +115,18 @@ namespace CatGame.Editor.LevelCreator
                 Common.SaveLevelAsPrefab(Data);
             }
 
+            if (GUILayout.Button("Save All"))
+            {
+                foreach (Transform level in Data.transform.parent)
+                {
+                    LevelData levelData = level.GetComponent<LevelData>();
+                    if (levelData != null)
+                    {
+                        Common.SaveLevelAsPrefab(levelData);
+                    }
+                }
+            }
+
             serializedObject.ApplyModifiedProperties();
         }
 
