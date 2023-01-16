@@ -6,7 +6,8 @@ namespace CatGame.LevelManagement
     public class LevelLoader : MonoBehaviour
     {
         private const string LayerPrefabsPath = "Layers";
-        
+
+        public Transform globalParent;
         public Transform levelParent;
 
         private readonly Dictionary<string, Dictionary<int, LevelData>> _layers = new();
@@ -60,9 +61,9 @@ namespace CatGame.LevelManagement
                 {
                     GameObject copy = Instantiate(layerData, transform);
                     copy.name = "LayerData";
+                    globalParent = copy.transform;
                     _loadedLayer = new KeyValuePair<string, GameObject>(layerName, copy);
                 }
-
             }
 
             HashSet<LevelData> cachedLevels = new();

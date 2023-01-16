@@ -1,4 +1,5 @@
-﻿using CatGame.CameraControl;
+﻿using CatGame.Audio;
+using CatGame.CameraControl;
 using CatGame.CharacterControl;
 using CatGame.LevelManagement;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace CatGame
         private FollowCamera _camera;
         private Character _character;
         private LevelLoader _levelLoader;
+        private FadeAudio _audioSource;
 
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
@@ -54,6 +56,14 @@ namespace CatGame
                     .TransformPoint(_currentLevel.defaultSpawnPoint);
                 _currentSpawnPoint = _currentLevel.defaultSpawnPoint;
             }
+
+            // Play audio
+            LayerData layerData = _levelLoader.globalParent.GetComponent<LayerData>();
+            if (layerData != null && _audioSource.Clip != layerData.audio)
+            {
+                _audioSource.Clip = layerData.audio;
+                _audioSource.Play();
+            }
         }
 
         private void OnLevelTransitionEntered(LevelTransition transition, Collider2D collision)
@@ -85,6 +95,7 @@ namespace CatGame
             _camera = FindObjectOfType<FollowCamera>(true);
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
+            _audioSource = GetComponent<FadeAudio>();
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in
