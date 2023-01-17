@@ -16,6 +16,18 @@ namespace CatGame
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
 
+        public void ContinueGame()
+        {
+            Debug.Log("Continue");
+            // TODO: 
+        }
+
+        public void QuitGame()
+        {
+            Debug.Log("QUIT");
+            // TODO:
+        }
+
         public void EnterLayer(string layerName)
             => EnterLevel(layerName, 0, false, false);
 
