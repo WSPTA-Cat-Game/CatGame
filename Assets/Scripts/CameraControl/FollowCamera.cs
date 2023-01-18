@@ -57,6 +57,7 @@ namespace CatGame.CameraControl
             }
 
             Vector2 worldLockedPos = collider.transform.TransformPoint(lockedPos);
+            worldLockedPos.y -= 0.25f;
 
             // Create bounds that represent what the cam sees of the collider
             float camHeight = _camera.orthographicSize * 2;
@@ -115,7 +116,6 @@ namespace CatGame.CameraControl
             // Unscaled delta time is delta time without time scale, allowing
             // the camera to move while time scale is 0
             adjustedPos.z = -10;
-            adjustedPos.y -= 0.25f;
             _camera.transform.position = Vector3.Lerp(
                 _camera.transform.position,
                 adjustedPos, 
