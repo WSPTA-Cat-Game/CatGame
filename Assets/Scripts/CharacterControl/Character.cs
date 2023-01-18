@@ -47,6 +47,9 @@ namespace CatGame.CharacterControl
             _interactableHandler.OnPickupChange += 
                 pickup => hasPickedUp = pickup != null;
             _rb = GetComponent<Rigidbody2D>();
+
+            // This ensures the values on the player are actually right
+            SetMode(_mode);
         }
 
         private void Update()
@@ -108,58 +111,73 @@ namespace CatGame.CharacterControl
             }
         }
 
-        private void ToggleMode()
+        private void SetMode(CharacterMode mode)
         {
             if (Time.time - lastTransformTime <= transformDelay)
             {
                 return;
             }
 
-            if (_mode == CharacterMode.Human)
-            {
-                //Check if new collider will hit anything
-                if (Physics2D.BoxCast(
-                    transform.position + (Vector3)catColliderOffset,
-                    catColliderSize,
-                    0, Vector2.up, 0, 
-                    ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
-                {
-                    return;
-                }
+            _mode = mode;
 
-                _mode = CharacterMode.Cat;
-                _movement.SetConfig(catMovement);
-                _interactableHandler.DropPickup(!_movement.IsFacingLeft);
-                _interactableHandler.CanPickup = false;
-                _animator.SetLayerWeight(1, 0);
-                _animator.SetLayerWeight(2, 1);
-                _collider.size = catColliderSize;
-                _collider.offset = catColliderOffset;
-                _rb.mass = catMass;
-            }
-            else
+            switch (_mode)
             {
-                // Check if new collider will hit anything
-                if (Physics2D.BoxCast(
-                    transform.position + (Vector3)humanColliderOffset,
-                    humanColliderSize,
-                    0, Vector2.up, 0, 
-                    ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
-                {
-                    return;
-                }
+                case CharacterMode.Human:
+                    // Check if new collider will hit anything
+                    if (Physics2D.BoxCast(
+                        transform.position + (Vector3)humanColliderOffset,
+                        humanColliderSize,
+                        0, Vector2.up, 0,
+                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                    {
+                        return;
+                    }
 
-                _mode = CharacterMode.Human;
-                _movement.SetConfig(humanMovement);
-                _interactableHandler.CanPickup = true;
-                _animator.SetLayerWeight(1, 1);
-                _animator.SetLayerWeight(2, 0);
-                _collider.size = humanColliderSize;
-                _collider.offset = humanColliderOffset;
-                _rb.mass = humanMass;
+                    _movement.SetConfig(humanMovement);
+                    _interactableHandler.CanPickup = true;
+                    _animator.SetLayerWeight(1, 1);
+                    _animator.SetLayerWeight(2, 0);
+                    _collider.size = humanColliderSize;
+                    _collider.offset = humanColliderOffset;
+                    _rb.mass = humanMass;
+                    break;
+
+                case CharacterMode.Cat:
+                default:
+                    //Check if new collider will hit anything
+                    if (Physics2D.BoxCast(
+                        transform.position + (Vector3)catColliderOffset,
+                        catColliderSize,
+                        0, Vector2.up, 0,
+                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                    {
+                        return;
+                    }
+
+                    _movement.SetConfig(catMovement);
+                    _interactableHandler.DropPickup(!_movement.IsFacingLeft);
+                    _interactableHandler.CanPickup = false;
+                    _animator.SetLayerWeight(1, 0);
+                    _animator.SetLayerWeight(2, 1);
+                    _collider.size = catColliderSize;
+                    _collider.offset = catColliderOffset;
+                    _rb.mass = catMass;
+                    break;
             }
 
             lastTransformTime = Time.time;
+        }
+
+        private void ToggleMode()
+        {
+            if (_mode == CharacterMode.Human)
+            {
+                SetMode(CharacterMode.Cat);
+            }
+            else
+            {
+                SetMode(CharacterMode.Human);
+            }
         }
 
         private bool IsColliderTouchingNonStaticRB(Collider2D collider)
