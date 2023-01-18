@@ -36,6 +36,12 @@ namespace CatGame.LevelManagement
             {
                 LevelData data = child.GetComponent<LevelData>();
 
+
+                if (data == null)
+                {
+                    continue;
+                }
+
                 _lastLoaded.Add(data);
                 if (!_layers.TryGetValue(data.layerName, out Dictionary<int, LevelData> layer))
                 {

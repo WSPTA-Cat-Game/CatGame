@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace CatGame.CharacterControl
@@ -8,6 +8,8 @@ namespace CatGame.CharacterControl
     [RequireComponent(typeof(Collider2D))]
     public class CharacterMovement : MonoBehaviour
     {
+        public event Action OnJump;
+
         public float acceleration = 0;
         public float airAcceleration = 0;
         public float deceleration = 0;
@@ -192,6 +194,7 @@ namespace CatGame.CharacterControl
                 {
                     // Jump. Add horz force if on a wall and not grounded
                     _rb.AddForce(new Vector2(IsGrounded ? 0 : -WallDirection * jumpHeight * 0.7f, jumpHeight) * _rb.mass);
+                    OnJump?.Invoke();
                     _lastJumpTime = Time.realtimeSinceStartup;
                     
                     // Stop wall hang

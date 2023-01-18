@@ -31,11 +31,34 @@ namespace CatGame.CharacterControl
         private CharacterMovement _movement;
         private InteractableHandler _interactableHandler;
         private Rigidbody2D _rb;
+        private AudioSource _audioSource;
+
+        private Dictionary<string, AudioClip> _sfxClips;
+        private bool lastPlayedStep1 = false;
 
         private bool hasPickedUp = false;
 
         public bool IsFacingLeft => _movement.IsFacingLeft;
 
+        // This is so the steps alternate
+        public void PlayStep()
+        {
+            if (lastPlayedStep1)
+            {
+                PlaySFX("Steps 2");
+            }
+            else
+            {
+                PlaySFX("Steps 1");
+            }
+
+            lastPlayedStep1 = !lastPlayedStep1;
+        }
+
+        public void PlaySFX(string sfxName)
+        {
+            _audioSource.PlayOneShot(_sfxClips[sfxName]);
+        }
 
         private void Start()
         {
@@ -47,6 +70,12 @@ namespace CatGame.CharacterControl
             _interactableHandler.OnPickupChange += 
                 pickup => hasPickedUp = pickup != null;
             _rb = GetComponent<Rigidbody2D>();
+            _audioSource = GetComponent<AudioSource>();
+
+            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
+            _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
+
+            _movement.OnJump += () => PlaySFX("Jump");
 
             // This ensures the values on the player are actually right
             SetMode(_mode);
@@ -61,6 +90,11 @@ namespace CatGame.CharacterControl
 
             _renderer.flipX = IsFacingLeft;
 
+            // Play sound if landed
+            if (!_animator.GetBool("IsGrounded") && _movement.IsGrounded)
+            {
+                PlaySFX("Land");
+            }
 
             // Update animator
             _animator.SetFloat("YMovement", _movement.Velocity.y);
