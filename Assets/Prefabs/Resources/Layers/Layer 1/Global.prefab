@@ -259,4 +259,4 @@ MonoBehaviour:
   - {fileID: -1045123213, guid: d85fc23d3ca559d4f850a8739a194a73, type: 3}
   - {fileID: 912080874, guid: d85fc23d3ca559d4f850a8739a194a73, type: 3}
   distance: 1.45
-  backgroundZ: 100
+  offset: {x: 0, y: 0, z: 100}
