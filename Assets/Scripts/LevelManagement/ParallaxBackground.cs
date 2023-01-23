@@ -11,7 +11,7 @@ namespace CatGame.LevelManagement
         [Range(0, 10)]
         public float distance;
 
-        public float backgroundZ;
+        public Vector3 offset;
 
         private Vector3 lastCameraPos = Vector3.zero;
 
@@ -38,11 +38,10 @@ namespace CatGame.LevelManagement
                 renderer.sprite = GetRandomSprite(forceStart: i == 0);
 
                 // position it edge to edge of the last one (from the left of
-                // the camera bounds)
-                backgroundGO.transform.position = new Vector3(
-                     camLeft + backgroundWidth + (renderer.sprite.bounds.size.x / 2),
-                     0,
-                     backgroundZ);
+                // the camera bounds) and also maintain y and z pos
+                Vector3 currentPos = transform.position;
+                currentPos.x = camLeft + backgroundWidth + (renderer.sprite.bounds.size.x / 2);
+                backgroundGO.transform.position = currentPos;
 
                 backgroundWidth += renderer.sprite.bounds.size.x;
             }
@@ -53,15 +52,15 @@ namespace CatGame.LevelManagement
             // Move relative to camera
             transform.position = new Vector3(
                 transform.position.x + (Camera.main.transform.position.x - lastCameraPos.x) * (1 / (distance + 1)),
-                Camera.main.transform.position.y);
+                Camera.main.transform.position.y) + offset;
             lastCameraPos = Camera.main.transform.position;
 
             // Check what are within bounds
             float camHeight = Camera.main.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
             Bounds cameraBounds = new(
-                new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, backgroundZ),
-                new Vector3(camWidth, camHeight));
+                new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y),
+                new Vector3(camWidth, camHeight, float.PositiveInfinity));
 
             Bounds extendedCamBounds = cameraBounds;
             extendedCamBounds.size += new Vector3(15, 0);
@@ -142,7 +141,9 @@ namespace CatGame.LevelManagement
                     xPos = lastRenderer.bounds.max.x + renderer.bounds.extents.x;
                     backgroundGO.transform.SetAsLastSibling();
                 }
-                backgroundGO.transform.position = new Vector3(xPos, lastRenderer.transform.position.y, backgroundZ);
+                Vector3 currentPos = transform.position;
+                currentPos.x = xPos;
+                backgroundGO.transform.position = currentPos;
 
                 backgroundWidth += renderer.bounds.size.x;
                 lastRenderer = renderer;
@@ -161,7 +162,7 @@ namespace CatGame.LevelManagement
                 randomIndex = --lowerIndex;
             }
 
-            if (randomIndex == 0 || forceStart)
+            if ((randomIndex == 0 || forceStart) && startImage != null)
             {
                 return startImage;
             }
