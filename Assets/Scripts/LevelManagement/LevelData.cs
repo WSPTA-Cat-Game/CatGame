@@ -13,20 +13,14 @@ namespace CatGame.LevelManagement
         public Vector2 lockedCameraPos;
 
         public Tilemap tilemap;
-        public new CompositeCollider2D collider;
+        public Bounds collideableBounds;
+        public new Collider2D collider;
         public LevelTransition[] transitions;
         public Vector2 defaultSpawnPoint;
-
-        public bool generateShadows;
 
         private void Awake()
         {
             tilemap.CompressBounds();
-
-            if (generateShadows)
-            {
-                ShadowGenerator.GenerateShadowForLevel(this);
-            }
         }
     }
 }

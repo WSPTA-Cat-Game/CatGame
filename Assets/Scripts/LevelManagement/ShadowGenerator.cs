@@ -12,18 +12,16 @@ namespace CatGame.LevelManagement
 
         private static readonly MethodInfo getPathHashMethod = Type.GetType("UnityEngine.Rendering.Universal.LightUtility, Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").GetMethod("GetShapePathHash");
 
-        public static void GenerateShadowForLevel(LevelData level)
+        public static void GenerateShadowForCollider(CompositeCollider2D collider)
         {
-            CompositeCollider2D collider = level.GetComponent<CompositeCollider2D>();
-
-            Transform existingShadowParent = level.transform.Find("Shadow Parent");
+            Transform existingShadowParent = collider.transform.Find("Shadow Parent");
             if (existingShadowParent != null)
             {
-                UnityEngine.Object.DestroyImmediate(existingShadowParent.gameObject);
+                UnityEngine.Object.Destroy(existingShadowParent.gameObject);
             }
 
             GameObject shadowParent = new("Shadow Parent");
-            shadowParent.transform.SetParent(level.transform, false);
+            shadowParent.transform.SetParent(collider.transform, false);
 
             for (int i = 0; i < collider.pathCount; i++)
             {
