@@ -7,7 +7,7 @@ namespace CatGame.CameraControl
     [RequireComponent(typeof(Camera))]
     public class FollowCamera : MonoBehaviour
     {
-        public new Collider2D collider;
+        public Bounds bounds;
         public Transform target;
 
         public bool lockX = false;
@@ -17,15 +17,15 @@ namespace CatGame.CameraControl
 
         private Camera _camera;
 
-        public void SetCollider(Collider2D collider, Action finishMovingCallback = null)
+        public void SetBounds(Bounds bounds, Action finishMovingCallback = null)
         {
-            if (this.collider == collider)
+            if (this.bounds == bounds)
             {
                 finishMovingCallback?.Invoke();
                 return;
             }
 
-            this.collider = collider;
+            this.bounds = bounds;
 
             StartCoroutine(SetTilemapCoroutine(finishMovingCallback));
         }
@@ -51,14 +51,6 @@ namespace CatGame.CameraControl
 
         private void Update()
         {
-            if (collider == null)
-            {
-                return;
-            }
-
-            Vector2 worldLockedPos = collider.transform.TransformPoint(lockedPos);
-            worldLockedPos.y -= 0.25f;
-
             // Create bounds that represent what the cam sees of the collider
             float camHeight = _camera.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
@@ -68,25 +60,25 @@ namespace CatGame.CameraControl
             // Lock pos
             if (lockX)
             {
-                adjustedPos.x = worldLockedPos.x;
+                adjustedPos.x = lockedPos.x;
             }
             else
             {
                 // If the size of the bounds exceeds the collider, set the pos
                 // to the center of the collider's bounds
-                if (camBounds.size.x > collider.bounds.size.x)
+                if (camBounds.size.x > bounds.size.x)
                 {
-                    adjustedPos.x = collider.bounds.center.x;
+                    adjustedPos.x = bounds.center.x;
                 }
                 // If the bounds is outside the collider, then set pos to edge 
                 // of the collider accounting for bounds size
-                else if (camBounds.min.x < collider.bounds.min.x)
+                else if (camBounds.min.x < bounds.min.x)
                 {
-                    adjustedPos.x = collider.bounds.min.x + camBounds.extents.x;
+                    adjustedPos.x = bounds.min.x + camBounds.extents.x;
                 }
-                else if (camBounds.max.x > collider.bounds.max.x)
+                else if (camBounds.max.x > bounds.max.x)
                 {
-                    adjustedPos.x = collider.bounds.max.x - camBounds.extents.x;
+                    adjustedPos.x = bounds.max.x - camBounds.extents.x;
                 }
             }
 
@@ -94,21 +86,21 @@ namespace CatGame.CameraControl
             // Repeat for y
             if (lockY)
             {
-                adjustedPos.y = worldLockedPos.y;
+                adjustedPos.y = lockedPos.y;
             }
             else
             {
-                if (camBounds.size.y > collider.bounds.size.y)
+                if (camBounds.size.y > bounds.size.y)
                 {
-                    adjustedPos.y = collider.bounds.center.y;
+                    adjustedPos.y = bounds.center.y;
                 }
-                else if (camBounds.min.y < collider.bounds.min.y)
+                else if (camBounds.min.y < bounds.min.y)
                 {
-                    adjustedPos.y = collider.bounds.min.y + camBounds.extents.y;
+                    adjustedPos.y = bounds.min.y + camBounds.extents.y;
                 }
-                else if (camBounds.max.y > collider.bounds.max.y)
+                else if (camBounds.max.y > bounds.max.y)
                 {
-                    adjustedPos.y = collider.bounds.max.y - camBounds.extents.y;
+                    adjustedPos.y = bounds.max.y - camBounds.extents.y;
                 }
             }
 
