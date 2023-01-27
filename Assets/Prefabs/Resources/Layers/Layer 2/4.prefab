@@ -75,7 +75,7 @@ MonoBehaviour:
   layerName: Layer 2
   hasAssociatedSpawnPoint: 0
   associatedSpawnPoint: {x: 0, y: 0}
---- !u!1 &1380807311
+--- !u!1 &1368104733
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,9 +83,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1380807312}
-  - component: {fileID: 1380807314}
-  - component: {fileID: 1380807313}
+  - component: {fileID: 1368104734}
+  - component: {fileID: 1368104736}
+  - component: {fileID: 1368104735}
   m_Layer: 2
   m_Name: Transition(Clone)
   m_TagString: Untagged
@@ -93,13 +93,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1380807312
+--- !u!4 &1368104734
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380807311}
+  m_GameObject: {fileID: 1368104733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 36.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -108,13 +108,13 @@ Transform:
   m_Father: {fileID: 6140476371506644051}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1380807314
+--- !u!61 &1368104736
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380807311}
+  m_GameObject: {fileID: 1368104733}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -134,13 +134,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &1380807313
+--- !u!114 &1368104735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380807311}
+  m_GameObject: {fileID: 1368104733}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 459f4fc07cc5ec8438ccfc33852caad7, type: 3}
@@ -395,7 +395,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -445,7 +445,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 832576685}
-  - {fileID: 1380807312}
+  - {fileID: 1368104734}
   m_Father: {fileID: 8015925225872585937}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -609,7 +609,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -3208,68 +3208,42 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 8184561567687093874}
     m_ColliderPaths:
-    - - X: 360000100
-        Y: 49999959
-      - X: 360000100
-        Y: 105000041
-      - X: 360000041
-        Y: 105000100
-      - X: 209999959
-        Y: 105000100
-      - X: 209999900
-        Y: 105000041
-      - X: 209999900
-        Y: 59999959
-      - X: 209999959
-        Y: 59999900
-      - X: 225000041
-        Y: 59999900
-      - X: 225000100
-        Y: 59999959
-      - X: 225000100
-        Y: 99999900
-      - X: 344999900
-        Y: 99999900
-      - X: 344999900
-        Y: 64999959
-      - X: 344999959
-        Y: 64999900
-      - X: 349999900
-        Y: 64999900
-      - X: 349999900
-        Y: 49999959
-      - X: 349999959
-        Y: 49999900
-      - X: 360000041
-        Y: 49999900
-    - - X: 360000100
-        Y: 19999959
-      - X: 360000100
-        Y: 30000041
-      - X: 360000041
-        Y: 30000100
-      - X: 300000100
-        Y: 30000100
-      - X: 300000100
-        Y: 70000041
-      - X: 300000041
-        Y: 70000100
-      - X: 284999959
-        Y: 70000100
-      - X: 284999900
-        Y: 70000041
-      - X: 284999900
-        Y: 30000100
-      - X: 209999959
-        Y: 30000100
-      - X: 209999900
-        Y: 30000041
-      - X: 209999900
-        Y: 19999959
-      - X: 209999959
-        Y: 19999900
-      - X: 360000041
-        Y: 19999900
+    - - X: 360000000
+        Y: 105000000
+      - X: 210000000
+        Y: 105000000
+      - X: 210000000
+        Y: 60000000
+      - X: 225000000
+        Y: 60000000
+      - X: 225000000
+        Y: 100000000
+      - X: 345000000
+        Y: 100000000
+      - X: 345000000
+        Y: 65000000
+      - X: 350000000
+        Y: 65000000
+      - X: 350000000
+        Y: 50000000
+      - X: 360000000
+        Y: 50000000
+    - - X: 360000000
+        Y: 30000000
+      - X: 300000000
+        Y: 30000000
+      - X: 300000000
+        Y: 70000000
+      - X: 285000000
+        Y: 70000000
+      - X: 285000000
+        Y: 30000000
+      - X: 210000000
+        Y: 30000000
+      - X: 210000000
+        Y: 20000000
+      - X: 360000000
+        Y: 20000000
   - m_Collider: {fileID: 8184561567687093874}
     m_ColliderPaths: []
   - m_Collider: {fileID: 8184561567687093874}
@@ -3300,24 +3274,24 @@ CompositeCollider2D:
     m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 35.999973, y: 4.99999}
-      - {x: 35.999973, y: 10.50001}
-      - {x: 20.99999, y: 10.499974}
-      - {x: 21.000027, y: 5.99999}
-      - {x: 22.50001, y: 6.0000253}
-      - {x: 22.50004, y: 9.99999}
-      - {x: 34.499992, y: 9.999961}
-      - {x: 34.500027, y: 6.49999}
-      - {x: 34.999992, y: 6.499961}
-      - {x: 35.000027, y: 4.99999}
-    - - {x: 35.999973, y: 1.99999}
-      - {x: 35.999973, y: 3.00001}
-      - {x: 30.00001, y: 3.0000393}
-      - {x: 29.999975, y: 7.0000095}
-      - {x: 28.49999, y: 6.9999743}
-      - {x: 28.499962, y: 3.00001}
-      - {x: 20.99999, y: 2.9999747}
-      - {x: 21.000027, y: 1.99999}
+    - - {x: 35.999973, y: 5}
+      - {x: 35.999973, y: 10.5}
+      - {x: 21, y: 10.49997}
+      - {x: 21.000029, y: 6}
+      - {x: 22.5, y: 6.000029}
+      - {x: 22.500029, y: 10}
+      - {x: 34.5, y: 9.99997}
+      - {x: 34.50003, y: 6.5}
+      - {x: 35, y: 6.4999704}
+      - {x: 35.00003, y: 5}
+    - - {x: 35.999973, y: 2}
+      - {x: 35.999973, y: 3}
+      - {x: 30, y: 3.0000293}
+      - {x: 29.999971, y: 7}
+      - {x: 28.5, y: 6.9999704}
+      - {x: 28.499971, y: 3}
+      - {x: 21, y: 2.999971}
+      - {x: 21.000029, y: 2}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &7213831394816663969
@@ -3362,6 +3336,6 @@ MonoBehaviour:
   collider: {fileID: 1463124114161560509}
   transitions:
   - {fileID: 832576686}
-  - {fileID: 1380807313}
+  - {fileID: 1368104735}
   defaultSpawnPoint: {x: 21.5, y: 3.5}
   generateShadows: 0
