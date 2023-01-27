@@ -23,7 +23,7 @@ namespace CatGame.LevelManagement
             }
 
             GameObject shadowParent = new("Shadow Parent");
-            shadowParent.transform.parent = level.transform;
+            shadowParent.transform.SetParent(level.transform, false);
 
             for (int i = 0; i < collider.pathCount; i++)
             {
@@ -38,7 +38,7 @@ namespace CatGame.LevelManagement
                 }
 
                 GameObject shadowCaster = new("Shadow Caster");
-                shadowCaster.transform.parent = shadowParent.transform;
+                shadowCaster.transform.SetParent(shadowParent.transform, false);
                 ShadowCaster2D caster = shadowCaster.AddComponent<ShadowCaster2D>();
 
                 pathField.SetValue(caster, points3D);
