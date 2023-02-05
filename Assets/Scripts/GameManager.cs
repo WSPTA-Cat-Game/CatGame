@@ -3,6 +3,7 @@ using CatGame.CameraControl;
 using CatGame.CharacterControl;
 using CatGame.LevelManagement;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 namespace CatGame
@@ -85,6 +86,19 @@ namespace CatGame
             {
                 ShadowGenerator.GenerateShadowForCollider(
                     _levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+
+                // Also enable or disable the player's light
+                foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
+                {
+                    light.enabled = true;
+                }
+            }
+            else
+            {
+                foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
+                {
+                    light.enabled = false;
+                }
             }
         }
 
