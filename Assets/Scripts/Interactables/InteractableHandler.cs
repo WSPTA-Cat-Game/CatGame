@@ -82,7 +82,6 @@ namespace CatGame.Interactables
                 return;
             }
 
-            _currentPickup.gameObject.SetActive(true);
             _currentPickup.transform.localRotation = Quaternion.identity;
 
             // Default to left side if no character exists
@@ -94,10 +93,13 @@ namespace CatGame.Interactables
             for (int i = 0; i < 2; i++)
             {
                 // Check if the dropped pickup will collide
-                Vector3 origin = PlayerBounds.center + dropSide
-                    * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
+                Vector3 origin = new(PlayerBounds.center.x, PlayerBounds.min.y + _currentPickup.Collider.bounds.size.y);
+                origin += dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
+
                 int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player);
 
+                Debug.Log(Physics2D.BoxCast(
+                    origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).point);
                 if (Physics2D.BoxCast(
                     origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).collider == null)
                 {
@@ -116,7 +118,9 @@ namespace CatGame.Interactables
             // If it couldn't drop then just drop it above the player
             if (!dropped)
             {
-                _currentPickup.transform.position = PlayerBounds.center + new Vector3(0, PlayerBounds.size.y);
+                _currentPickup.transform.position = new Vector3(
+                    PlayerBounds.center.x,
+                    PlayerBounds.max.y + _currentPickup.Collider.bounds.extents.y);
             }
 
             _currentPickup.gameObject.layer = _originalPickupLayer;
@@ -162,10 +166,10 @@ namespace CatGame.Interactables
                 // Rotate based on x acceleration
                 float xVel = _lastPickupXPosition - _currentPickup.transform.position.x;
                 float xAccel = _lastPickupXVelocity - xVel;
-                float targetRot = -Mathf.Clamp(xAccel * 40 / Time.deltaTime, -20, 20);
+                float targetRot = Mathf.Clamp(xAccel * 20 / Time.deltaTime, -10, 10);
 
                 Vector3 rot = _currentPickup.transform.localRotation.eulerAngles;
-                rot.z = Mathf.LerpAngle(rot.z, targetRot, 0.1f * Time.fixedDeltaTime * 60);
+                rot.z = Mathf.LerpAngle(rot.z, targetRot, 0.075f * Time.fixedDeltaTime * 60);
                 _currentPickup.transform.localEulerAngles = rot;
 
                 _lastPickupXPosition = _currentPickup.transform.position.x;
