@@ -9,14 +9,18 @@ namespace CatGame.Interactables
     public class InteractableHandler : MonoBehaviour
     {
         public Collider2D playerCollider;
+        public SpriteRenderer playerRenderer;
         public event Action<PickupBase> OnPickupChange;
         public bool CanPickup { get; set; }
 
         private readonly List<InteractableBase> _touchingInteractables = new();
         private PickupBase _currentPickup;
         private int _originalPickupLayer;
+        private float _lastPickupXPosition;
+        private float _lastPickupXVelocity;
 
         private Bounds PlayerBounds => playerCollider != null ? playerCollider.bounds : new Bounds();
+        private Bounds PlayerSpriteBounds => playerRenderer != null ? playerRenderer.bounds : new Bounds();
 
         public void PickupOrInteract()
         {
@@ -79,6 +83,7 @@ namespace CatGame.Interactables
             }
 
             _currentPickup.gameObject.SetActive(true);
+            _currentPickup.transform.localRotation = Quaternion.identity;
 
             // Default to left side if no character exists
             // If one does exist, default to opposite of whatever side it's
@@ -143,12 +148,28 @@ namespace CatGame.Interactables
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         { 
             if (_currentPickup != null)
             {
-                _currentPickup.transform.position = PlayerBounds.center
-                    + new Vector3(0, PlayerBounds.size.y);
+                // Lerp to position right above head
+                _currentPickup.transform.position = Vector3.Lerp(
+                    _currentPickup.transform.position,
+                    PlayerSpriteBounds.center
+                        + new Vector3(0, PlayerSpriteBounds.extents.y + _currentPickup.Collider.bounds.extents.y),
+                    0.7f * Time.fixedDeltaTime * 60); 
+
+                // Rotate based on x acceleration
+                float xVel = _lastPickupXPosition - _currentPickup.transform.position.x;
+                float xAccel = _lastPickupXVelocity - xVel;
+                float targetRot = -Mathf.Clamp(xAccel * 40 / Time.deltaTime, -20, 20);
+
+                Vector3 rot = _currentPickup.transform.localRotation.eulerAngles;
+                rot.z = Mathf.LerpAngle(rot.z, targetRot, 0.1f * Time.fixedDeltaTime * 60);
+                _currentPickup.transform.localEulerAngles = rot;
+
+                _lastPickupXPosition = _currentPickup.transform.position.x;
+                _lastPickupXVelocity = xVel;
             }
         }
     }
