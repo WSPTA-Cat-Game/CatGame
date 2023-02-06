@@ -11,6 +11,7 @@ namespace CatGame.Interactables
         public Collider2D playerCollider;
         public SpriteRenderer playerRenderer;
         public event Action<PickupBase> OnPickupChange;
+        public PickupBase CurrentPickup => _currentPickup;
         public bool CanPickup { get; set; }
 
         private readonly List<InteractableBase> _touchingInteractables = new();

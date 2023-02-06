@@ -75,7 +75,17 @@ namespace CatGame.CharacterControl
             AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
             _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
 
-            _movement.OnJump += () => PlaySFX("Jump");
+            _movement.OnJump += () =>
+            {
+                if (_mode == CharacterMode.Cat)
+                {
+                    PlaySFX("Cat Jump");
+                }
+                else
+                {
+                    PlaySFX("Jump");
+                }
+            };
 
             // This ensures the values on the player are actually right
             SetMode(_mode);
@@ -91,9 +101,17 @@ namespace CatGame.CharacterControl
             _renderer.flipX = IsFacingLeft;
 
             // Play sound if landed
+            // Cat has a dedicated land animation so we need to check if we're
             if (!_animator.GetBool("IsGrounded") && _movement.IsGrounded)
             {
-                PlaySFX("Land");
+                if (_mode == CharacterMode.Human)
+                {
+                    PlaySFX("Land");
+                }
+                else
+                {
+                    PlaySFX("Cat Land");
+                }
             }
 
             // Update animator
@@ -141,6 +159,11 @@ namespace CatGame.CharacterControl
             // Drop current pickup
             else if (InputHandler.Drop.WasPressedThisFrame())
             {
+                if (_interactableHandler.CurrentPickup != null)
+                {
+                    PlaySFX("Put Down");
+                }
+
                 _interactableHandler.DropPickup(!_movement.IsFacingLeft);
             }
         }

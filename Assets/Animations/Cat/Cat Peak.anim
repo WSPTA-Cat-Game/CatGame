@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Falling
+  m_Name: Cat Peak
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 892062950, guid: 2b8196940d1304a42a2cfaa90a5532b0, type: 3}
+      value: {fileID: 311702677, guid: b2428111d1d044d4f9fc65fe4f9c66df, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 892062950, guid: 2b8196940d1304a42a2cfaa90a5532b0, type: 3}
+    - {fileID: 311702677, guid: b2428111d1d044d4f9fc65fe4f9c66df, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
