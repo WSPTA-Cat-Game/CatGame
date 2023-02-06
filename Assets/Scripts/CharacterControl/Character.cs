@@ -165,7 +165,7 @@ namespace CatGame.CharacterControl
                     PlaySFX("Put Down");
                 }
 
-                _interactableHandler.DropPickup(!_movement.IsFacingLeft);
+                _interactableHandler.DropPickup(_movement.IsFacingLeft);
             }
         }
 
