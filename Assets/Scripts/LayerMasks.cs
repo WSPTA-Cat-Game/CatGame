@@ -13,7 +13,7 @@ namespace CatGame
         UI = 0x20,
         NoPlayerCollision = 0x40,
         Interactables = 0x80,
-        PlayerCollisionInteratables = 0x100,
+        PlayerCollisionInteractables = 0x100,
 
         All = -1
     }

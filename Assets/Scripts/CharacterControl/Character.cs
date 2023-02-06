@@ -178,7 +178,8 @@ namespace CatGame.CharacterControl
 
             _mode = mode;
 
-            int layerMask = ~(int)(LayerMasks.Interactables | LayerMasks.IgnoreRaycast | LayerMasks.Player);
+            int layerMask = Physics2D.GetLayerCollisionMask(LayerMasks.Player.ToLayer()) 
+                & ~(int)LayerMasks.Player & ~(int)LayerMasks.IgnoreRaycast;
 
             switch (_mode)
             {

@@ -14,6 +14,8 @@ namespace CatGame.Interactables
         public PickupBase CurrentPickup => _currentPickup;
         public bool CanPickup { get; set; }
 
+        private readonly RaycastHit2D[] _hitsArray = new RaycastHit2D[5];
+
         private readonly List<InteractableBase> _touchingInteractables = new();
         private PickupBase _currentPickup;
         private int _originalPickupLayer;
@@ -35,18 +37,18 @@ namespace CatGame.Interactables
                     Vector2 direction = (playerCollider != null ? playerCollider.bounds.center : transform.position)
                         - interactable.transform.position;
 
-                    RaycastHit2D[] hits = new RaycastHit2D[1];
-                    interactable.Collider.Raycast(direction, hits, 7f, ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Interactables));
+                    int mask = Physics2D.GetLayerCollisionMask(LayerMasks.Player.ToLayer())
+                        & ~(int)LayerMasks.IgnoreRaycast;
+                    int hitCount = interactable.Collider.Raycast(direction, _hitsArray, 7f, mask);
 
                     // If there is something the player collides with inbetween
                     // the pickup and player, don't pick up
                     bool isPickupBlocked = false;
-                    for (int i = 0; i < hits.Length; i++)
+                    for (int i = 0; i < hitCount; i++)
                     {
-                        if (!hits[i].collider.isTrigger && hits[i].collider != playerCollider)
+                        if (!_hitsArray[i].collider.isTrigger)
                         {
-                            Debug.Log(hits[i].collider.name);
-                            isPickupBlocked = true;
+                            isPickupBlocked = _hitsArray[i] != playerCollider;
                             break;
                         }
                     }
@@ -110,7 +112,8 @@ namespace CatGame.Interactables
                 Vector3 origin = new(PlayerBounds.center.x, PlayerBounds.min.y + _currentPickup.Collider.bounds.size.y);
                 origin += dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
 
-                int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player ^ LayerMasks.Interactables ^ LayerMasks.PlayerCollisionInteratables);
+                int mask = Physics2D.GetLayerCollisionMask(_originalPickupLayer) 
+                    & ~(int)LayerMasks.IgnoreRaycast & ~(int)LayerMasks.Player;
 
                 if (Physics2D.BoxCast(
                     origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).collider == null)
