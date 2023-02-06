@@ -110,7 +110,7 @@ namespace CatGame.Interactables
             {
                 // Check if the dropped pickup will collide
                 Vector3 origin = new(PlayerBounds.center.x, PlayerBounds.min.y + _currentPickup.Collider.bounds.size.y);
-                origin += dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
+                origin += dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x - 0.25f);
 
                 int mask = Physics2D.GetLayerCollisionMask(_originalPickupLayer) 
                     & ~(int)LayerMasks.IgnoreRaycast & ~(int)LayerMasks.Player;
