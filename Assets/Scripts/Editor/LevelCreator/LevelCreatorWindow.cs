@@ -274,16 +274,16 @@ namespace CatGame.Editor.LevelCreator
                     }
 
                     // Load all levels in layer
-                    LoadLevels(GetLevelPrefabs(data.layerName)
+                    LevelData[] copies = LoadLevels(GetLevelPrefabs(data.layerName)
                         .Select(path =>
                         {
                             string prefabAssetPath = Path.GetRelativePath(ProjectPath, path);
                             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabAssetPath);
                             return prefab.GetComponent<LevelData>();
                         }).ToArray());
-                    
-                    LevelData copyData = LoadLevels(data)[0];
 
+                    LevelData copyData = copies.First(val => val.index == data.index);
+                    
                     Selection.activeObject = copyData;
                     _currentLoadedLayer = data.layerName;
 
@@ -322,20 +322,16 @@ namespace CatGame.Editor.LevelCreator
         private LevelData[] LoadLevels(params LevelData[] levels)
         {
             LevelData[] copys = new LevelData[levels.Length];
-            LevelLoader loader = FindObjectOfType<LevelLoader>();
-
-            // Load level with depth
-            Transform originalLevelParent = loader.levelParent;
-            loader.levelParent = _grid.transform;
-            loader.ResetCache();
 
             for (int i = 0; i < levels.Length; i++)
             {
-                copys[i] = loader.LoadLevel(levels[i].layerName, levels[i].index, 0, false);
-            }
+                LevelData prefab = (LevelData)PrefabUtility.InstantiatePrefab(levels[i]);
+                PrefabUtility.UnpackPrefabInstance(prefab.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 
-            // Reset to original value
-            loader.levelParent = originalLevelParent;
+                prefab.transform.parent = _grid.transform;
+
+                copys[i] = prefab;
+            }
 
             return copys;
         }
