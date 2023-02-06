@@ -99,8 +99,6 @@ namespace CatGame.Interactables
 
                 int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player);
 
-                Debug.Log(Physics2D.BoxCast(
-                    origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).point);
                 if (Physics2D.BoxCast(
                     origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).collider == null)
                 {
