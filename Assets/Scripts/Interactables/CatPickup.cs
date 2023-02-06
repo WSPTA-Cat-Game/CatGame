@@ -9,7 +9,7 @@ namespace CatGame.Interactables
             base.Pickup(holder);
             Transform child = transform.GetChild(0);
             child.GetComponent<Animator>().enabled = false;
-            child.localPosition = Vector3.zero;
+            child.localPosition = new Vector3(0, 0, -100);
         }
 
         public override void Drop()

@@ -97,7 +97,7 @@ namespace CatGame.Interactables
                 Vector3 origin = new(PlayerBounds.center.x, PlayerBounds.min.y + _currentPickup.Collider.bounds.size.y);
                 origin += dropSide * (PlayerBounds.extents.x + _currentPickup.Collider.bounds.extents.x);
 
-                int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player);
+                int mask = (int)(LayerMasks.All ^ LayerMasks.IgnoreRaycast ^ LayerMasks.Player ^ LayerMasks.Interactables ^ LayerMasks.PlayerCollisionInteratables);
 
                 if (Physics2D.BoxCast(
                     origin, _currentPickup.Collider.bounds.size, 0, dropSide, 0, mask).collider == null)
