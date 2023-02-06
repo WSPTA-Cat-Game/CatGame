@@ -11,6 +11,7 @@ namespace CatGame.LevelManagement
         public string layerName;
         public bool hasAssociatedSpawnPoint;
         public Vector2 associatedSpawnPoint;
+        public bool canExitWithoutCat;
 
         public event Action<LevelTransition, Collider2D> OnTransitionEntered;
 

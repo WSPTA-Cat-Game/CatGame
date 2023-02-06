@@ -15,6 +15,7 @@ namespace CatGame.Editor.LevelCreator
         private SerializedProperty _layerNameProp;
         private SerializedProperty _hasAssociatedSpawnPointProp;
         private SerializedProperty _associatedSpawnPointProp;
+        private SerializedProperty _canExitWithoutCatProp;
 
         private bool isAssociatedSpawnPointProp = false;
 
@@ -90,6 +91,9 @@ namespace CatGame.Editor.LevelCreator
                 }
             }
 
+            // Can exit without cat
+            EditorGUILayout.PropertyField(_canExitWithoutCatProp);
+
             
             // Spawn point
             // Spawn point toggle
@@ -159,6 +163,7 @@ namespace CatGame.Editor.LevelCreator
             _layerNameProp = serializedObject.FindProperty("layerName");
             _hasAssociatedSpawnPointProp = serializedObject.FindProperty("hasAssociatedSpawnPoint");
             _associatedSpawnPointProp = serializedObject.FindProperty("associatedSpawnPoint");
+            _canExitWithoutCatProp = serializedObject.FindProperty("canExitWithoutCat");
         }
     }
 }

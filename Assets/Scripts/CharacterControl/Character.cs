@@ -38,6 +38,7 @@ namespace CatGame.CharacterControl
 
         private bool hasPickedUp = false;
 
+        public InteractableHandler InteractableHandler => _interactableHandler;
         public bool IsFacingLeft => _movement.IsFacingLeft;
 
         // This is so the steps alternate
