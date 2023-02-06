@@ -8,7 +8,6 @@ namespace CatGame.Interactables
         protected bool isHeld = false;
         protected Transform holder = null;
 
-
         public virtual void Pickup(Transform holder) 
         {
             this.holder = holder;
