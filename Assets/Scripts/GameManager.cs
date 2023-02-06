@@ -108,11 +108,11 @@ namespace CatGame
         private void OnPickupChange(PickupBase pickup)
         {
             // Only let player exit if the pickup is cat
-            bool canExit = pickup != null && pickup is CatPickup;
+            bool isHoldingCat = pickup != null && pickup is CatPickup;
 
             foreach (LevelTransition transition in _currentLevel.transitions)
             {
-                if (canExit || transition.canExitWithoutCat)
+                if (isHoldingCat || transition.canExitWithoutCat)
                 {
                     transition.GetComponent<Collider2D>().isTrigger = true;
                     transition.gameObject.layer = LayerMasks.Default.ToLayer();
@@ -132,7 +132,11 @@ namespace CatGame
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
             _audioSource = GetComponent<FadeAudio>();
+        }
 
+        private void Start()
+        {
+            // Not 100% sure why, but this has to go in start
             _character.InteractableHandler.OnPickupChange += OnPickupChange;
         }
 
