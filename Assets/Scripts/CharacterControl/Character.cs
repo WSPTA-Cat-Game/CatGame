@@ -94,6 +94,11 @@ namespace CatGame.CharacterControl
 
         private void Update()
         {
+#if UNITY_EDITOR
+            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
+            _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
+#endif
+
             if (InputHandler.Transition.WasPressedThisFrame())
             {
                 ToggleMode();
