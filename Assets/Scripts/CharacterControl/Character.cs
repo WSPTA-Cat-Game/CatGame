@@ -178,6 +178,8 @@ namespace CatGame.CharacterControl
 
             _mode = mode;
 
+            int layerMask = ~(int)(LayerMasks.Interactables | LayerMasks.IgnoreRaycast | LayerMasks.Player);
+
             switch (_mode)
             {
                 case CharacterMode.Human:
@@ -185,8 +187,7 @@ namespace CatGame.CharacterControl
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)humanColliderOffset,
                         humanColliderSize,
-                        0, Vector2.up, 0,
-                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                        0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
                     }
@@ -206,8 +207,7 @@ namespace CatGame.CharacterControl
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)catColliderOffset,
                         catColliderSize,
-                        0, Vector2.up, 0,
-                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                        0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
                     }
