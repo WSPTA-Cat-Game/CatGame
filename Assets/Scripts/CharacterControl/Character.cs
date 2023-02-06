@@ -176,12 +176,10 @@ namespace CatGame.CharacterControl
                 return;
             }
 
-            _mode = mode;
-
             int layerMask = Physics2D.GetLayerCollisionMask(LayerMasks.Player.ToLayer()) 
                 & ~(int)LayerMasks.Player & ~(int)LayerMasks.IgnoreRaycast;
 
-            switch (_mode)
+            switch (mode)
             {
                 case CharacterMode.Human:
                     // Check if new collider will hit anything
@@ -223,6 +221,8 @@ namespace CatGame.CharacterControl
                     _rb.mass = catMass;
                     break;
             }
+
+            _mode = mode;
 
             lastTransformTime = Time.time;
         }
