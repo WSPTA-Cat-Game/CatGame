@@ -1,4 +1,5 @@
-﻿using CatGame.LevelManagement;
+﻿using CatGame.CharacterControl;
+using CatGame.LevelManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -330,6 +331,13 @@ namespace CatGame.Editor.LevelCreator
             // Start the level
             FindObjectOfType<GameManager>()
                 .EnterLevel(Data.layerName, Data.index, false);
+
+            // Spawn cat with player
+            GameObject catPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(
+                Path.Combine(LevelCreatorWindow.LevelElementsAssetsPath, "Cat.prefab"));
+
+            GameObject catPrefabCopy = Instantiate(catPrefab);
+            catPrefabCopy.transform.position = FindObjectOfType<Character>().transform.position;
         }
     }
 }
