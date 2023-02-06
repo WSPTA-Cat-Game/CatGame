@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 784635756}
+  playerRenderer: {fileID: 784635757}
 --- !u!1 &1274931594
 GameObject:
   m_ObjectHideFlags: 0
