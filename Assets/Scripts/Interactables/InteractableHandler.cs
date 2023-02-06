@@ -36,9 +36,22 @@ namespace CatGame.Interactables
                         - interactable.transform.position;
 
                     RaycastHit2D[] hits = new RaycastHit2D[1];
-                    interactable.Collider.Raycast(direction, hits, 7f, ~(int)LayerMasks.IgnoreRaycast);
+                    interactable.Collider.Raycast(direction, hits, 7f, ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Interactables));
 
-                    if (hits[0].collider != playerCollider)
+                    // If there is something the player collides with inbetween
+                    // the pickup and player, don't pick up
+                    bool isPickupBlocked = false;
+                    for (int i = 0; i < hits.Length; i++)
+                    {
+                        if (!hits[i].collider.isTrigger && hits[i].collider != playerCollider)
+                        {
+                            Debug.Log(hits[i].collider.name);
+                            isPickupBlocked = true;
+                            break;
+                        }
+                    }
+
+                    if (isPickupBlocked)
                     {
                         continue;
                     }
