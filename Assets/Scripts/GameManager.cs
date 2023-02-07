@@ -5,12 +5,13 @@ using CatGame.Interactables;
 using CatGame.LevelManagement;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Tilemaps;
 
 namespace CatGame
 {
     public class GameManager : MonoBehaviour
     {
+        private GameObject _menu;
+
         private FollowCamera _camera;
         private Character _character;
         private LevelLoader _levelLoader;
@@ -22,8 +23,9 @@ namespace CatGame
 
         public void ContinueGame()
         {
-            Debug.Log("Continue");
-            // TODO: 
+            EnterLayer("Layer 1");
+            _menu.SetActive(false);
+            _character.GetComponent<Rigidbody2D>().simulated = true;
         }
 
         public void QuitGame()
@@ -37,6 +39,8 @@ namespace CatGame
 
         public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true, bool pausePhysics = true) 
         {
+            _character.gameObject.SetActive(true);
+
             // Load level and subscribe to transitions
             _currentLevel = _levelLoader.LoadLevel(layerName, levelIndex);
             foreach (LevelTransition transition in _currentLevel.transitions)
@@ -156,6 +160,8 @@ namespace CatGame
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
             _audioSource = GetComponent<FadeAudio>();
+
+            _menu = GameObject.Find("Menu");
         }
 
         private void Start()
