@@ -75,6 +75,7 @@ MonoBehaviour:
   layerName: Layer 2
   hasAssociatedSpawnPoint: 0
   associatedSpawnPoint: {x: 0, y: 0}
+  canExitWithoutCat: 0
 --- !u!1 &4059711960548894099
 GameObject:
   m_ObjectHideFlags: 0
