@@ -25,7 +25,6 @@ namespace CatGame
         {
             EnterLayer("Layer 1");
             _menu.SetActive(false);
-            _character.GetComponent<Rigidbody2D>().simulated = true;
         }
 
         public void QuitGame()
@@ -39,7 +38,7 @@ namespace CatGame
 
         public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true, bool pausePhysics = true) 
         {
-            _character.gameObject.SetActive(true);
+            _character.GetComponent<Rigidbody2D>().simulated = true;
 
             // Load level and subscribe to transitions
             _currentLevel = _levelLoader.LoadLevel(layerName, levelIndex);
