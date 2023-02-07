@@ -1,6 +1,7 @@
 ﻿using CatGame.Audio;
 using CatGame.CameraControl;
 using CatGame.CharacterControl;
+using CatGame.Interactables;
 using CatGame.LevelManagement;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -100,6 +101,9 @@ namespace CatGame
                     light.enabled = false;
                 }
             }
+            
+            // Prevent player from exiting level unless carrying cat
+            OnPickupChange(null);
         }
 
         private void OnLevelTransitionEntered(LevelTransition transition, Collider2D collision)
@@ -125,6 +129,26 @@ namespace CatGame
             }
         }
 
+        private void OnPickupChange(PickupBase pickup)
+        {
+            // Only let player exit if the pickup is cat
+            bool isHoldingCat = pickup != null && pickup is CatPickup;
+
+            foreach (LevelTransition transition in _currentLevel.transitions)
+            {
+                if (isHoldingCat || transition.canExitWithoutCat)
+                {
+                    transition.GetComponent<Collider2D>().isTrigger = true;
+                    transition.gameObject.layer = LayerMasks.Default.ToLayer();
+                }
+                else
+                {
+                    transition.GetComponent<Collider2D>().isTrigger = false;
+                    transition.gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
+                }
+            }
+        }
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -132,6 +156,14 @@ namespace CatGame
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
             _audioSource = GetComponent<FadeAudio>();
+        }
+
+        private void Start()
+        {
+            // Not 100% sure why, but this has to go in start
+            _character.InteractableHandler.OnPickupChange += OnPickupChange;
+
+            EnterLayer("Layer 1");
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Running
+  m_Name: Cat Running
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -86,14 +86,14 @@ AnimationClip:
   m_Events:
   - time: 0.2
     functionName: PlaySFX
-    data: Steps 1
+    data: Cat Steps 1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.38333333
     functionName: PlaySFX
-    data: Steps 2
+    data: Cat Steps 2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

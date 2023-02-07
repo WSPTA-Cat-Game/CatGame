@@ -38,6 +38,7 @@ namespace CatGame.CharacterControl
 
         private bool hasPickedUp = false;
 
+        public InteractableHandler InteractableHandler => _interactableHandler;
         public bool IsFacingLeft => _movement.IsFacingLeft;
 
         // This is so the steps alternate
@@ -75,7 +76,17 @@ namespace CatGame.CharacterControl
             AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
             _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
 
-            _movement.OnJump += () => PlaySFX("Jump");
+            _movement.OnJump += () =>
+            {
+                if (_mode == CharacterMode.Cat)
+                {
+                    PlaySFX("Cat Jump");
+                }
+                else
+                {
+                    PlaySFX("Jump");
+                }
+            };
 
             // This ensures the values on the player are actually right
             SetMode(_mode);
@@ -83,6 +94,11 @@ namespace CatGame.CharacterControl
 
         private void Update()
         {
+#if UNITY_EDITOR
+            AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
+            _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
+#endif
+
             if (InputHandler.Transition.WasPressedThisFrame())
             {
                 ToggleMode();
@@ -91,9 +107,17 @@ namespace CatGame.CharacterControl
             _renderer.flipX = IsFacingLeft;
 
             // Play sound if landed
+            // Cat has a dedicated land animation so we need to check if we're
             if (!_animator.GetBool("IsGrounded") && _movement.IsGrounded)
             {
-                PlaySFX("Land");
+                if (_mode == CharacterMode.Human)
+                {
+                    PlaySFX("Land");
+                }
+                else
+                {
+                    PlaySFX("Cat Land");
+                }
             }
 
             // Update animator
@@ -141,7 +165,12 @@ namespace CatGame.CharacterControl
             // Drop current pickup
             else if (InputHandler.Drop.WasPressedThisFrame())
             {
-                _interactableHandler.DropPickup(!_movement.IsFacingLeft);
+                if (_interactableHandler.CurrentPickup != null)
+                {
+                    PlaySFX("Put Down");
+                }
+
+                _interactableHandler.DropPickup(_movement.IsFacingLeft);
             }
         }
 
@@ -152,17 +181,17 @@ namespace CatGame.CharacterControl
                 return;
             }
 
-            _mode = mode;
+            int layerMask = Physics2D.GetLayerCollisionMask(LayerMasks.Player.ToLayer()) 
+                & ~(int)LayerMasks.Player & ~(int)LayerMasks.IgnoreRaycast;
 
-            switch (_mode)
+            switch (mode)
             {
                 case CharacterMode.Human:
                     // Check if new collider will hit anything
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)humanColliderOffset,
                         humanColliderSize,
-                        0, Vector2.up, 0,
-                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                        0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
                     }
@@ -182,8 +211,7 @@ namespace CatGame.CharacterControl
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)catColliderOffset,
                         catColliderSize,
-                        0, Vector2.up, 0,
-                        ~(int)(LayerMasks.IgnoreRaycast | LayerMasks.Player)).collider != null)
+                        0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
                     }
@@ -198,6 +226,8 @@ namespace CatGame.CharacterControl
                     _rb.mass = catMass;
                     break;
             }
+
+            _mode = mode;
 
             lastTransformTime = Time.time;
         }
