@@ -190,7 +190,7 @@ namespace CatGame.CharacterControl
                     // Check if new collider will hit anything
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)humanColliderOffset,
-                        humanColliderSize,
+                        new Vector2(0.1f, humanColliderSize.y),
                         0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
@@ -210,7 +210,7 @@ namespace CatGame.CharacterControl
                     //Check if new collider will hit anything
                     if (Physics2D.BoxCast(
                         transform.position + (Vector3)catColliderOffset,
-                        catColliderSize,
+                        new Vector2(0.1f, catColliderSize.y),
                         0, Vector2.up, 0, layerMask).collider != null)
                     {
                         return;
