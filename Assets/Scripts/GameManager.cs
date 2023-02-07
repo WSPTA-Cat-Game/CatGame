@@ -103,7 +103,7 @@ namespace CatGame
             }
             
             // Prevent player from exiting level unless carrying cat
-            OnPickupChange(null);
+            OnPickupChange(_character.InteractableHandler.CurrentPickup);
         }
 
         private void OnLevelTransitionEntered(LevelTransition transition, Collider2D collision)
