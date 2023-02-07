@@ -21,6 +21,9 @@ namespace CatGame.Editor.LevelCreator
                 || EditorUtility.DisplayDialog("Are you sure?", $"An already existing prefab exists with the index \"{level.index}\". Are you sure you want to replace it?", "Yes", "No"))
             {
                 // Save new asset
+                Object.DestroyImmediate(level.GetComponent<CompositeCollider2D>());
+                Object.DestroyImmediate(level.GetComponent<Rigidbody2D>());
+
                 level.collider = level.GetComponentInChildren<TilemapCollider2D>();
                 level.tilemap = level.GetComponentInChildren<Tilemap>();
                 level.tilemap.CompressBounds();

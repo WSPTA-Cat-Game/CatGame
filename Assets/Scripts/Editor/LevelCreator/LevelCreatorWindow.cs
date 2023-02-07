@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace CatGame.Editor.LevelCreator
 {
+    [InitializeOnLoad]
     public class LevelCreatorWindow : EditorWindow
     {
         internal string _currentLoadedLayer;
@@ -73,6 +74,11 @@ namespace CatGame.Editor.LevelCreator
             {
                 LevelElementsAssetsPath = @"Assets\Prefabs\Level Elements";
             }
+        }
+
+        private void OnEnable()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStart;
         }
 
         private void OnGUI()
@@ -328,12 +334,31 @@ namespace CatGame.Editor.LevelCreator
                 LevelData prefab = (LevelData)PrefabUtility.InstantiatePrefab(levels[i]);
                 PrefabUtility.UnpackPrefabInstance(prefab.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 
+                prefab.gameObject.AddComponent<CompositeCollider2D>();
+
                 prefab.transform.parent = _grid.transform;
 
                 copys[i] = prefab;
             }
 
             return copys;
+        }
+
+        private void OnPlayModeStart(PlayModeStateChange state)
+        {
+            if (state != PlayModeStateChange.EnteredPlayMode)
+            {
+                return;
+            }
+
+            foreach (Transform child in _grid.transform)
+            {
+                if (child.GetComponent<LevelData>() != null)
+                {
+                    DestroyImmediate(child.GetComponent<CompositeCollider2D>());
+                    DestroyImmediate(child.GetComponent<Rigidbody2D>());
+                }
+            }
         }
 
         private IEnumerable<string> GetLevelPrefabs(string layerName)
