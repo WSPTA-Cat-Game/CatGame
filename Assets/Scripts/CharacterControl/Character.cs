@@ -23,7 +23,7 @@ namespace CatGame.CharacterControl
         public float catMass;
 
         private CharacterMode _mode = CharacterMode.Human;
-        private float lastTransformTime;
+        private float lastTransformTime = float.MinValue;
 
         private SpriteRenderer _renderer;
         private Animator _animator;
