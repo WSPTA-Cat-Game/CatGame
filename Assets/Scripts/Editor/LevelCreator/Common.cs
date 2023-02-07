@@ -30,6 +30,8 @@ namespace CatGame.Editor.LevelCreator
                 level.collideableBounds = GetCollideableBoundsFromTilemap(level.tilemap);
                 PrefabUtility.SaveAsPrefabAsset(level.gameObject, path);
 
+                level.gameObject.AddComponent<CompositeCollider2D>();
+
                 return true;
             }
             else
