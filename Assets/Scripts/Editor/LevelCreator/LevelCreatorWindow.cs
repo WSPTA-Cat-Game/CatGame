@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace CatGame.Editor.LevelCreator
 {
-    [InitializeOnLoad]
     public class LevelCreatorWindow : EditorWindow
     {
         internal string _currentLoadedLayer;
