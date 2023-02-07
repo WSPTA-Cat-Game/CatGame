@@ -162,8 +162,6 @@ namespace CatGame
         {
             // Not 100% sure why, but this has to go in start
             _character.InteractableHandler.OnPickupChange += OnPickupChange;
-
-            EnterLayer("Layer 1");
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in
