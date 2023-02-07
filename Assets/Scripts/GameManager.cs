@@ -4,6 +4,8 @@ using CatGame.CharacterControl;
 using CatGame.Interactables;
 using CatGame.LevelManagement;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Tilemaps;
 
 namespace CatGame
 {
@@ -14,6 +16,7 @@ namespace CatGame
         private LevelLoader _levelLoader;
         private FadeAudio _audioSource;
 
+        private LayerData _currentLayer;
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
 
@@ -46,19 +49,20 @@ namespace CatGame
             // pausePhysics is true
             if (pausePhysics)
             {
+                float lastTimeScale = Time.timeScale;
                 Time.timeScale = 0;
-                _camera.SetCollider(_currentLevel.collider, () => Time.timeScale = 1);
+                _camera.SetBounds(_currentLevel.collideableBounds, () => Time.timeScale = lastTimeScale);
             }
             // Else just set the camera tilemap
             else
             {
-                _camera.SetCollider(_currentLevel.collider);
+                _camera.SetBounds(_currentLevel.collideableBounds);
             }
 
             // Set camera locks
             _camera.lockX = _currentLevel.lockCameraX;
             _camera.lockY = _currentLevel.lockCameraY;
-            _camera.lockedPos = _currentLevel.lockedCameraPos;
+            _camera.lockedPos = _currentLevel.tilemap.LocalToWorld(_currentLevel.lockedCameraPos);
 
             // Respawn character if we didn't come from another level; if we 
             // just spawned onto the layer
@@ -71,13 +75,33 @@ namespace CatGame
             }
 
             // Play audio
-            LayerData layerData = _levelLoader.globalParent.GetComponent<LayerData>();
-            if (layerData != null && _audioSource.Clip != layerData.audio)
+            _currentLayer = _levelLoader.globalParent.GetComponent<LayerData>();
+            if (_currentLayer != null && _audioSource.Clip != _currentLayer.audio)
             {
-                _audioSource.Clip = layerData.audio;
+                _audioSource.Clip = _currentLayer.audio;
                 _audioSource.Play();
             }
 
+            // Generate shadows
+            if (_currentLayer != null && _currentLayer.generateShadows)
+            {
+                ShadowGenerator.GenerateShadowForCollider(
+                    _levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+
+                // Also enable or disable the player's light
+                foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
+                {
+                    light.enabled = true;
+                }
+            }
+            else
+            {
+                foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
+                {
+                    light.enabled = false;
+                }
+            }
+            
             // Prevent player from exiting level unless carrying cat
             OnPickupChange(null);
         }

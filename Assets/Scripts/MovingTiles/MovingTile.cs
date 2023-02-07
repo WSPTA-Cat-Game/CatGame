@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace CatGame.MovingTiles
 {
     public class MovingTile : MonoBehaviour
     {
+        private static readonly Dictionary<Transform, Transform> originalParents = new();
+
         public Vector3 endPos;
 
         public float speed = 1.5f;
@@ -67,6 +70,22 @@ namespace CatGame.MovingTiles
                     moveTime = 0;
                 }
             }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!originalParents.ContainsKey(collision.transform))
+            {
+                originalParents.Add(collision.transform, collision.transform.parent);
+            }
+
+            // Set our transform to theirs to avoid weird physics interactions
+            collision.transform.parent = transform;
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            collision.transform.parent = originalParents.GetValueOrDefault(collision.transform, null);
         }
     }
 }
