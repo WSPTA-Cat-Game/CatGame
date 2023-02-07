@@ -86,7 +86,7 @@ namespace CatGame.CameraControl
             // Repeat for y
             if (lockY)
             {
-                adjustedPos.y = lockedPos.y;
+                adjustedPos.y = lockedPos.y - 0.25f;
             }
             else
             {
