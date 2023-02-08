@@ -3,6 +3,7 @@ using CatGame.CameraControl;
 using CatGame.CharacterControl;
 using CatGame.Interactables;
 using CatGame.LevelManagement;
+using CatGame.MovingTiles;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -105,6 +106,13 @@ namespace CatGame
                 {
                     light.enabled = false;
                 }
+            }
+
+            // Tell LOS moving tiles what the player collider is
+            Collider2D characterCollider = _character.GetComponent<Collider2D>();
+            foreach (LOSMovingTile tile in _currentLevel.GetComponentsInChildren<LOSMovingTile>())
+            {
+                tile.playerCollider = characterCollider;
             }
             
             // Prevent player from exiting level unless carrying cat
