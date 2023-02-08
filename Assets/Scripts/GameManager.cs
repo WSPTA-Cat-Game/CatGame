@@ -38,7 +38,9 @@ namespace CatGame
 
         public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true, bool pausePhysics = true) 
         {
-            _character.GetComponent<Rigidbody2D>().simulated = true;
+            _character.gameObject.SetActive(true);
+            _character.InteractableHandler.OnPickupChange -= OnPickupChange;
+            _character.InteractableHandler.OnPickupChange += OnPickupChange;
 
             // Load level and subscribe to transitions
             _currentLevel = _levelLoader.LoadLevel(layerName, levelIndex);
@@ -161,12 +163,6 @@ namespace CatGame
             _audioSource = GetComponent<FadeAudio>();
 
             _menu = GameObject.Find("Menu");
-        }
-
-        private void Start()
-        {
-            // Not 100% sure why, but this has to go in start
-            _character.InteractableHandler.OnPickupChange += OnPickupChange;
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in

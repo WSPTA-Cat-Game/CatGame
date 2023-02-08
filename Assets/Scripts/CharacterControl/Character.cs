@@ -61,7 +61,7 @@ namespace CatGame.CharacterControl
             _audioSource.PlayOneShot(_sfxClips[sfxName]);
         }
 
-        private void Start()
+        private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
