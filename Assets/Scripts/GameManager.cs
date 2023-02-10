@@ -4,6 +4,7 @@ using CatGame.CharacterControl;
 using CatGame.Interactables;
 using CatGame.LevelManagement;
 using CatGame.MovingTiles;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -77,8 +78,7 @@ namespace CatGame
             // Generate shadows
             if (_currentLayer != null && _currentLayer.generateShadows)
             {
-                ShadowGenerator.GenerateShadowForCollider(
-                    _levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+                StartCoroutine(GenerateShadowsForLevel());
 
                 // Also enable or disable the player's light
                 foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
@@ -146,6 +146,13 @@ namespace CatGame
                     transition.gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
                 }
             }
+        }
+
+        private IEnumerator GenerateShadowsForLevel()
+        {
+            // Needed because composite collider has no geometry for one frame
+            yield return null;
+            ShadowGenerator.GenerateShadowForCollider(_levelLoader.levelParent.GetComponent<CompositeCollider2D>());
         }
 
         private void Awake()
