@@ -12,7 +12,11 @@ namespace CatGame
         {
             // TODO: DON'T PUT THIS IN THE FINAL GAME IDIOT
             get => PlayerPrefs.GetString("CompletedLayers", "Layer 1\nLayer 2");
-            private set => PlayerPrefs.SetString("CompletedLayers", value);
+            private set
+            {
+                PlayerPrefs.SetString("CompletedLayers", value);
+                PlayerPrefs.Save();
+            }
         }
 
         public static IEnumerable<string> GetCompletedLayersEnumerator()
