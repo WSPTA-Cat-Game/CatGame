@@ -1593,7 +1593,7 @@ MonoBehaviour:
   transformDelay: 0.1
   humanMovement:
     acceleration: 40
-    airAcceleration: 2
+    airAcceleration: 10
     deceleration: 0.8
     maxSpeed: 4.5
     jumpHeight: 300
@@ -1606,10 +1606,10 @@ MonoBehaviour:
   humanColliderOffset: {x: 0, y: 0.3125}
   humanMass: 20
   catMovement:
-    acceleration: 120
+    acceleration: 100
     airAcceleration: 30
     deceleration: 0.75
-    maxSpeed: 6.5
+    maxSpeed: 6
     jumpHeight: 350
     jumpCooldown: 0.1
     additionalJumpHeight: 250
