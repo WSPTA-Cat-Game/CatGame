@@ -157,20 +157,18 @@ namespace CatGame.CharacterControl
             // If not grounded, then we can't pickup
             _interactableHandler.CanPickup = _movement.IsGrounded && _mode == CharacterMode.Human;
 
-            // Pickup or use current pickup/interactable
+            // Pickup or drop
             if (InputHandler.Interact.WasPressedThisFrame())
             {
-                _interactableHandler.PickupOrInteract();
-            }
-            // Drop current pickup
-            else if (InputHandler.Drop.WasPressedThisFrame())
-            {
-                if (_interactableHandler.CurrentPickup != null)
+                if (_interactableHandler.CurrentPickup == null)
+                {
+                    _interactableHandler.PickupOrInteract();
+                }
+                else
                 {
                     PlaySFX("Put Down");
+                    _interactableHandler.DropPickup(_movement.IsFacingLeft);
                 }
-
-                _interactableHandler.DropPickup(_movement.IsFacingLeft);
             }
         }
 
