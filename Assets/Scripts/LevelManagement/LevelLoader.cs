@@ -65,7 +65,7 @@ namespace CatGame.LevelManagement
                 GameObject layerData = Resources.Load<GameObject>($"{LayerPrefabsPath}/{layerName}/Global");
                 if (layerData != null)
                 {
-                    GameObject copy = Instantiate(layerData, transform);
+                    GameObject copy = Instantiate(layerData, levelParent);
                     copy.name = "LayerData";
                     globalParent = copy.transform;
                     _loadedLayer = new KeyValuePair<string, GameObject>(layerName, copy);
