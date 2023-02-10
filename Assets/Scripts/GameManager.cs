@@ -11,8 +11,6 @@ namespace CatGame
 {
     public class GameManager : MonoBehaviour
     {
-        private GameObject _menu;
-
         private FollowCamera _camera;
         private Character _character;
         private LevelLoader _levelLoader;
@@ -21,18 +19,6 @@ namespace CatGame
         private LayerData _currentLayer;
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
-
-        public void ContinueGame()
-        {
-            EnterLayer("Layer 1");
-            _menu.SetActive(false);
-        }
-
-        public void QuitGame()
-        {
-            Debug.Log("QUIT");
-            // TODO:
-        }
 
         public void EnterLayer(string layerName)
             => EnterLevel(layerName, 0, false, false);
@@ -169,8 +155,6 @@ namespace CatGame
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
             _audioSource = GetComponent<FadeAudio>();
-
-            _menu = GameObject.Find("Menu");
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in
