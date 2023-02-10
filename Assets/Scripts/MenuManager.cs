@@ -82,11 +82,11 @@ namespace CatGame
 
         private void Awake()
         {
-            _menuRoot = GameObject.Find("Menu/Canvas");
-            _mainMenu = _menuRoot.transform.Find("Main Page").gameObject;
+            _menuRoot = GameObject.Find("Menu");
+            _mainMenu = _menuRoot.transform.Find("Canvas/Main Page").gameObject;
             _startContinueButton = _mainMenu.transform.Find("Central Buttons/Start").gameObject;
 
-            _levelSelectMenu = _menuRoot.transform.Find("Level Select").gameObject;
+            _levelSelectMenu = _menuRoot.transform.Find("Canvas/Level Select").gameObject;
             _levelSelectButtonsRoot = _levelSelectMenu.transform.Find("Levels").gameObject;
 
             OpenMainMenu();
