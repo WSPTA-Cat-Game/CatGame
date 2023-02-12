@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: e58b739bc6ab105418f935df33b11de5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Layer 3 foreground_3
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 641
+        width: 320
+        height: 256
+      alignment: 9
+      pivot: {x: 0.025, y: 0.03125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a265ae05c43249408b1f7dfd1659a72
+      internalID: -477122957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Layer 3 foreground_0
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 641
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.055555556, y: 0.0625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00f21198930cb6e43a7ff251a93af256
+      internalID: -1061343677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Layer 3 foreground_63: 1323396871
+      Layer 3 foreground_155: 2123664435
+      Layer 3 foreground_145: -1164245772
+      Layer 3 foreground_128: -1111531218
+      Layer 3 foreground_147: -558647547
+      Layer 3 foreground_173: 851376044
+      Layer 3 foreground_22: 1990878819
+      Layer 3 foreground_175: 93278082
+      Layer 3 foreground_178: 272925877
+      Layer 3 foreground_82: 1828406297
+      Layer 3 foreground_28: -1325735675
+      Layer 3 foreground_103: -120315396
+      Layer 3 foreground_98: -1239248782
+      Layer 3 foreground_158: 868075571
+      Layer 3 foreground_171: 1896082556
+      Layer 3 foreground_23: 165180493
+      Layer 3 foreground_131: -892753622
+      Layer 3 foreground_83: -638165766
+      Layer 3 foreground_113: 1914683899
+      Layer 3 foreground_144: -1939113312
+      Layer 3 foreground_121: 49181323
+      Layer 3 foreground_91: 1951972467
+      Layer 3 foreground_179: -1773004498
+      Layer 3 foreground_0: -1061343677
+      Layer 3 foreground_142: -549405731
+      Layer 3 foreground_24: -1830364897
+      Layer 3 foreground_39: 1778624429
+      Layer 3 foreground_74: -549515569
+      Layer 3 foreground_87: -1006859343
+      Layer 3 foreground_152: -78942680
+      Layer 3 foreground_1: -1728792592
+      Layer 3 foreground_37: 2038954890
+      Layer 3 foreground_116: 1910373347
+      Layer 3 foreground_67: 189738934
+      Layer 3 foreground_89: -317599196
+      Layer 3 foreground_105: -1284799556
+      Layer 3 foreground_4: 312745936
+      Layer 3 foreground_183: 1802315782
+      Layer 3 foreground_8: -1800429995
+      Layer 3 foreground_49: 369252283
+      Layer 3 foreground_137: 1971732764
+      Layer 3 foreground_17: 170371405
+      Layer 3 foreground_65: -960833543
+      Layer 3 foreground_96: -1280354768
+      Layer 3 foreground_62: -474816388
+      Layer 3 foreground_136: -216687981
+      Layer 3 foreground_134: -1750266930
+      Layer 3 foreground_33: 1697936454
+      Layer 3 foreground_66: 351023455
+      Layer 3 foreground_148: 1792695468
+      Layer 3 foreground_45: -489344346
+      Layer 3 foreground_162: -1166572780
+      Layer 3 foreground_3: -477122957
+      Layer 3 foreground_120: 377658858
+      Layer 3 foreground_154: -2094978829
+      Layer 3 foreground_117: 1328643525
+      Layer 3 foreground_108: 1801990167
+      Layer 3 foreground_72: 1359003088
+      Layer 3 foreground_61: -1051661329
+      Layer 3 foreground_13: -1723560052
+      Layer 3 foreground_15: 1361911919
+      Layer 3 foreground_85: 1319168742
+      Layer 3 foreground_129: -906910401
+      Layer 3 foreground_149: -2061334140
+      Layer 3 foreground_36: 1148654965
+      Layer 3 foreground_157: -2025602580
+      Layer 3 foreground_124: -1334256272
+      Layer 3 foreground_70: 1049456024
+      Layer 3 foreground_35: -156538003
+      Layer 3 foreground_153: 256674228
+      Layer 3 foreground_92: 2122188302
+      Layer 3 foreground_133: -1597156199
+      Layer 3 foreground_78: 1463563404
+      Layer 3 foreground_68: 393912469
+      Layer 3 foreground_81: 248257003
+      Layer 3 foreground_100: -561995908
+      Layer 3 foreground_166: 651316467
+      Layer 3 foreground_106: -1906508693
+      Layer 3 foreground_125: -916720063
+      Layer 3 foreground_146: 488838923
+      Layer 3 foreground_12: -979014509
+      Layer 3 foreground_10: 290022666
+      Layer 3 foreground_165: 608929868
+      Layer 3 foreground_182: -881746320
+      Layer 3 foreground_18: -851424106
+      Layer 3 foreground_169: -1740262823
+      Layer 3 foreground_156: 1417095692
+      Layer 3 foreground_6: -423368052
+      Layer 3 foreground_55: 1838261539
+      Layer 3 foreground_2: 218631477
+      Layer 3 foreground_110: 541421480
+      Layer 3 foreground_104: -1218473555
+      Layer 3 foreground_93: 296119456
+      Layer 3 foreground_181: 1318453587
+      Layer 3 foreground_14: 804415237
+      Layer 3 foreground_151: 540277230
+      Layer 3 foreground_170: 1450115928
+      Layer 3 foreground_40: -1741259238
+      Layer 3 foreground_50: 1418223826
+      Layer 3 foreground_21: -1585338303
+      Layer 3 foreground_69: -830080530
+      Layer 3 foreground_130: -1753069217
+      Layer 3 foreground_174: 414229809
+      Layer 3 foreground_88: 483767871
+      Layer 3 foreground_150: -1663806444
+      Layer 3 foreground_139: 353000410
+      Layer 3 foreground_119: -821028347
+      Layer 3 foreground_64: -1224115013
+      Layer 3 foreground_41: 1494956068
+      Layer 3 foreground_79: 1147614398
+      Layer 3 foreground_161: -1479108931
+      Layer 3 foreground_77: 924195094
+      Layer 3 foreground_180: 1090844430
+      Layer 3 foreground_25: -737310101
+      Layer 3 foreground_138: -704124132
+      Layer 3 foreground_20: 571040151
+      Layer 3 foreground_112: -885173315
+      Layer 3 foreground_127: -948795869
+      Layer 3 foreground_101: 324849400
+      Layer 3 foreground_102: 349939681
+      Layer 3 foreground_56: -1864697129
+      Layer 3 foreground_90: 208442759
+      Layer 3 foreground_34: 30590212
+      Layer 3 foreground_114: 944459983
+      Layer 3 foreground_177: -399198706
+      Layer 3 foreground_184: -353940130
+      Layer 3 foreground_71: 810601409
+      Layer 3 foreground_168: 1664130327
+      Layer 3 foreground_11: 1782465004
+      Layer 3 foreground_16: -1486498422
+      Layer 3 foreground_126: -1116390991
+      Layer 3 foreground_52: 1796803793
+      Layer 3 foreground_73: 1939563216
+      Layer 3 foreground_160: -1485997780
+      Layer 3 foreground_26: 128867871
+      Layer 3 foreground_31: -383302341
+      Layer 3 foreground_29: -896649578
+      Layer 3 foreground_86: 1037801238
+      Layer 3 foreground_109: 314597730
+      Layer 3 foreground_5: -1204706821
+      Layer 3 foreground_143: 692554698
+      Layer 3 foreground_38: -381297544
+      Layer 3 foreground_164: 1055035375
+      Layer 3 foreground_19: 870157849
+      Layer 3 foreground_48: -1325322106
+      Layer 3 foreground_185: -496823324
+      Layer 3 foreground_9: -129068329
+      Layer 3 foreground_95: 2017888221
+      Layer 3 foreground_60: -814035256
+      Layer 3 foreground_107: -48195266
+      Layer 3 foreground_43: 1363175984
+      Layer 3 foreground_42: 1815010145
+      Layer 3 foreground_80: -675328219
+      Layer 3 foreground_141: 1444654428
+      Layer 3 foreground_97: 727791691
+      Layer 3 foreground_123: -1793636580
+      Layer 3 foreground_159: 304822846
+      Layer 3 foreground_172: -46171473
+      Layer 3 foreground_76: -45217849
+      Layer 3 foreground_46: -2113009178
+      Layer 3 foreground_140: 91292733
+      Layer 3 foreground_94: -462328820
+      Layer 3 foreground_57: 1606281084
+      Layer 3 foreground_132: 1511578670
+      Layer 3 foreground_59: -157868944
+      Layer 3 foreground_75: 539097261
+      Layer 3 foreground_99: -448192568
+      Layer 3 foreground_32: -78308289
+      Layer 3 foreground_176: -531480413
+      Layer 3 foreground_135: -782001406
+      Layer 3 foreground_30: -388565840
+      Layer 3 foreground_111: 358894913
+      Layer 3 foreground_58: 1558727785
+      Layer 3 foreground_51: -92984120
+      Layer 3 foreground_54: 1615220505
+      Layer 3 foreground_163: -1807820584
+      Layer 3 foreground_7: -1712342736
+      Layer 3 foreground_27: -1783665692
+      Layer 3 foreground_44: 1232288298
+      Layer 3 foreground_84: -407183225
+      Layer 3 foreground_122: 1278091439
+      Layer 3 foreground_118: 475490084
+      Layer 3 foreground_47: 298935025
+      Layer 3 foreground_53: -522412687
+      Layer 3 foreground_115: -359208578
+      Layer 3 foreground_167: -1363916560
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
