@@ -1,4 +1,5 @@
 ﻿using CatGame.Interactables;
+using CatGame.MovingTiles;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -162,15 +163,17 @@ namespace CatGame.CharacterControl
             {
                 _interactableHandler.PickupOrInteract();
             }
-            // Drop current pickup
-            else if (InputHandler.Drop.WasPressedThisFrame())
+            
+            // Toggle tentacles
+            if (InputHandler.ToggleTentacles.WasPressedThisFrame() && _mode == CharacterMode.Cat)
             {
-                if (_interactableHandler.CurrentPickup != null)
+                foreach (MovingTile tile in MovingTile.Tiles)
                 {
-                    PlaySFX("Put Down");
+                    if (tile is ToggleMovingTile toggleTile)
+                    {
+                        toggleTile.Toggle();
+                    }
                 }
-
-                _interactableHandler.DropPickup(_movement.IsFacingLeft);
             }
         }
 

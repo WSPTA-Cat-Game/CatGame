@@ -25,8 +25,8 @@ namespace CatGame
             => Instance._playerInput.actions.FindAction("Move");
         public static InputAction Interact 
             => Instance._playerInput.actions.FindAction("Interact");
-        public static InputAction Drop 
-            => Instance._playerInput.actions.FindAction("Drop");
+        public static InputAction ToggleTentacles 
+            => Instance._playerInput.actions.FindAction("Toggle Tentacles");
         public static InputAction Jump 
             => Instance._playerInput.actions.FindAction("Jump");
         public static InputAction Transition 

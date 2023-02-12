@@ -3,56 +3,72 @@ using UnityEngine;
 
 namespace CatGame.MovingTiles
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class MovingTile : MonoBehaviour
     {
-        private static readonly Dictionary<Transform, Transform> originalParents = new();
-
         public Vector3 endPos;
 
         public float speed = 1.5f;
         public float stopTime = 1f;
 
-        private Vector3 startPos;
+        private static readonly List<MovingTile> _tiles = new();
+        private static readonly Dictionary<Transform, Transform> _originalParents = new();
 
-        private float moveTime;
-        private float endTime;
-        private bool isMoving;
-        private bool isReversed = false;
+        private readonly ContactFilter2D _aboveFilter = new()
+        {
+            useNormalAngle = true,
+            minNormalAngle = 269,
+            maxNormalAngle = 271
+        };
+
+        private Rigidbody2D _rb;
+
+        private Vector3 _startPos;
+
+        private float _moveTime;
+        private float _endTime;
+        private bool _isMoving;
+        private bool _isReversed = false;
+
+        protected bool IsMoving => _isMoving;
+        public static IReadOnlyList<MovingTile> Tiles => _tiles;
         
         protected virtual void Start()
         {
-            startPos = transform.localPosition;
+            _tiles.Add(this);
+            _rb = GetComponent<Rigidbody2D>();
+            _startPos = transform.localPosition;
         }
         
         protected virtual void Update() 
         {
-            Vector3 currentStartPos = startPos;
+            Vector3 currentStartPos = _startPos;
             Vector3 currentEndPos = endPos;
 
-            if (isReversed)
+            if (_isReversed)
             {
                 currentStartPos = endPos;
-                currentEndPos = startPos;
+                currentEndPos = _startPos;
             }
 
-            if (isMoving)
+            if (_isMoving)
             {
-                moveTime += Time.deltaTime;
+                _moveTime += Time.deltaTime;
 
                 Vector3 direction = currentEndPos - currentStartPos;
                 float timeToMove = direction.magnitude / speed;
                 
                 Vector3 resPos = currentStartPos
-                    + moveTime * speed * direction.normalized;
+                    + _moveTime * speed * direction.normalized;
 
 
                 // Check if we've gone longer than the length
-                if (moveTime > timeToMove)
+                if (_moveTime > timeToMove)
                 {
                     transform.localPosition = currentEndPos;
-                    isMoving = false;
-                    endTime = 0;
-                    isReversed = !isReversed;
+                    _isMoving = false;
+                    _endTime = 0;
+                    _isReversed = !_isReversed;
                 }
                 else
                 {
@@ -62,21 +78,27 @@ namespace CatGame.MovingTiles
             else
             {
                 // Wait until stop time is over then move again
-                endTime += Time.deltaTime;
+                _endTime += Time.deltaTime;
 
-                if (endTime > stopTime)
+                if (_endTime > stopTime)
                 {
-                    isMoving = true;
-                    moveTime = 0;
+                    _isMoving = true;
+                    _moveTime = 0;
                 }
             }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!originalParents.ContainsKey(collision.transform))
+            // Only bother parenting if touching the top of the collider
+            if (!_rb.IsTouching(collision.collider, _aboveFilter))
             {
-                originalParents.Add(collision.transform, collision.transform.parent);
+                return;
+            }
+
+            if (!_originalParents.ContainsKey(collision.transform))
+            {
+                _originalParents.Add(collision.transform, collision.transform.parent);
             }
 
             // Set our transform to theirs to avoid weird physics interactions
@@ -85,7 +107,7 @@ namespace CatGame.MovingTiles
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            collision.transform.parent = originalParents.GetValueOrDefault(collision.transform, null);
+            collision.transform.parent = _originalParents.GetValueOrDefault(collision.transform, null);
         }
     }
 }
