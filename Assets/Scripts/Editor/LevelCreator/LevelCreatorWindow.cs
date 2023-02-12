@@ -278,6 +278,14 @@ namespace CatGame.Editor.LevelCreator
                         DestroyImmediate(_grid.transform.GetChild(i).gameObject);
                     }
 
+                    // Load global data
+                    string globalPath = Path.GetRelativePath(
+                        ProjectPath, 
+                        Path.Combine(LayersAssetsPath, data.layerName, "Global.prefab"));
+                    GameObject globalPrefabPath = AssetDatabase.LoadAssetAtPath<GameObject>(globalPath);
+                    GameObject globalPrefab = (GameObject)PrefabUtility.InstantiatePrefab(globalPrefabPath);
+                    globalPrefab.transform.parent = _grid.transform;
+
                     // Load all levels in layer
                     LevelData[] copies = LoadLevels(GetLevelPrefabs(data.layerName)
                         .Select(path =>
