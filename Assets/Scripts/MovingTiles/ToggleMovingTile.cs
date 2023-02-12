@@ -6,6 +6,11 @@ namespace CatGame.MovingTiles
     {
         public void Toggle()
         {
+            if (!isActiveAndEnabled)
+            {
+                return;
+            }
+
             StopAllCoroutines();
             StartCoroutine(ToggleCoroutine());
         }

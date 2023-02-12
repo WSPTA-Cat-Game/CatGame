@@ -116,6 +116,11 @@ namespace CatGame
                 {
                     losTile.playerCollider = characterCollider;
                 }
+                if (tile is ToggleMovingTile toggleTile)
+                {
+                    toggleTile.transform.parent.gameObject.SetActive(
+                        toggleTile.transform.IsChildOf(_currentLevel.transform));
+                }
             }
             
             // Prevent player from exiting level unless carrying cat
