@@ -11,14 +11,17 @@ namespace CatGame.MovingTiles
         public float speed = 1.5f;
         public float stopTime = 1f;
 
-        private static readonly List<MovingTile> _tiles = new();
+        private static readonly HashSet<MovingTile> _tiles = new();
         private static readonly Dictionary<Transform, Transform> _originalParents = new();
 
         private readonly ContactFilter2D _aboveFilter = new()
         {
             useNormalAngle = true,
             minNormalAngle = 269,
-            maxNormalAngle = 271
+            maxNormalAngle = 271,
+
+            useLayerMask = true,
+            layerMask = ~(int)LayerMasks.Default
         };
 
         private Rigidbody2D _rb;
@@ -31,7 +34,7 @@ namespace CatGame.MovingTiles
         private bool _isReversed = false;
 
         protected bool IsMoving => _isMoving;
-        public static IReadOnlyList<MovingTile> Tiles => _tiles;
+        public static IReadOnlyCollection<MovingTile> Tiles => _tiles;
         
         protected virtual void Start()
         {
@@ -107,7 +110,17 @@ namespace CatGame.MovingTiles
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            collision.transform.parent = _originalParents.GetValueOrDefault(collision.transform, null);
+            if (!_originalParents.ContainsKey(collision.transform))
+            {
+                return;
+            }
+
+            collision.transform.parent = _originalParents[collision.transform];
+        }
+
+        private void OnDestroy()
+        {
+            _tiles.Remove(this);
         }
     }
 }
