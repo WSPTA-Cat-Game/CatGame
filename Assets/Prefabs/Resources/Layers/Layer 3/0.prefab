@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   layerName: Layer 3
-  lockCameraX: 1
+  lockCameraX: 0
   lockCameraY: 1
   lockedCameraPos: {x: -2, y: -0.5}
   tilemap: {fileID: 683841870725072317}
@@ -2094,6 +2094,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 558459959952923002}
     m_Modifications:
+    - target: {fileID: 2808726907049501681, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808726907049501681, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
+      propertyPath: m_Size.y
+      value: 3.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3658963869816533863, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2144,7 +2152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349124580224447754, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_InstanceId
-      value: -1332
+      value: -479038
       objectReference: {fileID: 0}
     - target: {fileID: 6549934004071678512, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_Name
