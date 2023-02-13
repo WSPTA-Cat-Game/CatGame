@@ -115,7 +115,10 @@ namespace CatGame.MovingTiles
                 return;
             }
 
-            collision.transform.parent = _originalParents[collision.transform];
+            if (isActiveAndEnabled)
+            {
+                collision.transform.parent = _originalParents[collision.transform];
+            }
         }
 
         private void OnDestroy()
