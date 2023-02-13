@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: c8e63b4f436961c46bee41cc9f7db52f, type: 3}
+  generateShadows: 0
 --- !u!1 &8168265347205848547
 GameObject:
   m_ObjectHideFlags: 0

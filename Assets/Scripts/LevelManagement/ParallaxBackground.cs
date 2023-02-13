@@ -35,6 +35,7 @@ namespace CatGame.LevelManagement
                 backgroundGO.transform.parent = transform;
 
                 SpriteRenderer renderer = backgroundGO.AddComponent<SpriteRenderer>();
+                renderer.material.shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
                 renderer.sprite = GetRandomSprite(forceStart: i == 0);
 
                 // position it edge to edge of the last one (from the left of
@@ -127,6 +128,7 @@ namespace CatGame.LevelManagement
                 backgroundGO.transform.parent = transform;
 
                 SpriteRenderer renderer = backgroundGO.AddComponent<SpriteRenderer>();
+                renderer.material.shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
                 renderer.sprite = GetRandomSprite(!addBefore);
 
                 // position it edge to edge of the last one

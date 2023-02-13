@@ -4,6 +4,7 @@ using CatGame.CharacterControl;
 using CatGame.Interactables;
 using CatGame.LevelManagement;
 using CatGame.MovingTiles;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,8 +12,6 @@ namespace CatGame
 {
     public class GameManager : MonoBehaviour
     {
-        private GameObject _menu;
-
         private FollowCamera _camera;
         private Character _character;
         private LevelLoader _levelLoader;
@@ -21,18 +20,6 @@ namespace CatGame
         private LayerData _currentLayer;
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
-
-        public void ContinueGame()
-        {
-            EnterLayer("Layer 1");
-            _menu.SetActive(false);
-        }
-
-        public void QuitGame()
-        {
-            Debug.Log("QUIT");
-            // TODO:
-        }
 
         public void EnterLayer(string layerName)
             => EnterLevel(layerName, 0, false, false);
@@ -91,8 +78,7 @@ namespace CatGame
             // Generate shadows
             if (_currentLayer != null && _currentLayer.generateShadows)
             {
-                ShadowGenerator.GenerateShadowForCollider(
-                    _levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+                StartCoroutine(GenerateShadowsForLevel());
 
                 // Also enable or disable the player's light
                 foreach (Light2D light in _character.GetComponentsInChildren<Light2D>())
@@ -170,6 +156,13 @@ namespace CatGame
             }
         }
 
+        private IEnumerator GenerateShadowsForLevel()
+        {
+            // Needed because composite collider has no geometry for one frame
+            yield return null;
+            ShadowGenerator.GenerateShadowForCollider(_levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+        }
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -177,8 +170,6 @@ namespace CatGame
             _character = FindObjectOfType<Character>(true);
             _levelLoader = GetComponent<LevelLoader>();
             _audioSource = GetComponent<FadeAudio>();
-
-            _menu = GameObject.Find("Menu");
         }
 
         // The editor removes event subscribers on rebuild (aka saving while in
