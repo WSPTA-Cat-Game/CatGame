@@ -51,6 +51,8 @@ namespace CatGame.CharacterControl
 
         private Rigidbody2D _rb;
 
+        private float _currentInput;
+
         private bool _hasWallHangEnded = false;
         private bool _canStartWallHang = false;
         private float _lastWallHangTime = 0;
@@ -102,6 +104,11 @@ namespace CatGame.CharacterControl
             _rb.velocity = Vector2.zero;
         }
 
+        public void Move(float horzInput)
+        {
+            _currentInput = horzInput;
+        }
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -123,7 +130,10 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
-            float horzInput = InputHandler.Move.ReadValue<Vector2>().x;
+            float horzInput = float.IsNaN(_currentInput)
+                ? InputHandler.Move.ReadValue<Vector2>().x
+                : _currentInput;
+            _currentInput = float.NaN;
             bool isInputPressed = Mathf.Abs(horzInput) > 0.01;
 
             // Only change direction faced if input pressed
@@ -147,7 +157,6 @@ namespace CatGame.CharacterControl
                 float adjSpeed = _rb.velocity.x * deceleration;
                 _rb.velocity = new Vector2(Mathf.Abs(adjSpeed) < 0.01 ? 0 : adjSpeed, _rb.velocity.y);
             }
-
 
             // Check if horz input is in the same direction as the wall
             if (isInputPressed && !IsGrounded && IsOnWall && Mathf.Sign(horzInput) == WallDirection && _canStartWallHang)

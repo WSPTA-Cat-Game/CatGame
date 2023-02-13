@@ -39,6 +39,7 @@ namespace CatGame.CharacterControl
 
         private bool hasPickedUp = false;
 
+        public CharacterMovement Movement => _movement;
         public InteractableHandler InteractableHandler => _interactableHandler;
         public bool IsFacingLeft => _movement.IsFacingLeft;
 

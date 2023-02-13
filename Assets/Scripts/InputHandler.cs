@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CatGame
@@ -31,6 +32,12 @@ namespace CatGame
             => Instance._playerInput.actions.FindAction("Jump");
         public static InputAction Transition 
             => Instance._playerInput.actions.FindAction("Transition");
+
+        public static bool IsInputEnabled
+        {
+            get => Instance._playerInput.inputIsActive;
+            set => (value ? (Action)Instance._playerInput.ActivateInput : Instance._playerInput.DeactivateInput)();
+        }
 
         private void Awake()
         {
