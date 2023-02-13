@@ -41,6 +41,9 @@ namespace CatGame.LevelManagement
 
         private IEnumerator CutsceneEnumerator()
         {
+            _camera.lockX = false;
+            _camera.lockY = false;
+
             InputHandler.IsInputEnabled = false;
 
             // Set cam bounds to infinite to give free movement
