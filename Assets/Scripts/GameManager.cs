@@ -21,14 +21,29 @@ namespace CatGame
         private LevelData _currentLevel;
         private Vector2 _currentSpawnPoint;
 
-        public void EnterLayer(string layerName)
-            => EnterLevel(layerName, 0, false, false);
+        private object _coroutine;
 
-        public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true, bool pausePhysics = true) 
+        public void EnterLayer(string layerName)
+            => EnterLevel(layerName, 0, false);
+
+        public void EnterLevel(string layerName, int levelIndex, bool cameFromTransition = true) 
         {
             _character.gameObject.SetActive(true);
             _character.InteractableHandler.OnPickupChange -= OnPickupChange;
             _character.InteractableHandler.OnPickupChange += OnPickupChange;
+
+            // Set caemra to 0,0,0 so the background starts properly
+            if (!cameFromTransition)
+            {
+                if (_coroutine == null)
+                {
+                    _coroutine = StartCoroutine(LoadScreen(Random.Range(2, 4)));
+                }
+
+                _camera.enabled = false;
+                Camera.main.transform.position = Vector3.zero;
+                _camera.enabled = true;
+            }
 
             // Load level and subscribe to transitions
             _currentLevel = _levelLoader.LoadLevel(layerName, levelIndex);
@@ -38,9 +53,16 @@ namespace CatGame
                 transition.OnTransitionEntered += OnLevelTransitionEntered;
             }
 
+            // Subscribe to bridge cutscene
+            foreach (BridgeCutscene cutscene in BridgeCutscene.Cutscenes)
+            {
+                cutscene.OnCutsceneFinish -= OnBridgeCutsceneFinish;
+                cutscene.OnCutsceneFinish += OnBridgeCutsceneFinish;
+            }
+
             // Stop physics then restart it once camera is finished moving if 
             // pausePhysics is true
-            if (pausePhysics)
+            if (cameFromTransition)
             {
                 float lastTimeScale = Time.timeScale;
                 Time.timeScale = 0;
@@ -136,6 +158,20 @@ namespace CatGame
             }
         }
 
+        private void OnBridgeCutsceneFinish()
+        {
+            if (_currentLevel.layerName == "Layer 3")
+            {
+                // TODO: ????
+                return;
+            }
+
+            int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
+            string newLayer = "Layer " + (currentLayerNum + 1);
+            SaveManager.AddCompletedLayer(newLayer);
+            EnterLayer(newLayer);
+        }
+
         private void OnPickupChange(PickupBase pickup)
         {
             // Only let player exit if the pickup is cat
@@ -161,6 +197,22 @@ namespace CatGame
             // Needed because composite collider has no geometry for one frame
             yield return null;
             ShadowGenerator.GenerateShadowForCollider(_levelLoader.levelParent.GetComponent<CompositeCollider2D>());
+        }
+
+        private IEnumerator LoadScreen(float timeSeconds)
+        {
+            Transform loadScreen = transform.Find("Loading");
+            loadScreen.gameObject.SetActive(true);
+
+            float originalTimeScale = Time.timeScale;
+            Time.timeScale = 0;
+
+            yield return new WaitForSecondsRealtime(timeSeconds);
+
+            Time.timeScale = originalTimeScale;
+            loadScreen.gameObject.SetActive(false);
+
+            _coroutine = null;
         }
 
         private void Awake()

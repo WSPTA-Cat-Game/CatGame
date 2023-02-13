@@ -3,6 +3,7 @@ using CatGame.CharacterControl;
 using CatGame.Interactables;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CatGame.LevelManagement
@@ -12,6 +13,10 @@ namespace CatGame.LevelManagement
     {
         private const float BridgeMiddle = 8.5f;
 
+        public event Action OnCutsceneFinish;
+
+        private static readonly HashSet<BridgeCutscene> _cutscenes = new();
+
         public AnimationCurve speedCurve;
 
         private object _coroutine;
@@ -19,13 +24,22 @@ namespace CatGame.LevelManagement
         private FollowCamera _camera;
         private Character _character;
 
+        public static IReadOnlyCollection<BridgeCutscene> Cutscenes => _cutscenes;
+
         private void Awake()
         {
+            _cutscenes.Add(this);
+
             _camera = FindObjectOfType<FollowCamera>(true);
             _character = FindObjectOfType<Character>(true);
         }
 
-        private IEnumerator CutsceneEnumerator(Action finishCallback = null)
+        private void OnDestroy()
+        {
+            _cutscenes.Remove(this);
+        }
+
+        private IEnumerator CutsceneEnumerator()
         {
             InputHandler.IsInputEnabled = false;
 
@@ -70,7 +84,7 @@ namespace CatGame.LevelManagement
             _camera.lockY = true;
 
             float startTime = Time.time;
-            while (Time.time - startTime < 5)
+            while (Time.time - startTime < 4)
             {
                 _character.Movement.Move(0.7f);
                 yield return null;
@@ -79,8 +93,8 @@ namespace CatGame.LevelManagement
             InputHandler.IsInputEnabled = true;
 
             _coroutine = null;
-            finishCallback?.Invoke();
             Camera.main.orthographicSize = startZoom;
+            OnCutsceneFinish?.Invoke();
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
