@@ -56,7 +56,7 @@ namespace CatGame.LevelManagement
             // Load global layer items
             if (_loadedLayer.Key != layerName)
             {
-                Transform prevData = transform.Find("LayerData");
+                Transform prevData = levelParent.Find("Global");
                 if (prevData != null)
                 {
                     Destroy(prevData.gameObject);
@@ -66,7 +66,7 @@ namespace CatGame.LevelManagement
                 if (layerData != null)
                 {
                     GameObject copy = Instantiate(layerData, levelParent);
-                    copy.name = "LayerData";
+                    copy.name = "Global";
                     globalParent = copy.transform;
                     _loadedLayer = new KeyValuePair<string, GameObject>(layerName, copy);
                 }

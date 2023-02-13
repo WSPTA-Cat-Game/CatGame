@@ -1,4 +1,5 @@
 ﻿using CatGame.Interactables;
+using CatGame.MovingTiles;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -168,6 +169,18 @@ namespace CatGame.CharacterControl
                 {
                     PlaySFX("Put Down");
                     _interactableHandler.DropPickup(_movement.IsFacingLeft);
+                }
+            }
+            
+            // Toggle tentacles
+            if (InputHandler.ToggleTentacles.WasPressedThisFrame() && _mode == CharacterMode.Cat)
+            {
+                foreach (MovingTile tile in MovingTile.Tiles)
+                {
+                    if (tile is ToggleMovingTile toggleTile)
+                    {
+                        toggleTile.Toggle();
+                    }
                 }
             }
         }

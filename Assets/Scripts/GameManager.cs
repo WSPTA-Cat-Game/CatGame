@@ -96,9 +96,17 @@ namespace CatGame
 
             // Tell LOS moving tiles what the player collider is
             Collider2D characterCollider = _character.GetComponent<Collider2D>();
-            foreach (LOSMovingTile tile in _currentLevel.GetComponentsInChildren<LOSMovingTile>())
+            foreach (MovingTile tile in MovingTile.Tiles)
             {
-                tile.playerCollider = characterCollider;
+                if (tile is LOSMovingTile losTile)
+                {
+                    losTile.playerCollider = characterCollider;
+                }
+                if (tile is ToggleMovingTile toggleTile)
+                {
+                    toggleTile.transform.parent.gameObject.SetActive(
+                        toggleTile.transform.IsChildOf(_currentLevel.transform));
+                }
             }
             
             // Prevent player from exiting level unless carrying cat
