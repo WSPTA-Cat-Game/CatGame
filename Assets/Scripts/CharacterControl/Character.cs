@@ -127,8 +127,8 @@ namespace CatGame.CharacterControl
             _animator.SetBool("IsGrounded", _movement.IsGrounded);
             _animator.SetBool("IsPickup", hasPickedUp);
             _animator.SetBool("IsMoving", Mathf.Abs(_movement.Velocity.x) > 0.1 && _movement.enabled);
+            _animator.SetFloat("RunSpeed", Mathf.Max(0.2f, Mathf.Abs(_movement.Velocity.x / _movement.maxSpeed)));
 
-            
             bool isPushing = false;
             // Pushing is true if we're touching any non static rigidbody on
             // either side
