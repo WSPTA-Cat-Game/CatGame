@@ -20,6 +20,11 @@ namespace CatGame.MovingTiles
             
         }
 
+        private void Awake()
+        {
+            stopTime = 0;
+        }
+
         private IEnumerator ToggleCoroutine()
         {
             // We have to update once to start the platform again
