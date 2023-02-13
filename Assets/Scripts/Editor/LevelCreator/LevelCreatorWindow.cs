@@ -341,6 +341,7 @@ namespace CatGame.Editor.LevelCreator
                 LevelData prefab = (LevelData)PrefabUtility.InstantiatePrefab(levels[i]);
                 PrefabUtility.UnpackPrefabInstance(prefab.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 
+                prefab.gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 prefab.gameObject.AddComponent<CompositeCollider2D>();
 
                 prefab.transform.parent = _grid.transform;
