@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8709656745175141422}
   - component: {fileID: 2808726907049501681}
   - component: {fileID: 8955477682286720527}
+  - component: {fileID: 5349124580224447754}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -149,6 +150,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5349124580224447754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905473187079788652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: 0, z: 0}
+  - {x: -0.5, y: 3.5, z: 0}
+  - {x: 0.5, y: 3.5, z: 0}
+  - {x: 0.5, y: 0, z: 0}
+  m_ShapePathHash: -1550453483
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -344042
 --- !u!1 &6549934004071678512
 GameObject:
   m_ObjectHideFlags: 0
