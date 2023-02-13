@@ -11,7 +11,7 @@ namespace CatGame
         public static string CompletedLayers
         {
             // TODO: DON'T PUT THIS IN THE FINAL GAME IDIOT
-            get => PlayerPrefs.GetString("CompletedLayers", "Layer 1\nLayer 2");
+            get => PlayerPrefs.GetString("CompletedLayers", "Layer 1\nLayer 2\nLayer 3");
             private set
             {
                 PlayerPrefs.SetString("CompletedLayers", value);
