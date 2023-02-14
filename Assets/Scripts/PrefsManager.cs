@@ -8,20 +8,20 @@ namespace CatGame
 {
     public static class PrefsManager
     {
-        public static string CompletedLayers
+        public static string AvailableLayers
         {
             // TODO: DON'T PUT THIS IN THE FINAL GAME IDIOT
-            get => PlayerPrefs.GetString("CompletedLayers", "Layer 1\nLayer 2\nLayer 3");
+            get => PlayerPrefs.GetString("AvailableLayers", "");
             private set
             {
-                PlayerPrefs.SetString("CompletedLayers", value);
+                PlayerPrefs.SetString("AvailableLayers", value);
                 PlayerPrefs.Save();
             }
         }
 
-        public static IEnumerable<string> GetCompletedLayersEnumerator()
+        public static IEnumerable<string> GetAvailableLayers()
         {
-            StringReader reader = new(CompletedLayers);
+            StringReader reader = new(AvailableLayers);
 
             string layer = reader.ReadLine();
             while (layer != null)
@@ -31,14 +31,14 @@ namespace CatGame
             }
         }
 
-        public static string GetHighestCompletedLayer()
-            => GetCompletedLayersEnumerator().OrderByDescending(val => val).First();
+        public static string GetHighestAvailableLayer()
+            => GetAvailableLayers().OrderByDescending(val => val).FirstOrDefault();
 
         public static void AddCompletedLayer(string newLayer)
         {
             StringBuilder builder = new();
 
-            foreach (string layer in GetCompletedLayersEnumerator())
+            foreach (string layer in GetAvailableLayers())
             {
                 if (layer != newLayer)
                 {
@@ -49,7 +49,7 @@ namespace CatGame
 
             builder.Append(newLayer);
 
-            CompletedLayers = builder.ToString();
+            AvailableLayers = builder.ToString();
         }
 
         public static float GetGroupVolume(string group)

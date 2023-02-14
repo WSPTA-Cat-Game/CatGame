@@ -4,6 +4,8 @@ using CatGame.CharacterControl;
 using CatGame.Interactables;
 using CatGame.LevelManagement;
 using CatGame.MovingTiles;
+using CatGame.UI;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -26,6 +28,30 @@ namespace CatGame
 
         private object _coroutine;
 
+        public void PlayStartingDialogue(Action finishCallback = null) 
+        {
+            DialogueBox box = transform.Find("Dialogue").GetComponent<DialogueBox>();
+            box.gameObject.SetActive(true);
+
+            float originalAutoDelay = box.autoDelaySec;
+            bool originalAuto = box.autoMode;
+            box.autoDelaySec = 7;
+            box.autoMode = true;
+
+            // Prevent skipping with click and stuff
+            InputHandler.IsInputEnabled = false;
+
+            finishCallback += () =>
+            {
+                box.autoDelaySec = originalAutoDelay;
+                box.autoMode = originalAuto;
+                box.gameObject.SetActive(false);
+                InputHandler.IsInputEnabled = true;
+            };
+
+            box.StartDialogue("Intro", finishCallback);
+        }
+
         public void SetMixerVolume(string param, float volume)
         {
             mixer.SetFloat(param, volume);
@@ -46,7 +72,7 @@ namespace CatGame
             {
                 if (_coroutine == null)
                 {
-                    _coroutine = StartCoroutine(LoadScreen(Random.Range(2, 4)));
+                    _coroutine = StartCoroutine(LoadScreen(UnityEngine.Random.Range(2, 4)));
                 }
 
                 _camera.enabled = false;

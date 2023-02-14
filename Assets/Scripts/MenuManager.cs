@@ -27,7 +27,15 @@ namespace CatGame.UI
         {
             HideMenu();
 
-            gameManager.EnterLayer(PrefsManager.GetHighestAvailableLayer() ?? "Layer 1");
+            string highestLayer = PrefsManager.GetHighestAvailableLayer();
+            if (highestLayer == null)
+            {
+                gameManager.PlayStartingDialogue(() => gameManager.EnterLayer("Layer 1"));
+            }
+            else
+            {
+                gameManager.EnterLayer(highestLayer);
+            }
         }
 
         public void OpenLayerSelect()
