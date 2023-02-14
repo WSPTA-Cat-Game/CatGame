@@ -20,16 +20,18 @@ namespace CatGame
         private GameObject _startContinueButton;
         private GameObject _levelSelectMenu;
         private GameObject _levelSelectButtonsRoot;
+        private GameObject _settingsMenu;
+        private GameObject _settingsButtonsRoot;
 
         public void ContinueGame()
         {
             HideMenu();
-            gameManager.EnterLayer(SaveManager.GetHighestCompletedLayer());
+            gameManager.EnterLayer(PrefsManager.GetHighestCompletedLayer());
         }
 
         public void OpenLayerSelect()
         {
-            HashSet<string> completedLayers = SaveManager.GetCompletedLayersEnumerator().ToHashSet();
+            HashSet<string> completedLayers = PrefsManager.GetCompletedLayersEnumerator().ToHashSet();
 
             foreach (Transform button in _levelSelectButtonsRoot.transform)
             {
@@ -49,11 +51,28 @@ namespace CatGame
 
             _mainMenu.SetActive(false);
             _levelSelectMenu.SetActive(true);
+            _settingsMenu.SetActive(false);
+        }
+
+        public void OpenSettings()
+        {
+            foreach (Transform slider in _settingsButtonsRoot.transform)
+            {
+                Slider sliderComponent = slider.GetComponent<Slider>();
+                sliderComponent.SetValueWithoutNotify(PrefsManager.GetGroupVolume(slider.name) / 100 + 0.8f);
+
+                sliderComponent.onValueChanged.RemoveAllListeners();
+                sliderComponent.onValueChanged.AddListener(val => SetVolume(slider.name, val));
+            }
+
+            _mainMenu.SetActive(false);
+            _levelSelectMenu.SetActive(false);
+            _settingsMenu.SetActive(true);
         }
 
         public void OpenMainMenu()
         {
-            string highestCompletedLayer = SaveManager.GetHighestCompletedLayer();
+            string highestCompletedLayer = PrefsManager.GetHighestCompletedLayer();
             if (highestCompletedLayer == "Layer 1")
             {
                 _startContinueButton.GetComponent<Button>().image.sprite = startSprite;
@@ -65,6 +84,7 @@ namespace CatGame
 
             _mainMenu.SetActive(true);
             _levelSelectMenu.SetActive(false);
+            _settingsMenu.SetActive(false);
         }
 
         public void SelectLayer(string layerName)
@@ -75,8 +95,14 @@ namespace CatGame
             gameManager.EnterLayer(layerName);
         }
 
+        public void SetVolume(string group, float value)
+        {
+            gameManager.SetMixerVolume(group, value * 100 - 80);
+        }
+
         public void HideMenu()
         {
+            OpenMainMenu();
             _menuRoot.SetActive(false);
         }
 
@@ -88,6 +114,9 @@ namespace CatGame
 
             _levelSelectMenu = _menuRoot.transform.Find("Canvas/Level Select").gameObject;
             _levelSelectButtonsRoot = _levelSelectMenu.transform.Find("Levels").gameObject;
+
+            _settingsMenu = _menuRoot.transform.Find("Canvas/Settings").gameObject;
+            _settingsButtonsRoot = _settingsMenu.transform.Find("Settings").gameObject;
 
             OpenMainMenu();
         }

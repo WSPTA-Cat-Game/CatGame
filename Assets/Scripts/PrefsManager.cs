@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CatGame
 {
-    public static class SaveManager
+    public static class PrefsManager
     {
         public static string CompletedLayers
         {
@@ -50,6 +50,16 @@ namespace CatGame
             builder.Append(newLayer);
 
             CompletedLayers = builder.ToString();
+        }
+
+        public static float GetGroupVolume(string group)
+        {
+            return PlayerPrefs.GetFloat(group, 0);
+        }
+
+        public static void SetGroupVolume(string group, float volume)
+        {
+            PlayerPrefs.SetFloat(group, volume);
         }
     }
 }

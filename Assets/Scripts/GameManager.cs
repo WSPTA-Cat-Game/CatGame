@@ -6,12 +6,15 @@ using CatGame.LevelManagement;
 using CatGame.MovingTiles;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Rendering.Universal;
 
 namespace CatGame
 {
     public class GameManager : MonoBehaviour
     {
+        public AudioMixer mixer;
+
         private FollowCamera _camera;
         private Character _character;
         private LevelLoader _levelLoader;
@@ -22,6 +25,12 @@ namespace CatGame
         private Vector2 _currentSpawnPoint;
 
         private object _coroutine;
+
+        public void SetMixerVolume(string param, float volume)
+        {
+            mixer.SetFloat(param, volume);
+            PrefsManager.SetGroupVolume(param, volume);
+        }
 
         public void EnterLayer(string layerName)
             => EnterLevel(layerName, 0, false);
@@ -168,7 +177,7 @@ namespace CatGame
 
             int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
             string newLayer = "Layer " + (currentLayerNum + 1);
-            SaveManager.AddCompletedLayer(newLayer);
+            PrefsManager.AddCompletedLayer(newLayer);
             EnterLayer(newLayer);
         }
 
