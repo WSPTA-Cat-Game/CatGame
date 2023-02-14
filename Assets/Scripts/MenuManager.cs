@@ -26,12 +26,13 @@ namespace CatGame.UI
         public void ContinueGame()
         {
             HideMenu();
-            gameManager.EnterLayer(PrefsManager.GetHighestCompletedLayer());
+
+            gameManager.EnterLayer(PrefsManager.GetHighestAvailableLayer() ?? "Layer 1");
         }
 
         public void OpenLayerSelect()
         {
-            HashSet<string> completedLayers = PrefsManager.GetCompletedLayersEnumerator().ToHashSet();
+            HashSet<string> completedLayers = PrefsManager.GetAvailableLayers().ToHashSet();
 
             foreach (Transform button in _levelSelectButtonsRoot.transform)
             {
@@ -72,8 +73,8 @@ namespace CatGame.UI
 
         public void OpenMainMenu()
         {
-            string highestCompletedLayer = PrefsManager.GetHighestCompletedLayer();
-            if (highestCompletedLayer == "Layer 1")
+            string highestCompletedLayer = PrefsManager.GetHighestAvailableLayer();
+            if (highestCompletedLayer == null)
             {
                 _startContinueButton.GetComponent<Button>().image.sprite = startSprite;
             }
