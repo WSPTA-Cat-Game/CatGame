@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CatGame
+namespace CatGame.UI
 {
     public class MenuManager : MonoBehaviour
     {
