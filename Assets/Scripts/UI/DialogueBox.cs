@@ -42,6 +42,7 @@ namespace CatGame.UI
         public void StartDialogue(Dialogue dialogue)
         {
             StopAllCoroutines();
+            _fadeCoroutine = null;
             StartCoroutine(DialogueCoroutine(dialogue));
         }
 
@@ -92,7 +93,7 @@ namespace CatGame.UI
                     {
                         yield return null;
 
-                        if (InputHandler.DialogueSkip.WasPressedThisFrame())
+                        if (line.skippable && InputHandler.DialogueSkip.WasPressedThisFrame())
                         {
                             wasSkipPressed = true;
                         }

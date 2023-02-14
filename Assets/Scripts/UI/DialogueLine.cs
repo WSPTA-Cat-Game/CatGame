@@ -11,5 +11,6 @@ namespace CatGame.UI
         public string line;
         public Sprite backgroundSprite;
         public bool fadeToSprite;
+        public bool skippable;
     }
 }
