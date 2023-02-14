@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4832705915849431985}
   - component: {fileID: 5031218081568639269}
+  - component: {fileID: 6776938592060901625}
   m_Layer: 0
   m_Name: Tile Light
   m_TagString: Untagged
@@ -111,3 +112,15 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &6776938592060901625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460591411821308759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3213ada05e003724a968b8e2139dbb6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
