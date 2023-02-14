@@ -157,6 +157,7 @@ namespace CatGame.UI
                 yield return null;
             }
 
+            backgroundImage.color = Color.black;
             backgroundImage.sprite = sprite;
             yield return new WaitForSecondsRealtime(0.5f);
 
@@ -166,6 +167,7 @@ namespace CatGame.UI
                 backgroundImage.color = Color.Lerp(Color.black, Color.white, (Time.unscaledTime - start) / 1.2f);
                 yield return null;
             }
+            backgroundImage.color = Color.white;
         }
     }
 }
