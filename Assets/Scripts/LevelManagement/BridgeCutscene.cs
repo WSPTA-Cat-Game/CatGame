@@ -19,6 +19,7 @@ namespace CatGame.LevelManagement
 
         public AnimationCurve speedCurve;
 
+        // This is just to make sure only one cutscene runs at a time
         private object _coroutine;
 
         private FollowCamera _camera;

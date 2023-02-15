@@ -12,6 +12,7 @@ namespace CatGame.Interactables
         {
             picture.SetActive(true);
 
+            // Disable picture if any button is pressed
             InputSystem.onAnyButtonPress.
                 CallOnce((_) => picture.SetActive(false));
         }

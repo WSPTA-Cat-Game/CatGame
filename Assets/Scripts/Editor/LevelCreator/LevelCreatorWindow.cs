@@ -341,6 +341,8 @@ namespace CatGame.Editor.LevelCreator
                 LevelData prefab = (LevelData)PrefabUtility.InstantiatePrefab(levels[i]);
                 PrefabUtility.UnpackPrefabInstance(prefab.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 
+                // Add temp composite collider and rigidbody to make level 
+                // boundaries easier to see
                 prefab.gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 prefab.gameObject.AddComponent<CompositeCollider2D>();
 
@@ -359,6 +361,7 @@ namespace CatGame.Editor.LevelCreator
                 return;
             }
 
+            // Destroy temp composite collider and rigidbody
             foreach (Transform child in _grid.transform)
             {
                 if (child.GetComponent<LevelData>() != null)

@@ -35,6 +35,9 @@ namespace CatGame.LevelManagement
                 backgroundGO.transform.parent = transform;
 
                 SpriteRenderer renderer = backgroundGO.AddComponent<SpriteRenderer>();
+                // The sprite renderer doesn't have a lit shader by default 
+                // during runtime (despite it having one in the editor), so add
+                // the lit shader ourselves
                 renderer.material.shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
                 renderer.sprite = GetRandomSprite(forceStart: i == 0);
 
@@ -56,7 +59,7 @@ namespace CatGame.LevelManagement
                 Camera.main.transform.position.y) + offset;
             lastCameraPos = Camera.main.transform.position;
 
-            // Check what are within bounds
+            // Grab the bounds of the camera
             float camHeight = Camera.main.orthographicSize * 2;
             float camWidth = camHeight * Screen.width / Screen.height;
             Bounds cameraBounds = new(
@@ -73,6 +76,8 @@ namespace CatGame.LevelManagement
                 SpriteRenderer renderer = child.GetComponent<SpriteRenderer>();
                 if (!extendedCamBounds.Intersects(renderer.bounds))
                 {
+                    // Update index to keep track which backgrounds used
+                    // which random seed
                     if (renderer.bounds.min.x < cameraBounds.min.x)
                     {
                         lowerIndex++;
@@ -128,6 +133,9 @@ namespace CatGame.LevelManagement
                 backgroundGO.transform.parent = transform;
 
                 SpriteRenderer renderer = backgroundGO.AddComponent<SpriteRenderer>();
+                // The sprite renderer doesn't have a lit shader by default 
+                // during runtime (despite it having one in the editor), so add
+                // the lit shader ourselves
                 renderer.material.shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
                 renderer.sprite = GetRandomSprite(!addBefore);
 
@@ -154,6 +162,8 @@ namespace CatGame.LevelManagement
 
         private Sprite GetRandomSprite(bool forward = true, bool forceStart = false)
         {
+            // Grab a random seed based off whether the background will go
+            // before or after the others
             int randomIndex;
             if (forward)
             {
@@ -169,6 +179,7 @@ namespace CatGame.LevelManagement
                 return startImage;
             }
 
+            // Calculate a random index based off the random seed
             double rand = (double)randomSeeds[Math.Abs(randomIndex % randomSeeds.Length)] / int.MaxValue;
             return backgroundImages[(int)(rand * backgroundImages.Length)];
         }

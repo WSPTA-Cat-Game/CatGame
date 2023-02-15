@@ -130,6 +130,8 @@ namespace CatGame.CharacterControl
         // won't function properly in it, which is why I also have update
         private void FixedUpdate()
         {
+            // Horizontal input will be whatever is supplied by the Move method
+            // if there is none, then use the axis value
             float horzInput = float.IsNaN(_currentInput)
                 ? InputHandler.Move.ReadValue<Vector2>().x
                 : _currentInput;
@@ -180,6 +182,9 @@ namespace CatGame.CharacterControl
                 }
                 else if ((!IsOnWall || !isInputPressed) && !_canStartWallHang)
                 {
+                    // If player falls off the wall when previously wall
+                    // hanging, let them hang again, while remembering how long
+                    // they were on the wall
                     _timeWallHanging += Time.realtimeSinceStartup - _lastWallHangTime;
                     _canStartWallHang = true;
                     _rb.gravityScale = 1;

@@ -75,6 +75,7 @@ namespace CatGame.CharacterControl
             _rb = GetComponent<Rigidbody2D>();
             _audioSource = GetComponent<AudioSource>();
 
+            // Load sfx clips
             AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
             _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
 
@@ -97,6 +98,8 @@ namespace CatGame.CharacterControl
         private void Update()
         {
 #if UNITY_EDITOR
+            // Yet another work around for unity disabling dictionaries on 
+            // editor rebuild
             AudioClip[] loadedClips = Resources.LoadAll<AudioClip>("SFX");
             _sfxClips = loadedClips.ToDictionary(clip => clip.name, clip => clip);
 #endif
@@ -151,6 +154,8 @@ namespace CatGame.CharacterControl
             }
             else
             {
+                // Once disabled, wait for the animator to end the pickup
+                // animation to reenable
                 AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(1);
                 _movement.enabled = !state.IsName("Pick up");
             }

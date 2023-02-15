@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.RuleTiles
+namespace CatGame.RuleTiles
 {
     // For some reason, when built, rule tiles with a gameobject set will have
     // their gameobject duplicated at 0, 0, 0, so let's just delete any 

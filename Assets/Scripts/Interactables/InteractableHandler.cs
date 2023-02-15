@@ -34,6 +34,7 @@ namespace CatGame.Interactables
                 InteractableBase firstInteractable = null;
                 foreach (InteractableBase interactable in _touchingInteractables)
                 {
+                    // Check if there is anything between the pickup and player
                     Vector2 direction = (playerCollider != null ? playerCollider.bounds.center : transform.position)
                         - interactable.transform.position;
 
@@ -41,8 +42,8 @@ namespace CatGame.Interactables
                         & ~(int)LayerMasks.IgnoreRaycast;
                     int hitCount = interactable.Collider.Raycast(direction, _hitsArray, 7f, mask);
 
-                    // If there is something the player collides with inbetween
-                    // the pickup and player, don't pick up
+                    // If there is something the player can collide with
+                    // inbetween the pickup and player, don't pick up
                     bool isPickupBlocked = false;
                     for (int i = 0; i < hitCount; i++)
                     {
@@ -70,6 +71,7 @@ namespace CatGame.Interactables
                     }
                 }
 
+                // Pickup if theres one in range
                 if (_currentPickup == null && firstPickup != null && CanPickup)
                 {
                     _currentPickup = firstPickup;
@@ -81,6 +83,7 @@ namespace CatGame.Interactables
                 }
                 else if (firstInteractable != null)
                 {
+                    // Else interact
                     firstInteractable.Interact();
                 }
             }
@@ -179,6 +182,8 @@ namespace CatGame.Interactables
                     0.7f * Time.fixedDeltaTime * 60); 
 
                 // Rotate based on x acceleration
+                // This gives the pickups the springy movement on the player's
+                // head
                 float xVel = _lastPickupXPosition - _currentPickup.transform.position.x;
                 float xAccel = _lastPickupXVelocity - xVel;
                 float targetRot = Mathf.Clamp(xAccel * 20 / Time.deltaTime, -10, 10);

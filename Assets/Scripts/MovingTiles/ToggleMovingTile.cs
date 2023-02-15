@@ -34,6 +34,9 @@ namespace CatGame.MovingTiles
                 Bounds overlap = new();
 
                 // This assumes 2d movement
+                // This basically finds the overlap between the mask and
+                // renderer, then adjusts the size of the collider to match
+                // Essentially prevents the collider from sticking out of walls
                 float x1 = Mathf.Max(_spriteMask.bounds.min.x, _renderer.bounds.min.x);
                 float x2 = Mathf.Min(_spriteMask.bounds.max.x, _renderer.bounds.max.x);
 
@@ -64,6 +67,7 @@ namespace CatGame.MovingTiles
                     overlap.max = new Vector3(maxX, y1);
                 }
 
+                // Convert bounds to local coords
                 Vector3 localSize = _collider.transform.InverseTransformVector(overlap.size);
                 localSize.Set(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z));
                 localSize -= new Vector3(_collider.edgeRadius * 2, _collider.edgeRadius * 2);

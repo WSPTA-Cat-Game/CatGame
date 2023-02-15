@@ -8,9 +8,15 @@ namespace CatGame
 {
     public static class PrefsManager
     {
+        // Layers are stored in a line by line format:
+        /* 
+         * Layer 1
+         * Layer 2
+         * Layer 3
+         */
+        // The above would mean the player completed all layers
         public static string AvailableLayers
         {
-            // TODO: DON'T PUT THIS IN THE FINAL GAME IDIOT
             get => PlayerPrefs.GetString("AvailableLayers", "");
             private set
             {
@@ -54,12 +60,13 @@ namespace CatGame
 
         public static float GetGroupVolume(string group)
         {
-            return PlayerPrefs.GetFloat(group, 0);
+            return PlayerPrefs.GetFloat(group, 0.5f);
         }
 
         public static void SetGroupVolume(string group, float volume)
         {
             PlayerPrefs.SetFloat(group, volume);
+            PlayerPrefs.Save();
         }
     }
 }

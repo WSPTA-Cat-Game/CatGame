@@ -55,10 +55,12 @@ namespace CatGame.UI
             {
                 if (string.IsNullOrEmpty(line.speaker))
                 {
+                    // Disable speaker is there is none
                     speakerGameObject.SetActive(false);
                 }
                 else
                 {
+                    // Set speaker data
                     speakerGameObject.SetActive(true);
                     speakerText.text = line.speaker;
                     speakerText.color = line.color;
@@ -84,7 +86,8 @@ namespace CatGame.UI
 
                 yield return DisplayLine(line);
 
-
+                // Wait until the skip button is pressed, or if in auto mode, 
+                // once autoDelaySec has passed
                 if (autoMode)
                 {
                     float start = Time.unscaledTime;
@@ -150,6 +153,7 @@ namespace CatGame.UI
 
         private IEnumerator FadeToSpriteCoroutine(Sprite sprite)
         {
+            // Fade to black
             float start = Time.unscaledTime;
             while (Time.unscaledTime - start < 1.2)
             {
@@ -157,10 +161,12 @@ namespace CatGame.UI
                 yield return null;
             }
 
+            // Wait for a bit
             backgroundImage.color = Color.black;
             backgroundImage.sprite = sprite;
             yield return new WaitForSecondsRealtime(0.5f);
 
+            // Fade to white
             start = Time.unscaledTime;
             while (Time.unscaledTime - start < 1.2)
             {

@@ -42,6 +42,7 @@ namespace CatGame.Editor.LevelCreator
             }
         }
 
+        // Get the bounds that contains all tiles with some sort of collision
         public static Bounds GetCollideableBoundsFromTilemap(Tilemap tilemap)
         {
             BoundsInt cellBounds = tilemap.cellBounds;

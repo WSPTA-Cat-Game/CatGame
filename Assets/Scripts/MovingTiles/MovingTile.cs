@@ -104,7 +104,7 @@ namespace CatGame.MovingTiles
                 _originalParents.Add(collision.transform, collision.transform.parent);
             }
 
-            // Set our transform to theirs to avoid weird physics interactions
+            // Set our transform to their parent to avoid weird physics interactions
             collision.transform.parent = transform;
         }
 

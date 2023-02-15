@@ -13,6 +13,10 @@ using UnityEngine.Rendering.Universal;
 
 namespace CatGame
 {
+    // GameManager is a super generic name, so think of this class as something
+    // that handles transitions from one thing to another, which means it
+    // provides the needed interface for the menu to function and handles
+    // the cohesion between level elements.
     public class GameManager : MonoBehaviour
     {
         public AudioMixer mixer;
@@ -24,7 +28,6 @@ namespace CatGame
 
         private LayerData _currentLayer;
         private LevelData _currentLevel;
-        private Vector2 _currentSpawnPoint;
 
         private object _coroutine;
 
@@ -54,7 +57,9 @@ namespace CatGame
 
         public void SetMixerVolume(string param, float volume)
         {
-            mixer.SetFloat(param, volume);
+            // Mixers work in dB, so we need to convert from 0-1 to
+            // -20dB - 10dB
+            mixer.SetFloat(param, volume * 30 - 20);
             PrefsManager.SetGroupVolume(param, volume);
         }
 
@@ -118,10 +123,8 @@ namespace CatGame
             // just spawned onto the layer
             if (!cameFromTransition)
             {
-                // TODO: Write a proper respawn
                 _character.transform.position = _currentLevel.transform
                     .TransformPoint(_currentLevel.defaultSpawnPoint);
-                _currentSpawnPoint = _currentLevel.defaultSpawnPoint;
             }
 
             // Play audio
@@ -185,25 +188,23 @@ namespace CatGame
                 return;
             }
 
-            // Enter the next level and set current spawn point
+            // Enter the next level
             EnterLevel(transition.layerName, transition.nextLevelIndex);
-            if (transition.hasAssociatedSpawnPoint)
-            {
-                _currentSpawnPoint = transition.associatedSpawnPoint;
-            }
         }
 
         private void OnBridgeCutsceneFinish()
         {
+            int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
+            string newLayer = "Layer " + (currentLayerNum + 1);
+
+            PrefsManager.AddCompletedLayer(newLayer);
+            
             if (_currentLevel.layerName == "Layer 3")
             {
                 // TODO: ????
                 return;
             }
 
-            int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
-            string newLayer = "Layer " + (currentLayerNum + 1);
-            PrefsManager.AddCompletedLayer(newLayer);
             EnterLayer(newLayer);
         }
 

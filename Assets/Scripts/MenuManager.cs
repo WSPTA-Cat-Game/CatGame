@@ -23,6 +23,8 @@ namespace CatGame.UI
         private GameObject _settingsMenu;
         private GameObject _settingsButtonsRoot;
 
+        // All of the following methods are used by the unity events attached
+        // to various UI elements
         public void ContinueGame()
         {
             HideMenu();
@@ -30,6 +32,7 @@ namespace CatGame.UI
             string highestLayer = PrefsManager.GetHighestAvailableLayer();
             if (highestLayer == null)
             {
+                // Play intro then enter layer 1 if player has no data
                 gameManager.PlayStartingDialogue(() => gameManager.EnterLayer("Layer 1"));
             }
             else
@@ -40,6 +43,7 @@ namespace CatGame.UI
 
         public void OpenLayerSelect()
         {
+            // Lock any layer buttons that haven't yet been completed
             HashSet<string> completedLayers = PrefsManager.GetAvailableLayers().ToHashSet();
 
             foreach (Transform button in _levelSelectButtonsRoot.transform)
@@ -65,13 +69,14 @@ namespace CatGame.UI
 
         public void OpenSettings()
         {
+            // Set slider values to what the corresponding prefs value is
             foreach (Transform slider in _settingsButtonsRoot.transform)
             {
                 Slider sliderComponent = slider.GetComponent<Slider>();
-                sliderComponent.SetValueWithoutNotify(PrefsManager.GetGroupVolume(slider.name) / 100 + 0.8f);
+                sliderComponent.SetValueWithoutNotify(PrefsManager.GetGroupVolume(slider.name));
 
                 sliderComponent.onValueChanged.RemoveAllListeners();
-                sliderComponent.onValueChanged.AddListener(val => SetVolume(slider.name, val));
+                sliderComponent.onValueChanged.AddListener(val => gameManager.SetMixerVolume(slider.name, val));
             }
 
             _mainMenu.SetActive(false);
@@ -104,11 +109,6 @@ namespace CatGame.UI
             gameManager.EnterLayer(layerName);
         }
 
-        public void SetVolume(string group, float value)
-        {
-            gameManager.SetMixerVolume(group, value * 100 - 80);
-        }
-
         public void HideMenu()
         {
             OpenMainMenu();
@@ -128,6 +128,14 @@ namespace CatGame.UI
             _settingsButtonsRoot = _settingsMenu.transform.Find("Settings").gameObject;
 
             OpenMainMenu();
+            
+            // Set audio mixer values
+            foreach (Transform button in _settingsButtonsRoot.transform)
+            {
+                Slider sliderComponent = button.GetComponent<Slider>();
+                gameManager.SetMixerVolume(button.name, sliderComponent.value);
+            }
+            
         }
     }
 }

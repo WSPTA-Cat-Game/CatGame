@@ -16,6 +16,8 @@ namespace CatGame.LevelManagement
         public event Action<LevelTransition, Collider2D> OnTransitionEntered;
 
         private Collider2D _collider;
+        // Need to keep track of what is colliding with the transition 
+        // manually
         private readonly HashSet<Collider2D> _currentColliders = new();
 
         private void Start()

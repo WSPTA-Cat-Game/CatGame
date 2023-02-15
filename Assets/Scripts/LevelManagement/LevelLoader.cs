@@ -56,6 +56,7 @@ namespace CatGame.LevelManagement
             // Load global layer items
             if (_loadedLayer.Key != layerName)
             {
+                // Destroy last global data
                 Transform prevData = levelParent.Find("Global");
                 if (prevData != null)
                 {
@@ -94,6 +95,8 @@ namespace CatGame.LevelManagement
                     }
                     
                     _layers[cachedLevel.layerName].Remove(cachedLevel.index);
+
+                    // Remove layer from level cache if its now empty
                     if (_layers[cachedLevel.layerName].Count == 0)
                     {
                         _layers.Remove(cachedLevel.layerName);
