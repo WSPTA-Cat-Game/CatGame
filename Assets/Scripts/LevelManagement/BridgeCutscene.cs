@@ -103,7 +103,7 @@ namespace CatGame.LevelManagement
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (_character.InteractableHandler.CurrentPickup is not CatPickup || _coroutine != null)
+            if (_coroutine != null || !GetComponent<Collider2D>().isTrigger)
             {
                 return;
             }

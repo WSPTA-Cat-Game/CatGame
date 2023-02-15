@@ -226,6 +226,11 @@ namespace CatGame
                     transition.gameObject.layer = LayerMasks.IgnoreRaycast.ToLayer();
                 }
             }
+
+            foreach (BridgeCutscene cutscene in BridgeCutscene.Cutscenes)
+            {
+                cutscene.GetComponent<Collider2D>().isTrigger = isHoldingCat;
+            }
         }
 
         private IEnumerator GenerateShadowsForLevel()
