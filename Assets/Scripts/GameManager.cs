@@ -224,7 +224,7 @@ namespace CatGame
         {
             if (_currentLevel.layerName == "Layer 3")
             {
-                // TODO: ????
+                PlayEndingDialogue();
                 return;
             }
 

@@ -5555,60 +5555,105 @@ MonoBehaviour:
       backgroundSprite: {fileID: 21300000, guid: 70ab9c46d454e9a4cb53f4f691ab32e9, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: 812f3108ac3a12649a997e18da1c1c2b, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: c30f7309c67142741a19fd1446208d7d, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: dd85e96aaa4a2ca47b387a52b8b4060b, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: d0eacfefddad6d640a8502be542deb4d, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: e859812c87338a149b1341be29815526, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: 023b61a0381f10340a6dd3da9ad32047, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: 447cb9a9a90097444b4c6c7bea323ffa, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: 21455388963831045ad25dd0a9cf0796, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
     - speaker: 
       color: {r: 0, g: 0, b: 0, a: 0}
       line: 
       backgroundSprite: {fileID: 21300000, guid: 1f794174483833b4bbd405e2fc7a9586, type: 3}
       fadeToSprite: 1
       skippable: 0
+      audioOverride: {fileID: 0}
+    enableInput: 0
+    forceAutoMode: 1
+    autoDelaySec: 7
+    textDelayMS: 0
+  - id: Ending
+    audio: {fileID: 0}
+    lines:
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 6dc1cc5f5b265524091b76898509d4fe, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+      audioOverride: {fileID: 0}
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 99f854b85f287f94093b77593fb9fe9a, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+      audioOverride: {fileID: 0}
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: a2fdc5a97dffb8949b99a32646a33889, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+      audioOverride: {fileID: 0}
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: f9a00eb94ff9f1b40a9403f890b7c90c, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+      audioOverride: {fileID: 8300000, guid: c8e63b4f436961c46bee41cc9f7db52f, type: 3}
     enableInput: 0
     forceAutoMode: 1
     autoDelaySec: 7

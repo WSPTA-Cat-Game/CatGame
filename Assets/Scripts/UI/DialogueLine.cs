@@ -12,5 +12,6 @@ namespace CatGame.UI
         public Sprite backgroundSprite;
         public bool fadeToSprite;
         public bool skippable;
+        public AudioClip audioOverride;
     }
 }

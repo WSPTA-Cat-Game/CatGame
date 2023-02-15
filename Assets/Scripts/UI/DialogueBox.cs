@@ -77,6 +77,12 @@ namespace CatGame.UI
 
             foreach (DialogueLine line in dialogue.lines)
             {
+                if (line.audioOverride != null)
+                {
+                    audio.clip = line.audioOverride;
+                    audio.Play();
+                }
+
                 if (string.IsNullOrEmpty(line.speaker))
                 {
                     // Disable speaker is there is none
