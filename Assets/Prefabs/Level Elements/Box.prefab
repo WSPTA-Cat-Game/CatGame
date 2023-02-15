@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1837501693906104866}
   - component: {fileID: 1597514712063165954}
   - component: {fileID: -2530610979629820877}
+  - component: {fileID: 407812517751548483}
   m_Layer: 8
   m_Name: Box
   m_TagString: Untagged
@@ -111,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.97, y: 0.97}
+  m_Size: {x: 0.97, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &1597514712063165954
 Rigidbody2D:
@@ -146,3 +147,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77c72b4c66d5b248878931540042e6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &407812517751548483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178953301080310362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -0.5625, z: 0}
+  - {x: -0.5, y: 0.5625, z: 0}
+  - {x: 0.5, y: 0.5625, z: 0}
+  - {x: 0.5, y: -0.5625, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -41216
