@@ -14,6 +14,7 @@ namespace CatGame.UI
         public GameObject speakerGameObject;
         public Text speakerText;
         public Text lineText;
+        public new AudioSource audio;
 
         public bool autoMode;
         public float autoDelaySec = 2;
@@ -51,6 +52,13 @@ namespace CatGame.UI
         private IEnumerator DialogueCoroutine(Dialogue dialogue, Action finishCallback)
         {
             Sprite lastSprite = backgroundImage.sprite;
+
+            if (dialogue.audio != null)
+            {
+                audio.clip = dialogue.audio;
+                audio.Play();
+            }
+
             foreach (DialogueLine line in dialogue.lines)
             {
                 if (string.IsNullOrEmpty(line.speaker))
@@ -101,6 +109,8 @@ namespace CatGame.UI
                 }
             }
 
+            audio.clip = null;
+            audio.Stop();
             finishCallback?.Invoke();
         }
 

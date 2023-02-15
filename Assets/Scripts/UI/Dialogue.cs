@@ -7,6 +7,7 @@ namespace CatGame.UI
     public struct Dialogue
     {
         public string id;
+        public AudioClip audio;
         public DialogueLine[] lines;
     }
 }
