@@ -194,17 +194,16 @@ namespace CatGame
 
         private void OnBridgeCutsceneFinish()
         {
-            int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
-            string newLayer = "Layer " + (currentLayerNum + 1);
-
-            PrefsManager.AddCompletedLayer(newLayer);
-            
             if (_currentLevel.layerName == "Layer 3")
             {
                 // TODO: ????
                 return;
             }
 
+            int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
+            string newLayer = "Layer " + (currentLayerNum + 1);
+
+            PrefsManager.AddCompletedLayer(newLayer);
             EnterLayer(newLayer);
         }
 
