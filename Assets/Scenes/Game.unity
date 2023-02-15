@@ -2150,7 +2150,7 @@ MonoBehaviour:
     airAcceleration: 30
     deceleration: 0.75
     maxSpeed: 5
-    jumpHeight: 350
+    jumpHeight: 365
     jumpCooldown: 0.1
     additionalJumpHeight: 250
     additionalJumpHeightTime: 0.25
