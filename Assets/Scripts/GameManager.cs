@@ -31,6 +31,24 @@ namespace CatGame
 
         private object _coroutine;
 
+        private bool _paused;
+
+        public void Pause()
+        {
+            Time.timeScale = 0;
+            GetComponent<MenuManager>().OpenPause();
+            _audioSource.source.Stop();
+            _paused = true;
+        }
+
+        public void Unpause()
+        {
+            Time.timeScale = 1;
+            GetComponent<MenuManager>().HideMenu();
+            _audioSource.source.Play();
+            _paused = false;
+        }
+
         public void PlayStartingDialogue(Action finishCallback = null) 
         {
             DialogueBox box = transform.Find("Dialogue").GetComponent<DialogueBox>();
@@ -50,6 +68,8 @@ namespace CatGame
                 box.autoMode = originalAuto;
                 box.gameObject.SetActive(false);
                 InputHandler.IsInputEnabled = true;
+
+                PrefsManager.AddAvailableLayer("Layer 1");
             };
 
             box.StartDialogue("Intro", finishCallback);
@@ -123,8 +143,7 @@ namespace CatGame
             // just spawned onto the layer
             if (!cameFromTransition)
             {
-                _character.transform.position = _currentLevel.transform
-                    .TransformPoint(_currentLevel.defaultSpawnPoint);
+                Respawn();
             }
 
             // Play audio
@@ -173,6 +192,12 @@ namespace CatGame
             OnPickupChange(_character.InteractableHandler.CurrentPickup);
         }
 
+        public void Respawn()
+        {
+            _character.transform.position = _currentLevel.transform
+                .TransformPoint(_currentLevel.defaultSpawnPoint);
+        }
+
         private void OnLevelTransitionEntered(LevelTransition transition, Collider2D collision)
         {
             // Only switch level if the character collider hits it
@@ -203,7 +228,7 @@ namespace CatGame
             int currentLayerNum = int.Parse(_currentLevel.layerName[6..]);
             string newLayer = "Layer " + (currentLayerNum + 1);
 
-            PrefsManager.AddCompletedLayer(newLayer);
+            PrefsManager.AddAvailableLayer(newLayer);
             EnterLayer(newLayer);
         }
 
@@ -264,11 +289,12 @@ namespace CatGame
             _audioSource = GetComponent<FadeAudio>();
         }
 
-        // The editor removes event subscribers on rebuild (aka saving while in
-        // play mode). This is a workaround to resubscribe. Terrible but works
-#if UNITY_EDITOR
+
         private void Update()
         {
+            // The editor removes event subscribers on rebuild (aka saving while in
+            // play mode). This is a workaround to resubscribe. Terrible but works
+#if UNITY_EDITOR
             if (_currentLevel == null)
             {
                 return;
@@ -279,7 +305,19 @@ namespace CatGame
                 transition.OnTransitionEntered -= OnLevelTransitionEntered;
                 transition.OnTransitionEntered += OnLevelTransitionEntered;
             }
-        }
 #endif
+
+            if (InputHandler.Pause.WasPressedThisFrame())
+            {
+                if (_paused)
+                {
+                    Unpause();
+                }
+                else
+                {
+                    Pause();
+                }
+            }
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace CatGame
             => Instance._playerInput.actions.FindAction("Transition");
         public static InputAction DialogueSkip
             => Instance._playerInput.actions.FindAction("Dialogue Skip");
+        public static InputAction Pause
+            => Instance._playerInput.actions.FindAction("Pause");
 
         public static bool IsInputEnabled
         {

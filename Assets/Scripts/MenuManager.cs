@@ -15,6 +15,9 @@ namespace CatGame.UI
         public Sprite startSprite;
         public Sprite resumeSprite;
 
+        private GameObject _currentMenu;
+        private GameObject _lastMenu;
+
         private GameObject _menuRoot;
         private GameObject _mainMenu;
         private GameObject _startContinueButton;
@@ -22,6 +25,7 @@ namespace CatGame.UI
         private GameObject _levelSelectButtonsRoot;
         private GameObject _settingsMenu;
         private GameObject _settingsButtonsRoot;
+        private GameObject _pauseMenu;
 
         // All of the following methods are used by the unity events attached
         // to various UI elements
@@ -62,9 +66,7 @@ namespace CatGame.UI
                 }
             }
 
-            _mainMenu.SetActive(false);
-            _levelSelectMenu.SetActive(true);
-            _settingsMenu.SetActive(false);
+            ShowPage(_levelSelectMenu);
         }
 
         public void OpenSettings()
@@ -79,9 +81,7 @@ namespace CatGame.UI
                 sliderComponent.onValueChanged.AddListener(val => gameManager.SetMixerVolume(slider.name, val));
             }
 
-            _mainMenu.SetActive(false);
-            _levelSelectMenu.SetActive(false);
-            _settingsMenu.SetActive(true);
+            ShowPage(_settingsMenu);
         }
 
         public void OpenMainMenu()
@@ -96,9 +96,12 @@ namespace CatGame.UI
                 _startContinueButton.GetComponent<Button>().image.sprite = resumeSprite;
             }
 
-            _mainMenu.SetActive(true);
-            _levelSelectMenu.SetActive(false);
-            _settingsMenu.SetActive(false);
+            ShowPage(_mainMenu);
+        }
+
+        public void OpenPause()
+        {
+            ShowPage(_pauseMenu);
         }
 
         public void SelectLayer(string layerName)
@@ -109,10 +112,38 @@ namespace CatGame.UI
             gameManager.EnterLayer(layerName);
         }
 
+        public void ShowPage(GameObject page)
+        {
+            ShowMenu();
+
+            if (page == _currentMenu)
+            {
+                return;
+            }
+
+            _lastMenu = _currentMenu;
+            _currentMenu = page;
+
+            if (_lastMenu != null)
+            {
+                _lastMenu.SetActive(false);
+            }
+            _currentMenu.SetActive(true);
+        }
+
+        public void Back()
+        {
+            ShowPage(_lastMenu);
+        }
+
         public void HideMenu()
         {
-            OpenMainMenu();
             _menuRoot.SetActive(false);
+        }
+
+        public void ShowMenu()
+        {
+            _menuRoot.SetActive(true);
         }
 
         private void Awake()
@@ -126,6 +157,8 @@ namespace CatGame.UI
 
             _settingsMenu = _menuRoot.transform.Find("Canvas/Settings").gameObject;
             _settingsButtonsRoot = _settingsMenu.transform.Find("Settings").gameObject;
+
+            _pauseMenu = _menuRoot.transform.Find("Canvas/Pause").gameObject;
 
             OpenMainMenu();
             

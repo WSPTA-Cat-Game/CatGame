@@ -40,7 +40,7 @@ namespace CatGame
         public static string GetHighestAvailableLayer()
             => GetAvailableLayers().OrderByDescending(val => val).FirstOrDefault();
 
-        public static void AddCompletedLayer(string newLayer)
+        public static void AddAvailableLayer(string newLayer)
         {
             StringBuilder builder = new();
 
