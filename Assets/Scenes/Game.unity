@@ -1981,11 +1981,11 @@ MonoBehaviour:
     acceleration: 40
     airAcceleration: 10
     deceleration: 0.8
-    maxSpeed: 4.5
-    jumpHeight: 300
+    maxSpeed: 3.75
+    jumpHeight: 315
     jumpCooldown: 0.1
-    additionalJumpHeight: 300
-    additionalJumpHeightTime: 1
+    additionalJumpHeight: 200
+    additionalJumpHeightTime: 0.35
     canWallHang: 0
     wallHangTime: 0
   humanColliderSize: {x: 0.47, y: 0.59}
@@ -1995,11 +1995,11 @@ MonoBehaviour:
     acceleration: 100
     airAcceleration: 30
     deceleration: 0.75
-    maxSpeed: 6
+    maxSpeed: 5
     jumpHeight: 350
     jumpCooldown: 0.1
     additionalJumpHeight: 250
-    additionalJumpHeightTime: 1
+    additionalJumpHeightTime: 0.25
     canWallHang: 0
     wallHangTime: 2.5
   catColliderSize: {x: 0.31, y: 0.28}
