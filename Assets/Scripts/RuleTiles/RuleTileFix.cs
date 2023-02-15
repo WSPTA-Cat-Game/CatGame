@@ -10,7 +10,7 @@ namespace CatGame.RuleTiles
     {
         private void Awake()
         {
-            if (transform.position == Vector3.zero)
+            if (transform.localPosition == Vector3.zero)
             {
                 DestroyImmediate(gameObject);
             }
