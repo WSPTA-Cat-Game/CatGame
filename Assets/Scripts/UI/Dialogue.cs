@@ -9,5 +9,10 @@ namespace CatGame.UI
         public string id;
         public AudioClip audio;
         public DialogueLine[] lines;
+
+        public bool enableInput;
+        public bool forceAutoMode;
+        public float autoDelaySec;
+        public float textDelayMS;
     }
 }

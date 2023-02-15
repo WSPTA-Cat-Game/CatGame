@@ -54,25 +54,28 @@ namespace CatGame
             DialogueBox box = transform.Find("Dialogue").GetComponent<DialogueBox>();
             box.gameObject.SetActive(true);
 
-            float originalAutoDelay = box.autoDelaySec;
-            bool originalAuto = box.autoMode;
-            box.autoDelaySec = 7;
-            box.autoMode = true;
-
-            // Prevent skipping with click and stuff
-            InputHandler.IsInputEnabled = false;
-
             finishCallback += () =>
             {
-                box.autoDelaySec = originalAutoDelay;
-                box.autoMode = originalAuto;
                 box.gameObject.SetActive(false);
-                InputHandler.IsInputEnabled = true;
 
                 PrefsManager.AddAvailableLayer("Layer 1");
             };
 
             box.StartDialogue("Intro", finishCallback);
+        }
+
+        public void PlayEndingDialogue(Action finishCallback = null)
+        {
+            DialogueBox box = transform.Find("Dialogue").GetComponent<DialogueBox>();
+            box.gameObject.SetActive(true);
+
+            finishCallback += () =>
+            {
+                box.gameObject.SetActive(false);
+                // TODO: add credits
+            };
+
+            box.StartDialogue("Ending", finishCallback);
         }
 
         public void SetMixerVolume(string param, float volume)

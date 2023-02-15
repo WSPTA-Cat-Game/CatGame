@@ -51,6 +51,22 @@ namespace CatGame.UI
 
         private IEnumerator DialogueCoroutine(Dialogue dialogue, Action finishCallback)
         {
+            bool originalInputEnabled = InputHandler.IsInputEnabled;
+            bool originalAutoMode = autoMode;
+            float originalAutoModeDelay = autoDelaySec;
+            float originalTextDelay = textDelayMS;
+
+            autoMode = dialogue.forceAutoMode;
+            InputHandler.IsInputEnabled = dialogue.enableInput;
+            if (dialogue.autoDelaySec >= 0)
+            {
+                autoDelaySec = dialogue.autoDelaySec;
+            }
+            if (dialogue.textDelayMS >= 0)
+            {
+                textDelayMS = dialogue.textDelayMS;
+            }
+
             Sprite lastSprite = backgroundImage.sprite;
 
             if (dialogue.audio != null)
@@ -111,6 +127,12 @@ namespace CatGame.UI
 
             audio.clip = null;
             audio.Stop();
+
+            autoMode = originalAutoMode;
+            InputHandler.IsInputEnabled = originalInputEnabled;
+            autoDelaySec = originalAutoModeDelay;
+            textDelayMS = originalTextDelay;
+
             finishCallback?.Invoke();
         }
 

@@ -5609,6 +5609,10 @@ MonoBehaviour:
       backgroundSprite: {fileID: 21300000, guid: 1f794174483833b4bbd405e2fc7a9586, type: 3}
       fadeToSprite: 1
       skippable: 0
+    enableInput: 0
+    forceAutoMode: 1
+    autoDelaySec: 7
+    textDelayMS: 0
   boxRoot: {fileID: 1860290767}
   backgroundImage: {fileID: 1113427982}
   speakerGameObject: {fileID: 154811442}
