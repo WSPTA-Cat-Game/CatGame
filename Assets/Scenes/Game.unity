@@ -5085,12 +5085,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77fbe302558a384ba7bda7e88394728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: []
+  dialogue:
+  - id: Intro
+    lines:
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 70ab9c46d454e9a4cb53f4f691ab32e9, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 812f3108ac3a12649a997e18da1c1c2b, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: c30f7309c67142741a19fd1446208d7d, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: dd85e96aaa4a2ca47b387a52b8b4060b, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: d0eacfefddad6d640a8502be542deb4d, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: e859812c87338a149b1341be29815526, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 023b61a0381f10340a6dd3da9ad32047, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+    - speaker: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+      line: 
+      backgroundSprite: {fileID: 21300000, guid: 447cb9a9a90097444b4c6c7bea323ffa, type: 3}
+      fadeToSprite: 1
+      skippable: 0
+  boxRoot: {fileID: 1860290767}
   backgroundImage: {fileID: 1113427982}
   speakerGameObject: {fileID: 154811442}
   speakerText: {fileID: 948096775}
   lineText: {fileID: 2025493852}
   autoMode: 0
+  autoDelaySec: 2
   textDelayMS: 30
 --- !u!223 &1820956072
 Canvas:
@@ -5266,7 +5318,7 @@ RectTransform:
   m_GameObject: {fileID: 1860290767}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 154811443}
@@ -5507,7 +5559,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 612}
+  m_ReferenceResolution: {x: 1080, y: 650}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -5527,7 +5579,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
