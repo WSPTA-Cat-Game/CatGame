@@ -179,7 +179,7 @@ namespace CatGame.CharacterControl
             }
             
             // Toggle tentacles
-            if (InputHandler.ToggleTentacles.WasPressedThisFrame() && _mode == CharacterMode.Cat)
+            if (InputHandler.ToggleTentacles.WasPressedThisFrame())
             {
                 foreach (MovingTile tile in MovingTile.Tiles)
                 {
