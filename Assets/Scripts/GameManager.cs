@@ -66,16 +66,23 @@ namespace CatGame
 
         public void PlayEndingDialogue(Action finishCallback = null)
         {
+            _levelLoader.UnloadAll();
+
             DialogueBox box = transform.Find("Dialogue").GetComponent<DialogueBox>();
             box.gameObject.SetActive(true);
 
             finishCallback += () =>
             {
                 box.gameObject.SetActive(false);
-                // TODO: add credits
+                PlayCredits();
             };
 
             box.StartDialogue("Ending", finishCallback);
+        }
+
+        public void PlayCredits()
+        {
+            Instantiate(Resources.Load<GameObject>("Credits"), transform);
         }
 
         public void SetMixerVolume(string param, float volume)

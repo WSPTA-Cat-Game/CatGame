@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CatGame.UI
+namespace CatGame
 {
     public class MenuManager : MonoBehaviour
     {
@@ -143,6 +143,12 @@ namespace CatGame.UI
         public void ShowMenu()
         {
             _menuRoot.SetActive(true);
+        }
+
+        public void PlayCredits()
+        {
+            HideMenu();
+            gameManager.PlayCredits();
         }
 
         private void Awake()

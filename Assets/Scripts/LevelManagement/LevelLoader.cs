@@ -27,6 +27,19 @@ namespace CatGame.LevelManagement
             _loadedLayer = new KeyValuePair<string, GameObject>();
         }
 
+        public void UnloadAll()
+        {
+            foreach (Dictionary<int, LevelData> dict in _layers.Values)
+            {
+                foreach (LevelData level in dict.Values)
+                {
+                    Destroy(level.gameObject);
+                }
+            }
+
+            ResetCache();
+        }
+
         public LevelData LoadLevel(string layerName, int levelIndex, int loadDepth = 2, bool autoUnload = true)
         {
 #if UNITY_EDITOR

@@ -28,7 +28,7 @@ namespace CatGame.MovingTiles
             // Check if we have line of sight of the player collider
             Vector2 direction = playerCollider.bounds.center - _collider.transform.position;
 
-            int hitCount = Physics2D.RaycastNonAlloc(_collider.transform.position, direction, _hits, direction.magnitude + 0.5f, ~(int)LayerMasks.IgnoreRaycast);
+            Physics2D.RaycastNonAlloc(_collider.transform.position, direction, _hits, direction.magnitude + 0.5f, ~(int)LayerMasks.IgnoreRaycast);
 
             // Ignore hitting ourselves, then check if we hit the player
             if (_hits[0].collider == _collider)
