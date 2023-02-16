@@ -2130,6 +2130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4aa6c78b9782f4459f245a2bea8333a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  light: {fileID: 2135507639}
   transformDelay: 0.1
   humanMovement:
     acceleration: 40
