@@ -8,11 +8,11 @@ namespace CatGame.RuleTiles
     // https://issuetracker.unity3d.com/issues/instantiating-tilemap-that-has-rule-tile-with-default-gameobject-set-creates-extra-copy-of-gameobject-at-00-0-in-builds
     public class RuleTileFix : MonoBehaviour
     {
-        private void Awake()
+        private void Start()
         {
             if (transform.localPosition == Vector3.zero)
             {
-                DestroyImmediate(gameObject);
+                Destroy(gameObject);
             }
         }
     }
