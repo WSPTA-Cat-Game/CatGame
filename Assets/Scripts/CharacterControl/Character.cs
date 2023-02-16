@@ -173,8 +173,13 @@ namespace CatGame.CharacterControl
                 }
                 else
                 {
-                    PlaySFX("Put Down");
-                    _interactableHandler.DropPickup(_movement.IsFacingLeft);
+                    // Prevent player from dropping cat if not grounded
+                    // (to prevent soft locks)
+                    if (_movement.IsGrounded || _interactableHandler.CurrentPickup is not CatPickup)
+                    {
+                        PlaySFX("Put Down");
+                        _interactableHandler.DropPickup(_movement.IsFacingLeft);
+                    }
                 }
             }
             
