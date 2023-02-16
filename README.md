@@ -20,7 +20,7 @@ If the purple cat has not been given yet, then simply get to the other side of t
 
 
 ## Related Material
-All related material can be found on the [wiki](https://wspta-cat-game.github.io/CatGame/).
+All related material can be found on the [wiki](https://github.com/WSPTA-Cat-Game/CatGame/wiki).
 
 ## License
 Call of Cathulu is licensed under the MIT License.
