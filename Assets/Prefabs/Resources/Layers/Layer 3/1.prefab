@@ -2830,7 +2830,7 @@ MonoBehaviour:
   collider: {fileID: 5892806804116025984}
   transitions:
   - {fileID: 936791261}
-  - {fileID: 8108390861827890814}
+  - {fileID: 9103663312954522343}
   defaultSpawnPoint: {x: -2, y: -2.5}
 --- !u!1 &2380085164994893772
 GameObject:
@@ -2861,7 +2861,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 936791260}
-  - {fileID: 8108390861827890815}
+  - {fileID: 9103663312954522342}
   m_Father: {fileID: 8703061238897059404}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3188,7 +3188,7 @@ Transform:
   m_Father: {fileID: 8703061238897059404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8108390861827890808
+--- !u!1 &9103663312954522337
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3196,9 +3196,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8108390861827890815}
-  - component: {fileID: 8108390861827890813}
-  - component: {fileID: 8108390861827890814}
+  - component: {fileID: 9103663312954522342}
+  - component: {fileID: 9103663312954522340}
+  - component: {fileID: 9103663312954522343}
   m_Layer: 2
   m_Name: Transition(Clone)
   m_TagString: Untagged
@@ -3206,13 +3206,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8108390861827890815
+--- !u!4 &9103663312954522342
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108390861827890808}
+  m_GameObject: {fileID: 9103663312954522337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -3221,13 +3221,13 @@ Transform:
   m_Father: {fileID: 499302066690248253}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8108390861827890813
+--- !u!61 &9103663312954522340
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108390861827890808}
+  m_GameObject: {fileID: 9103663312954522337}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -3247,13 +3247,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &8108390861827890814
+--- !u!114 &9103663312954522343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108390861827890808}
+  m_GameObject: {fileID: 9103663312954522337}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 459f4fc07cc5ec8438ccfc33852caad7, type: 3}
@@ -3333,7 +3333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349124580224447754, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_InstanceId
-      value: -538326
+      value: -611378
       objectReference: {fileID: 0}
     - target: {fileID: 6549934004071678512, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_Name
@@ -3361,6 +3361,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 575732698134832528}
     m_Modifications:
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_InstanceId
+      value: -611358
+      objectReference: {fileID: 0}
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_HasRenderer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2754241411942932178, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -5822,7 +5822,7 @@ MonoBehaviour:
   collider: {fileID: 429973513505308015}
   transitions:
   - {fileID: 933793922061494398}
-  - {fileID: 6011433401820687457}
+  - {fileID: 4958326722436979522}
   defaultSpawnPoint: {x: -4, y: -0.5}
 --- !u!1 &7209645454821663289
 GameObject:
@@ -5853,11 +5853,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6379769506664783218}
-  - {fileID: 3817881610660178385}
+  - {fileID: 2546981503351070450}
   m_Father: {fileID: 8119900321540515892}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7796977803757734782
+--- !u!1 &8905599117318405213
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5865,9 +5865,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3817881610660178385}
-  - component: {fileID: 8631297905038423778}
-  - component: {fileID: 6011433401820687457}
+  - component: {fileID: 2546981503351070450}
+  - component: {fileID: 6947895892976140737}
+  - component: {fileID: 4958326722436979522}
   m_Layer: 2
   m_Name: Transition(Clone)
   m_TagString: Untagged
@@ -5875,13 +5875,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3817881610660178385
+--- !u!4 &2546981503351070450
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796977803757734782}
+  m_GameObject: {fileID: 8905599117318405213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -5890,13 +5890,13 @@ Transform:
   m_Father: {fileID: 2874574415769871247}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8631297905038423778
+--- !u!61 &6947895892976140737
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796977803757734782}
+  m_GameObject: {fileID: 8905599117318405213}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -5916,13 +5916,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 5}
   m_EdgeRadius: 0
---- !u!114 &6011433401820687457
+--- !u!114 &4958326722436979522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796977803757734782}
+  m_GameObject: {fileID: 8905599117318405213}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 459f4fc07cc5ec8438ccfc33852caad7, type: 3}
@@ -6060,6 +6060,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 206285396325773753}
     m_Modifications:
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_InstanceId
+      value: -611564
+      objectReference: {fileID: 0}
+    - target: {fileID: 407812517751548483, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
+      propertyPath: m_HasRenderer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2754241411942932178, guid: a00443b017bdf994a9623f8f3e5a6d9a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6180,7 +6192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349124580224447754, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_InstanceId
-      value: -717266
+      value: -611604
       objectReference: {fileID: 0}
     - target: {fileID: 6549934004071678512, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_Name
@@ -6262,7 +6274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5349124580224447754, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_InstanceId
-      value: -717246
+      value: -611584
       objectReference: {fileID: 0}
     - target: {fileID: 6549934004071678512, guid: 03b9de4530e37b941a0e374a48d7f7e6, type: 3}
       propertyPath: m_Name
