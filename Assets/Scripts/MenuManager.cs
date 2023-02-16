@@ -107,7 +107,6 @@ namespace CatGame.UI
         public void SelectLayer(string layerName)
         {
             HideMenu();
-            OpenMainMenu();
 
             gameManager.EnterLayer(layerName);
         }
