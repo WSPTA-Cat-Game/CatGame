@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPos: {x: 0, y: 0, z: 0}
   speed: 10
-  stopTime: 1
+  stopTime: 0
 --- !u!50 &8709656745175141422
 Rigidbody2D:
   serializedVersion: 4
@@ -174,9 +174,9 @@ MonoBehaviour:
   - {x: -0.5, y: 3.5, z: 0}
   - {x: 0.5, y: 3.5, z: 0}
   - {x: 0.5, y: 0, z: 0}
-  m_ShapePathHash: -1550453483
+  m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 135398
+  m_InstanceId: 108696
 --- !u!1 &6549934004071678512
 GameObject:
   m_ObjectHideFlags: 0
