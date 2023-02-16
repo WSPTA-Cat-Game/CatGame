@@ -7,7 +7,9 @@ namespace CatGame.MovingTiles
     {
         public Collider2D playerCollider;
 
+        private readonly RaycastHit2D[] _hits = new RaycastHit2D[2];
         private Collider2D _collider;
+
 
         protected override void Start()
         {
@@ -17,15 +19,26 @@ namespace CatGame.MovingTiles
 
         protected override void Update()
         {
+            if (playerCollider == null)
+            {
+                base.Update();
+                return;
+            }
+
             // Check if we have line of sight of the player collider
-            Vector2 direction = (playerCollider != null ? playerCollider.bounds.center : transform.position)
-                - _collider.transform.position;
+            Vector2 direction = playerCollider.bounds.center - _collider.transform.position;
 
-            RaycastHit2D[] hits = new RaycastHit2D[1];
-            _collider.Raycast(direction, hits, float.PositiveInfinity, ~(int)LayerMasks.IgnoreRaycast);
+            int hitCount = Physics2D.RaycastNonAlloc(_collider.transform.position, direction, _hits, direction.magnitude + 0.5f, ~(int)LayerMasks.IgnoreRaycast);
 
-            // Only if we dont, then we move
-            if (hits[0].collider != playerCollider)
+            // Ignore hitting ourselves, then check if we hit the player
+            if (_hits[0].collider == _collider)
+            {
+                if (_hits[1].collider != playerCollider)
+                {
+                    base.Update();
+                }
+            }
+            else if (_hits[0].collider != playerCollider)
             {
                 base.Update();
             }

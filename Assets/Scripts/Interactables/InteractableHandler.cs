@@ -45,7 +45,7 @@ namespace CatGame.Interactables
                     // If there is something the player can collide with
                     // inbetween the pickup and player, don't pick up
                     bool isPickupBlocked = false;
-                    for (int i = 0; i < hitCount; i++)
+                    for (int i = 0; i < hitCount && i < _hitsArray.Length; i++)
                     {
                         if (!_hitsArray[i].collider.isTrigger)
                         {
