@@ -9,7 +9,7 @@ The game can be played [here](https://wspta-cat-game.github.io/CatGame/).
 ## Instructions
 
 Movement: S and D, or right and left arrow keys<br>
-Jump: Space<br>
+Jump: W, or up arrow, or Space<br>
 Transform: E<br>
 Pickup/Interact/Drop: Q<br>
 Toggle Tentacles: F<br>
