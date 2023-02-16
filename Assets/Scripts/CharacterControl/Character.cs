@@ -9,6 +9,7 @@ namespace CatGame.CharacterControl
     [RequireComponent(typeof(CharacterMovement))]
     public class Character : MonoBehaviour
     {
+        public new GameObject light;
         public float transformDelay;
 
         [Header("Human Settings")]
@@ -70,8 +71,7 @@ namespace CatGame.CharacterControl
             _collider = GetComponent<BoxCollider2D>();
             _movement = GetComponent<CharacterMovement>();
             _interactableHandler = GetComponentInChildren<InteractableHandler>();
-            _interactableHandler.OnPickupChange += 
-                pickup => hasPickedUp = pickup != null;
+            _interactableHandler.OnPickupChange += pickup => hasPickedUp = pickup != null;
             _rb = GetComponent<Rigidbody2D>();
             _audioSource = GetComponent<AudioSource>();
 
@@ -247,6 +247,12 @@ namespace CatGame.CharacterControl
                     _collider.offset = catColliderOffset;
                     _rb.mass = catMass;
                     break;
+            }
+
+            // Make sure light is centered on the player
+            if (light != null)
+            {
+                light.transform.position = _collider.bounds.center;
             }
 
             _mode = mode;
